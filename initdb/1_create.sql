@@ -5,8 +5,8 @@ DROP TABLE IF EXISTS game;
 
 CREATE TABLE person (
   id SMALLINT NOT NULL AUTO_INCREMENT,
-  firstname VARCHAR(255) NOT NULL,
-  lastname VARCHAR(255) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
   gender CHAR(1) NOT NULL,
   hand CHAR(1) NOT NULL,
   grip CHAR(1) NOT NULL,
@@ -14,7 +14,16 @@ CREATE TABLE person (
 );
 
 CREATE TABLE game (
+  id CHAR(36) NOT NULL,
   time DATETIME NOT NULL,
-  details JSON NOT NULL,
-  PRIMARY KEY (time)
+  detail JSON NOT NULL,
+  PRIMARY KEY (id),
+  KEY (time)
+);
+
+CREATE TABLE participant (
+  personId SMALLINT NOT NULL,
+  gameId CHAR(36) NOT NULL,
+  CONSTRAINT participant_person_fk FOREIGN KEY (personId) REFERENCES person(id) ON DELETE CASCADE,
+  CONSTRAINT participant_game_fk FOREIGN KEY (gameId) REFERENCES game(id) ON DELETE CASCADE
 );
