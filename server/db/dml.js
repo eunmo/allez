@@ -1,4 +1,5 @@
 const { dml } = require('@eunmo/mysql');
+const { v4: uuid } = require('uuid');
 
 async function addPerson(firstName, lastName, gender, hand, grip) {
   return dml(
@@ -8,16 +9,18 @@ async function addPerson(firstName, lastName, gender, hand, grip) {
 }
 
 async function addGame(detail) {
-  return dml(
-    'INSERT INTO game (id, time, details) VALUES (UUID(), NOW(), ?)',
-    [detail]
+  const id = uuid();
+  await dml(
+    'INSERT INTO game (id, time, detail) VALUES (?, NOW(), ?)',
+    [id, JSON.stringify(detail)]
   );
+  return id;
 }
 
 async function editGame(id, detail) {
   return dml(
-    'UPDATE game SET details = ? WHERE id = ?',
-    [id, detail]
+    'UPDATE game SET detail = ? WHERE id = ?',
+    [JSON.stringify(detail), id]
   );
 }
 
@@ -28,9 +31,10 @@ async function removeGame(id) {
 }
 
 async function addParticipants(gameId, participants) {
+
   return dml(
     'INSERT INTO participant (personId, gameId) VALUES (?)',
-    [participants.map(personId => [personId, gameId])]
+    participants.map(personId => [personId, gameId])
   );
 }
 
