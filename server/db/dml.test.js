@@ -18,8 +18,10 @@ beforeEach(async () => {
   await dml('TRUNCATE TABLE participant');
 });
 
+const personDetail = ['First', 'Last', 'm', 'r', 'p'];
+
 test('add one person', async () => {
-  await addPerson('First', 'Last', 'm', 'r', 'p');
+  await addPerson(...personDetail);
   const rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
 });
@@ -59,13 +61,7 @@ test('remove one game', async () => {
 });
 
 test('add participant', async () => {
-  const { insertId: personId } = await addPerson(
-    'First',
-    'Last',
-    'm',
-    'r',
-    'p'
-  );
+  const { insertId: personId } = await addPerson(...personDetail);
   const detail = { dummy: 'dummy' };
   const gameId = await addGame(detail);
 
@@ -75,13 +71,7 @@ test('add participant', async () => {
 });
 
 test('remove participant', async () => {
-  const { insertId: personId } = await addPerson(
-    'First',
-    'Last',
-    'm',
-    'r',
-    'p'
-  );
+  const { insertId: personId } = await addPerson(...personDetail);
   const detail = { dummy: 'dummy' };
   const gameId = await addGame(detail);
 
