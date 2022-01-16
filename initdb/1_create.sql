@@ -1,0 +1,20 @@
+USE allez;
+
+DROP TABLE IF EXISTS person;
+DROP TABLE IF EXISTS game;
+
+CREATE TABLE person (
+  id SMALLINT NOT NULL AUTO_INCREMENT,
+  firstname VARCHAR(255) NOT NULL,
+  lastname VARCHAR(255) NOT NULL,
+  gender CHAR(1) NOT NULL,
+  hand CHAR(1) NOT NULL,
+  grip CHAR(1) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE game (
+  time DATETIME NOT NULL,
+  details JSON NOT NULL,
+  PRIMARY KEY (time)
+);
