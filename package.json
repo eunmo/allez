@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "@eunmo/mysql": "^1.1.4",
+    "body-parser": "^1.19.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "express": "^4.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
@@ -27,8 +32,20 @@
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "react-app/jest",
+      "airbnb",
+      "plugin:prettier/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "parser": "flow"
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [

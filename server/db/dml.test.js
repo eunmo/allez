@@ -1,5 +1,12 @@
 const { dml, query, cleanup } = require('@eunmo/mysql');
-const { addPerson, addGame, editGame, removeGame, addParticipants, removeParticipants } = require('./dml');
+const {
+  addPerson,
+  addGame,
+  editGame,
+  removeGame,
+  addParticipants,
+  removeParticipants,
+} = require('./dml');
 
 afterAll(async () => {
   await cleanup();
@@ -52,7 +59,13 @@ test('remove one game', async () => {
 });
 
 test('add participant', async () => {
-  const { insertId: personId } = await addPerson('First', 'Last', 'm', 'r', 'p');
+  const { insertId: personId } = await addPerson(
+    'First',
+    'Last',
+    'm',
+    'r',
+    'p'
+  );
   const detail = { dummy: 'dummy' };
   const gameId = await addGame(detail);
 
@@ -62,7 +75,13 @@ test('add participant', async () => {
 });
 
 test('remove participant', async () => {
-  const { insertId: personId } = await addPerson('First', 'Last', 'm', 'r', 'p');
+  const { insertId: personId } = await addPerson(
+    'First',
+    'Last',
+    'm',
+    'r',
+    'p'
+  );
   const detail = { dummy: 'dummy' };
   const gameId = await addGame(detail);
 
