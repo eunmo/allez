@@ -60,14 +60,15 @@ test('remove one game', async () => {
   expect(rows.length).toBe(0);
 });
 
-test('add participant', async () => {
-  const { insertId: personId } = await addPerson(...personDetail);
+test('add participants', async () => {
+  const { insertId: personId1 } = await addPerson(...personDetail);
+  const { insertId: personId2 } = await addPerson(...personDetail);
   const detail = { dummy: 'dummy' };
   const gameId = await addGame(detail);
 
-  await addParticipants(gameId, [personId]);
+  await addParticipants(gameId, [personId1, personId2]);
   const rows = await query('SELECT * FROM participant');
-  expect(rows.length).toBe(1);
+  expect(rows.length).toBe(2);
 });
 
 test('remove participant', async () => {

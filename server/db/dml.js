@@ -29,10 +29,9 @@ async function removeGame(id) {
 }
 
 async function addParticipants(gameId, participants) {
-  return dml(
-    'INSERT INTO participant (personId, gameId) VALUES (?)',
-    participants.map((personId) => [personId, gameId])
-  );
+  return dml('INSERT INTO participant (personId, gameId) VALUES ?', [
+    participants.map((personId) => [personId, gameId]),
+  ]);
 }
 
 async function removeParticipants(gameId) {
