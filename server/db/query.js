@@ -10,14 +10,20 @@ async function getGameDates() {
   );
 }
 
+function parseGameRows(rows) {
+  return rows.map(({ id, detail }) => ({ id, detail: JSON.parse(detail) }));
+};
+
 async function getGamesByDate(date) {
-  return query('SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC', [
+  const rows = await query('SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC', [
     date,
   ]);
+
+  return parseGameRows(rows);
 }
 
 async function getPersonGames(id) {
-  return query(
+  const rows = await query(
     `
     SELECT *
     FROM game g
@@ -30,10 +36,12 @@ async function getPersonGames(id) {
     `,
     [id]
   );
+
+  return parseGameRows(rows);
 }
 
 async function getHistory(id1, id2) {
-  return query(
+  const rows = await query(
     `
     SELECT *
     FROM game g
@@ -48,6 +56,8 @@ async function getHistory(id1, id2) {
     `,
     [id1, id2]
   );
+
+  return parseGameRows(rows);
 }
 
 module.exports = {
