@@ -61,8 +61,8 @@ test('get games by pid', async () => {
 });
 
 test('get history', async () => {
-  async function check(pid1, pid2, gids) {
-    const body = await get(`/api/game/history/${pid1}/${pid2}`);
+  async function check(pidA, pidB, gids) {
+    const body = await get(`/api/game/history/${pidA}/${pidB}`);
     expect(body.length).toBe(gids.length);
     expect(body.map((g) => g.id)).toStrictEqual(gids);
   }
