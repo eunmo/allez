@@ -7,9 +7,6 @@ CREATE TABLE person (
   id SMALLINT NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
-  gender CHAR(1) NOT NULL,
-  hand CHAR(1) NOT NULL,
-  grip CHAR(1) NOT NULL,
   PRIMARY KEY (id)
 );
 

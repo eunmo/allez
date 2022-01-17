@@ -18,7 +18,7 @@ beforeEach(async () => {
   await dml('TRUNCATE TABLE participant');
 });
 
-const personDetail = ['First', 'Last', 'm', 'r', 'p'];
+const personDetail = ['First', 'Last'];
 
 test('add one person', async () => {
   await addPerson(...personDetail);

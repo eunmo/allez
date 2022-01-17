@@ -12,9 +12,9 @@ afterAll(async () => {
   await cleanup();
 });
 
-const personDetail1 = ['Alice', 'Last', 'f', 'r', 'f'];
-const personDetail2 = ['Bob', 'Last', 'm', 'r', 'p'];
-const personDetail3 = ['Carol', 'Last', 'f', 'l', 'f'];
+const personDetail1 = ['Alice', 'Last'];
+const personDetail2 = ['Bob', 'Last'];
+const personDetail3 = ['Carol', 'Last'];
 const gameDetail1 = { name: 'g1' };
 const gameDetail2 = { name: 'g2' };
 const gameDetail3 = { name: 'g3' };
