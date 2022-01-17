@@ -12,12 +12,13 @@ async function getGameDates() {
 
 function parseGameRows(rows) {
   return rows.map(({ id, detail }) => ({ id, detail: JSON.parse(detail) }));
-};
+}
 
 async function getGamesByDate(date) {
-  const rows = await query('SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC', [
-    date,
-  ]);
+  const rows = await query(
+    'SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC',
+    [date]
+  );
 
   return parseGameRows(rows);
 }

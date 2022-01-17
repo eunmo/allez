@@ -2,10 +2,9 @@ const { dml } = require('@eunmo/mysql');
 const { v4: uuid } = require('uuid');
 
 async function addPerson(firstName, lastName) {
-  return dml(
-    'INSERT INTO person (firstName, lastName) VALUES (?)',
-    [[firstName, lastName]]
-  );
+  return dml('INSERT INTO person (firstName, lastName) VALUES (?)', [
+    [firstName, lastName],
+  ]);
 }
 
 async function addGame(detail) {
