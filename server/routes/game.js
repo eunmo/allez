@@ -1,5 +1,6 @@
 const express = require('express');
 const {
+  getGame,
   getGameDates,
   getGamesByDate,
   getPersonGames,
@@ -7,6 +8,12 @@ const {
 } = require('../db');
 
 const router = express.Router();
+
+router.get('/id/:id', async (req, res) => {
+  const { id } = req.params;
+  const game = await getGame(id);
+  res.json(game);
+});
 
 router.get('/dates', async (req, res) => {
   const dates = await getGameDates();

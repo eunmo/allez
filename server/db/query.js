@@ -5,7 +5,8 @@ async function getPersons() {
 }
 
 async function getPerson(id) {
-  return query('SELECT * FROM person WHERE id = ?', [id]);
+  const [person] = await query('SELECT * FROM person WHERE id = ?', [id]);
+  return person ?? null;
 }
 
 async function getGameDates() {
@@ -21,7 +22,9 @@ function parseGameRows(rows) {
 async function getGame(id) {
   const rows = await query('SELECT * FROM game WHERE id = ?', [id]);
 
-  return parseGameRows(rows);
+  const [game] = parseGameRows(rows);
+
+  return game ?? null;
 }
 
 async function getGamesByDate(date) {

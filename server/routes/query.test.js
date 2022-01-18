@@ -30,10 +30,30 @@ test('get all persons', async () => {
   expect(body.length).toBe(3);
 });
 
+test('get one person', async () => {
+  const person = await get(`/api/person/id/${pid1}`);
+  expect(person.id).toBe(pid1);
+});
+
+test('get unknown person', async () => {
+  const person = await get(`/api/person/id/${pid3 + 1}`);
+  expect(person).toBe(null);
+});
+
 test('get game dates', async () => {
   const body = await get('/api/game/dates');
   expect(body.length).toBe(2);
   expect(body.map((e) => new Date(e.date))).toStrictEqual([date2, date1]);
+});
+
+test('get one game', async () => {
+  const game = await get(`/api/game/id/${gid1}`);
+  expect(game.id).toBe(gid1);
+});
+
+test('get unknown game', async () => {
+  const game = await get(`/api/game/id/${gid1}!`);
+  expect(game).toBe(null);
 });
 
 test('get games by date', async () => {

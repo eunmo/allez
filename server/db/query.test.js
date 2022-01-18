@@ -32,10 +32,13 @@ test('get persons', async () => {
 });
 
 test('get person', async () => {
-  const rows = await getPerson(pid1);
-  expect(rows.length).toBe(1);
-  const [row] = rows;
+  const row = await getPerson(pid1);
   expect(row.id).toBe(pid1);
+});
+
+test('get unknown person', async () => {
+  const row = await getPerson(pid3 + 1);
+  expect(row).toBe(null);
 });
 
 test('get game dates', async () => {
@@ -46,10 +49,13 @@ test('get game dates', async () => {
 });
 
 test('get game', async () => {
-  const rows = await getGame(gid1);
-  expect(rows.length).toBe(1);
-  const [row] = rows;
+  const row = await getGame(gid1);
   expect(row.id).toBe(gid1);
+});
+
+test('get unknown game', async () => {
+  const row = await getGame(`${gid1}!`);
+  expect(row).toBe(null);
 });
 
 test('get games by date', async () => {

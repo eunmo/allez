@@ -52,6 +52,25 @@ test('create person', async () => {
   expect(person.lastName).toBe(lastName);
 });
 
+test('edit person', async () => {
+  let [firstName, lastName] = ['Amy', 'Last'];
+  await post('person', { firstName, lastName });
+  const body = await get('/api/person/list');
+  expect(body.length).toBe(1);
+
+  let [person] = body;
+  expect(person.firstName).toBe(firstName);
+  expect(person.lastName).toBe(lastName);
+
+  const { id } = person;
+  [firstName, lastName] = ['Bob', 'LastName'];
+  await put('person', { id, firstName, lastName });
+
+  person = await get(`/api/person/id/${id}`);
+  expect(person.firstName).toBe(firstName);
+  expect(person.lastName).toBe(lastName);
+});
+
 const dummyGame1 = {
   type: 1,
   ls: [1],
