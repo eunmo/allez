@@ -1,6 +1,7 @@
 const { dml, query, cleanup } = require('@eunmo/mysql');
 const {
   addPerson,
+  editPerson,
   addGame,
   editGame,
   removeGame,
@@ -24,6 +25,24 @@ test('add one person', async () => {
   await addPerson(...personDetail);
   const rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
+});
+
+test('edit one person', async () => {
+  await addPerson(...personDetail);
+  let rows = await query('SELECT * FROM person');
+  expect(rows.length).toBe(1);
+  let [row] = rows;
+  expect(row.firstName).toBe('First');
+  expect(row.lastName).toBe('Last');
+
+  const { id } = row;
+  const [first, last] = ['F', 'L'];
+  await editPerson(id, first, last);
+  rows = await query('SELECT * FROM person');
+  expect(rows.length).toBe(1);
+  [row] = rows;
+  expect(row.firstName).toBe('F');
+  expect(row.lastName).toBe('L');
 });
 
 test('add one game', async () => {

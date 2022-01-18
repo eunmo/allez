@@ -7,6 +7,14 @@ async function addPerson(firstName, lastName) {
   ]);
 }
 
+async function editPerson(id, firstName, lastName) {
+  return dml('UPDATE person SET firstName = ?, lastName = ? WHERE id = ?', [
+    firstName,
+    lastName,
+    id,
+  ]);
+}
+
 async function addGame(detail) {
   const id = uuid();
   await dml('INSERT INTO game (id, time, detail) VALUES (?, NOW(), ?)', [
@@ -39,6 +47,7 @@ async function removeParticipants(gameId) {
 
 module.exports = {
   addPerson,
+  editPerson,
   addGame,
   editGame,
   removeGame,

@@ -1,6 +1,8 @@
 const {
   getPersons,
+  getPerson,
   getGameDates,
+  getGame,
   getGamesByDate,
   getPersonGames,
   getHistory,
@@ -29,11 +31,25 @@ test('get persons', async () => {
   expect(rows.length).toBe(3);
 });
 
+test('get person', async () => {
+  const rows = await getPerson(pid1);
+  expect(rows.length).toBe(1);
+  const [row] = rows;
+  expect(row.id).toBe(pid1);
+});
+
 test('get game dates', async () => {
   const rows = await getGameDates();
   expect(rows.length).toBe(2);
   expect(rows[0].date).toStrictEqual(date2);
   expect(rows[1].date).toStrictEqual(date1);
+});
+
+test('get game', async () => {
+  const rows = await getGame(gid1);
+  expect(rows.length).toBe(1);
+  const [row] = rows;
+  expect(row.id).toBe(gid1);
 });
 
 test('get games by date', async () => {
