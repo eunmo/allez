@@ -1,3 +1,19 @@
+:root {
+  --red: rgb(255, 59, 48);
+  --green: rgb(52, 199, 89);
+  --blue: rgb(0, 122, 255);
+
+  --gray1: rgb(142, 142, 147);
+  --gray2: rgb(174, 174, 178);
+  --gray3: rgb(199, 199, 204);
+  --gray4: rgb(209, 209, 214);
+  --gray5: rgb(229, 229, 234);
+  --gray6: rgb(242, 242, 247);
+
+  --background: white;
+  --text: black;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +26,41 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+label {
+  text-align: right;
+  height: 35px;
+  line-height: 35px;
+}
+
+input {
+  border: 0;
+  margin: 0;
+  height: 35px;
+  box-sizing: border-box;
+}
+
+input[type=text] {
+  border: 2px solid var(--gray3);
+}
+
+input[type="submit"]:not(:disabled) {
+  background-color: var(--blue);
+  color: var(--background);
+}
+
+input[type="submit"]:disabled {
+  background-color: var(--gray6);
+}
+
+input[type="button"] {
+  background-color: var(--gray6);
 }
