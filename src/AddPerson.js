@@ -21,45 +21,37 @@ export default function AddPerson() {
 
   return (
     <div className={style.AddPerson}>
-      <div className={style.header}>선수등록</div>
+      <div className="header">선수등록</div>
       <form onSubmit={addPerson}>
-        <div className={style.formRow}>
-          <label>성</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
+        <label>성</label>
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <label>이름</label>
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <label>분류</label>
+        <div className={style.buttonGroup}>
+          {['m', 'f', 'c'].map((typeCode) => (
+            <input
+              type="button"
+              key={typeCode}
+              value={displayType(typeCode)}
+              onClick={() => setType(typeCode)}
+              disabled={typeCode === type}
+            />
+          ))}
         </div>
-        <div className={style.formRow}>
-          <label>이름</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
-        <div className={style.formRow}>
-          <label>분류</label>
-          <div className={style.buttonGroup}>
-            {['m', 'f', 'c'].map((typeCode) => (
-              <input
-                type="button"
-                key={typeCode}
-                value={displayType(typeCode)}
-                onClick={() => setType(typeCode)}
-                disabled={typeCode === type}
-              />
-            ))}
-          </div>
-        </div>
-        <div className={style.formRow}>
-          <input
-            type="submit"
-            value="등록"
-            disabled={firstName === '' || lastName === ''}
-          />
-        </div>
+        <input
+          type="submit"
+          value="등록"
+          disabled={firstName === '' || lastName === ''}
+        />
       </form>
     </div>
   );

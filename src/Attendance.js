@@ -31,7 +31,11 @@ export default function Attendance() {
   const toggle = useCallback(
     (id) => {
       const newSet = new Set(came);
-      came.has(id) ? newSet.delete(id) : newSet.add(id);
+      if (came.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
       setCame(newSet);
     },
     [came]
@@ -41,7 +45,7 @@ export default function Attendance() {
     put('/api/crud/attendance', { ids: [...came] }, () => {
       navigate('/');
     });
-  });
+  }, [came, navigate]);
 
   if (data === null) {
     return null; // TODO: spinner
@@ -70,10 +74,7 @@ export default function Attendance() {
           disabled={came.size === 0}
           onClick={() => setCame(new Set())}
         />
-        <input
-          type="submit"
-          value="제출"
-        />
+        <input type="submit" value="제출" />
       </form>
     </div>
   );

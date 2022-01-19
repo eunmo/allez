@@ -3,18 +3,11 @@
   font-size: 20px;
 }
 
-.header {
-  width: 100%;
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 24px;
-}
-
-.formRow {
+.AddPerson form {
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-column-gap: 12px;
-  margin-bottom: 8px;
+  grid-row-gap: 8px;
 }
 
 .buttonGroup {
