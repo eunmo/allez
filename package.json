@@ -19,7 +19,8 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "supertest": "^6.2.1"
+    "mini-css-extract-plugin": "2.4.5",
+    "supertest": "^6.2.2"
   },
   "scripts": {
     "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
