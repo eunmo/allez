@@ -29,11 +29,13 @@ beforeAll(async () => {
 test('get persons', async () => {
   const rows = await getPersons();
   expect(rows.length).toBe(3);
+  expect(rows[0].today).toBe(true);
 });
 
 test('get person', async () => {
   const row = await getPerson(pid1);
   expect(row.id).toBe(pid1);
+  expect(row.today).toBe(true);
 });
 
 test('get unknown person', async () => {

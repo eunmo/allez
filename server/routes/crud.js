@@ -2,6 +2,7 @@ const express = require('express');
 const {
   addPerson,
   editPerson,
+  updateAttendance,
   addGame,
   editGame,
   removeGame,
@@ -20,6 +21,12 @@ router.post('/person', async (req, res) => {
 router.put('/person', async (req, res) => {
   const { id, firstName, lastName, type } = req.body;
   await editPerson(id, firstName, lastName, type);
+  res.sendStatus(200);
+});
+
+router.put('/attendance', async (req, res) => {
+  const { ids } = req.body;
+  await updateAttendance(ids);
   res.sendStatus(200);
 });
 

@@ -9,9 +9,19 @@ async function addPerson(firstName, lastName, type) {
 
 async function editPerson(id, firstName, lastName, type) {
   return dml(
-    'UPDATE person SET firstName = ?, lastName = ?, type = ? WHERE id = ?',
+    'UPDATE person SET firstName = ?, lastName = ?, type = ?  WHERE id = ?',
     [firstName, lastName, type, id]
   );
+}
+
+async function updateAttendance(ids) {
+  await dml('UPDATE person set today = FALSE');
+
+  if (ids.length === 0) {
+    return;
+  }
+
+  await dml('UPDATE person SET today = TRUE WHERE id in (?)', [ids]);
 }
 
 async function addGame(detail) {
@@ -47,6 +57,7 @@ async function removeParticipants(gameId) {
 module.exports = {
   addPerson,
   editPerson,
+  updateAttendance,
   addGame,
   editGame,
   removeGame,

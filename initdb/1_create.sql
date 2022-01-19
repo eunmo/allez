@@ -8,6 +8,7 @@ CREATE TABLE person (
   firstName VARCHAR(255) NOT NULL,
   lastName VARCHAR(255) NOT NULL,
   type CHAR(1) NOT NULL,
+  today BOOL NOT NULL DEFAULT TRUE,
   PRIMARY KEY (id)
 );
 

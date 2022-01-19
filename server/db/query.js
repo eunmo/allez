@@ -1,11 +1,17 @@
 const { query } = require('@eunmo/mysql');
 
+function parsePersonRows(rows) {
+  return rows.map((row) => ({ ...row, today: row.today === 1 }));
+}
+
 async function getPersons() {
-  return query('SELECT * FROM person');
+  const rows = await query('SELECT * FROM person');
+  return parsePersonRows(rows);
 }
 
 async function getPerson(id) {
-  const [person] = await query('SELECT * FROM person WHERE id = ?', [id]);
+  const rows = await query('SELECT * FROM person WHERE id = ?', [id]);
+  const [person] = parsePersonRows(rows);
   return person ?? null;
 }
 

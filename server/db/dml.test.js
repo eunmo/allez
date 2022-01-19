@@ -2,6 +2,7 @@ const { dml, query, cleanup } = require('@eunmo/mysql');
 const {
   addPerson,
   editPerson,
+  updateAttendance,
   addGame,
   editGame,
   removeGame,
@@ -25,6 +26,8 @@ test('add one person', async () => {
   await addPerson(...personDetail);
   const rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
+  const [row] = rows;
+  expect(row.today).toBe(1);
 });
 
 test('edit one person', async () => {
@@ -35,6 +38,7 @@ test('edit one person', async () => {
   expect(row.firstName).toBe('First');
   expect(row.lastName).toBe('Last');
   expect(row.type).toBe('c');
+  expect(row.today).toBe(1);
 
   const { id } = row;
   const [first, last, type] = ['F', 'L', 'f'];
@@ -45,6 +49,40 @@ test('edit one person', async () => {
   expect(row.firstName).toBe('F');
   expect(row.lastName).toBe('L');
   expect(row.type).toBe('f');
+  expect(row.today).toBe(1);
+});
+
+test('update attendance', async () => {
+  await addPerson(...personDetail);
+  await addPerson(...personDetail);
+
+  const rows = await query('SELECT * FROM person');
+  expect(rows.length).toBe(2);
+  const [{ id: pid1 }, { id: pid2 }] = rows;
+
+  async function check(today1, today2) {
+    let [{ today }] = await query('SELECT today FROM person WHERE id = ?', [
+      pid1,
+    ]);
+    expect(today).toBe(today1);
+
+    [{ today }] = await query('SELECT today FROM person WHERE id = ?', [pid2]);
+    expect(today).toBe(today2);
+  }
+
+  await check(1, 1);
+
+  await updateAttendance([pid1]);
+  await check(1, 0);
+
+  await updateAttendance([pid2]);
+  await check(0, 1);
+
+  await updateAttendance([]);
+  await check(0, 0);
+
+  await updateAttendance([pid1, pid2]);
+  await check(1, 1);
 });
 
 test('add one game', async () => {

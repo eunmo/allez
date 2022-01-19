@@ -1,6 +1,7 @@
 const {
   addPerson,
   editPerson,
+  updateAttendance,
   addGame,
   editGame,
   removeGame,
@@ -20,6 +21,7 @@ const {
 module.exports = {
   addPerson,
   editPerson,
+  updateAttendance,
   addGame,
   editGame,
   removeGame,

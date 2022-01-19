@@ -3,6 +3,7 @@
 const { dml, cleanup } = require('@eunmo/mysql');
 const request = require('supertest');
 const app = require('../app');
+const { prepare } = require('../db/mock');
 
 afterAll(async () => {
   await cleanup();
@@ -71,6 +72,26 @@ test('edit person', async () => {
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
   expect(person.type).toBe(type);
+});
+
+test('update attendance', async () => {
+  const { pid1, pid2, pid3 } = await prepare();
+
+  async function check(ids, values) {
+    await put('attendance', { ids });
+    expect(values.length).toBe(3);
+    let { today } = await get(`/api/person/id/${pid1}`);
+    expect(today).toBe(values[0]);
+    ({ today } = await get(`/api/person/id/${pid2}`));
+    expect(today).toBe(values[1]);
+    ({ today } = await get(`/api/person/id/${pid3}`));
+    expect(today).toBe(values[2]);
+  }
+
+  await check([pid1], [true, false, false]);
+  await check([pid1, pid2], [true, true, false]);
+  await check([pid1, pid2, pid3], [true, true, true]);
+  await check([], [false, false, false]);
 });
 
 const dummyGame1 = {
