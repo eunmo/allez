@@ -12,14 +12,14 @@ const {
 const router = express.Router();
 
 router.post('/person', async (req, res) => {
-  const { firstName, lastName } = req.body;
-  await addPerson(firstName, lastName);
+  const { firstName, lastName, type } = req.body;
+  await addPerson(firstName, lastName, type);
   res.sendStatus(200);
 });
 
 router.put('/person', async (req, res) => {
-  const { id, firstName, lastName } = req.body;
-  await editPerson(id, firstName, lastName);
+  const { id, firstName, lastName, type } = req.body;
+  await editPerson(id, firstName, lastName, type);
   res.sendStatus(200);
 });
 

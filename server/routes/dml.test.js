@@ -42,8 +42,8 @@ async function put(url, body) {
 }
 
 test('create person', async () => {
-  const [firstName, lastName] = ['Amy', 'Last'];
-  await post('person', { firstName, lastName });
+  const [firstName, lastName, type] = ['Amy', 'Last', 'c'];
+  await post('person', { firstName, lastName, type });
   const body = await get('/api/person/list');
   expect(body.length).toBe(1);
 
@@ -53,22 +53,24 @@ test('create person', async () => {
 });
 
 test('edit person', async () => {
-  let [firstName, lastName] = ['Amy', 'Last'];
-  await post('person', { firstName, lastName });
+  let [firstName, lastName, type] = ['Amy', 'Last', 'c'];
+  await post('person', { firstName, lastName, type });
   const body = await get('/api/person/list');
   expect(body.length).toBe(1);
 
   let [person] = body;
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
+  expect(person.type).toBe(type);
 
   const { id } = person;
-  [firstName, lastName] = ['Bob', 'LastName'];
-  await put('person', { id, firstName, lastName });
+  [firstName, lastName, type] = ['Bob', 'LastName', 'm'];
+  await put('person', { id, firstName, lastName, type });
 
   person = await get(`/api/person/id/${id}`);
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
+  expect(person.type).toBe(type);
 });
 
 const dummyGame1 = {

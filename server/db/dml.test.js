@@ -19,7 +19,7 @@ beforeEach(async () => {
   await dml('TRUNCATE TABLE participant');
 });
 
-const personDetail = ['First', 'Last'];
+const personDetail = ['First', 'Last', 'c'];
 
 test('add one person', async () => {
   await addPerson(...personDetail);
@@ -34,15 +34,17 @@ test('edit one person', async () => {
   let [row] = rows;
   expect(row.firstName).toBe('First');
   expect(row.lastName).toBe('Last');
+  expect(row.type).toBe('c');
 
   const { id } = row;
-  const [first, last] = ['F', 'L'];
-  await editPerson(id, first, last);
+  const [first, last, type] = ['F', 'L', 'f'];
+  await editPerson(id, first, last, type);
   rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
   [row] = rows;
   expect(row.firstName).toBe('F');
   expect(row.lastName).toBe('L');
+  expect(row.type).toBe('f');
 });
 
 test('add one game', async () => {

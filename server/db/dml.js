@@ -1,18 +1,17 @@
 const { dml } = require('@eunmo/mysql');
 const { v4: uuid } = require('uuid');
 
-async function addPerson(firstName, lastName) {
-  return dml('INSERT INTO person (firstName, lastName) VALUES (?)', [
-    [firstName, lastName],
+async function addPerson(firstName, lastName, type) {
+  return dml('INSERT INTO person (firstName, lastName, type) VALUES (?)', [
+    [firstName, lastName, type],
   ]);
 }
 
-async function editPerson(id, firstName, lastName) {
-  return dml('UPDATE person SET firstName = ?, lastName = ? WHERE id = ?', [
-    firstName,
-    lastName,
-    id,
-  ]);
+async function editPerson(id, firstName, lastName, type) {
+  return dml(
+    'UPDATE person SET firstName = ?, lastName = ?, type = ? WHERE id = ?',
+    [firstName, lastName, type, id]
+  );
 }
 
 async function addGame(detail) {

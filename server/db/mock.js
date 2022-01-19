@@ -1,9 +1,9 @@
 const { dml, query, cleanup } = require('@eunmo/mysql');
 const { addPerson, addGame, addParticipants } = require('./dml');
 
-const personDetail1 = ['Alice', 'Last'];
-const personDetail2 = ['Bob', 'Last'];
-const personDetail3 = ['Carol', 'Last'];
+const personDetail1 = ['Alice', 'Last', 'f'];
+const personDetail2 = ['Bob', 'Last', 'm'];
+const personDetail3 = ['Carol', 'Last', 'c'];
 const gameDetail1 = { name: 'g1' };
 const gameDetail2 = { name: 'g2' };
 const gameDetail3 = { name: 'g3' };
