@@ -7,9 +7,11 @@ export default function App() {
   return (
     <div className={style.App}>
       <BrowserRouter>
-        <Routes>
-          <Route index element={<AddPerson />} />
-        </Routes>
+        <div className={style.body}>
+          <Routes>
+            <Route index element={<AddPerson />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );

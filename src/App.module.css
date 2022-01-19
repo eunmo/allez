@@ -1,5 +1,10 @@
 .App {
-  width: 100%
+  width: 100%;
+}
+
+.body {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 @media screen and (min-width: 600px) {

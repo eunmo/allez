@@ -21,9 +21,9 @@ export default function AddPerson() {
 
   return (
     <div className={style.AddPerson}>
-      <div>선수등록</div>
+      <div className={style.header}>선수등록</div>
       <form onSubmit={addPerson}>
-        <div>
+        <div className={style.formRow}>
           <label>성</label>
           <input
             type="text"
@@ -31,7 +31,7 @@ export default function AddPerson() {
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
-        <div>
+        <div className={style.formRow}>
           <label>이름</label>
           <input
             type="text"
@@ -39,20 +39,26 @@ export default function AddPerson() {
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        <div>
+        <div className={style.formRow}>
           <label>분류</label>
-          {['m', 'f', 'c'].map((typeCode) => (
-            <input
-              type="button"
-              key={typeCode}
-              value={displayType(typeCode)}
-              onClick={() => setType(typeCode)}
-              style={typeCode === type ? { backgroundColor: 'red' } : {}}
-            />
-          ))}
+          <div className={style.buttonGroup}>
+            {['m', 'f', 'c'].map((typeCode) => (
+              <input
+                type="button"
+                key={typeCode}
+                value={displayType(typeCode)}
+                onClick={() => setType(typeCode)}
+                disabled={typeCode === type}
+              />
+            ))}
+          </div>
         </div>
-        <div>
-          <input type="submit" value="등록" />
+        <div className={style.formRow}>
+          <input
+            type="submit"
+            value="등록"
+            disabled={firstName === '' || lastName === ''}
+          />
         </div>
       </form>
     </div>
