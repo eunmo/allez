@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import LinkButton from './LinkButton';
 import { get, groupByPersonType, put } from './utils';
 import style from './Attendance.module.css';
 
@@ -43,6 +45,7 @@ export default function Attendance() {
   return (
     <div className={style.Attendance}>
       <div className="header">출석체크</div>
+      <LinkButton to="/edit-person-list">명부편집</LinkButton>
       <form onSubmit={updateAttendance}>
         <input
           type="reset"

@@ -1,0 +1,16 @@
+.EditPersonList .grid {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(3, auto);
+}
+
+.EditPersonList a {
+  background-color: var(--gray6);
+  display: block;
+  font-size: 20px;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%;
+}

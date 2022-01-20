@@ -29,23 +29,23 @@ code {
 }
 
 .header {
-  width: 100%;
-  text-align: center;
   font-size: 32px;
   margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
 }
 
 label {
-  text-align: right;
   height: 35px;
   line-height: 35px;
+  text-align: right;
 }
 
 input {
   border: 0;
-  margin: 0;
-  height: 35px;
   box-sizing: border-box;
+  height: 35px;
+  margin: 0;
 }
 
 input[type=text] {
@@ -63,4 +63,12 @@ input[type="submit"]:disabled {
 
 input[type="button"] {
   background-color: var(--gray6);
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: var(--blue);
+  text-decoration: none;
 }

@@ -48,7 +48,6 @@
           "parser": "flow"
         }
       ],
-      "react/react-in-jsx-scope": "off",
       "react/jsx-filename-extension": [
         1,
         {
@@ -57,7 +56,9 @@
             ".jsx"
           ]
         }
-      ]
+      ],
+      "react/prop-types": 0,
+      "react/react-in-jsx-scope": 0
     }
   },
   "browserslist": {
