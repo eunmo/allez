@@ -1,11 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { displayPersonType, post } from './utils';
 import style from './AddPerson.module.css';
-import { post } from './utils';
-
-function displayType(type) {
-  return { m: '남성', f: '여성', c: '코치' }[type] ?? '모름';
-}
 
 export default function AddPerson() {
   const [firstName, setFirstName] = useState('');
@@ -41,7 +37,7 @@ export default function AddPerson() {
             <input
               type="button"
               key={typeCode}
-              value={displayType(typeCode)}
+              value={displayPersonType(typeCode)}
               onClick={() => setType(typeCode)}
               disabled={typeCode === type}
             />

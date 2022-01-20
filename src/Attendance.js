@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { get, groupByPersonType, put } from './utils';
 import style from './Attendance.module.css';
-import { get, put } from './utils';
-
-function cmpFn(a, b) {
-  return a.firstName < b.firstName ? -1 : 1;
-}
 
 export default function Attendance() {
   const [data, setData] = useState(null);
@@ -19,14 +15,7 @@ export default function Attendance() {
     });
   }, []);
 
-  const sections = useMemo(
-    () =>
-      ['c', 'f', 'm'].map((code) => ({
-        code,
-        persons: (data ?? []).filter(({ type }) => type === code).sort(cmpFn),
-      })),
-    [data]
-  );
+  const sections = useMemo(() => groupByPersonType(data), [data]);
 
   const toggle = useCallback(
     (id) => {
@@ -55,6 +44,12 @@ export default function Attendance() {
     <div className={style.Attendance}>
       <div className="header">출석체크</div>
       <form onSubmit={updateAttendance}>
+        <input
+          type="reset"
+          value="초기화"
+          disabled={came.size === 0}
+          onClick={() => setCame(new Set())}
+        />
         {sections.map(({ code, persons }) => (
           <div key={code}>
             {persons.map(({ firstName, id }) => (
@@ -68,12 +63,6 @@ export default function Attendance() {
             ))}
           </div>
         ))}
-        <input
-          type="reset"
-          value="초기화"
-          disabled={came.size === 0}
-          onClick={() => setCame(new Set())}
-        />
         <input type="submit" value="제출" />
       </form>
     </div>
