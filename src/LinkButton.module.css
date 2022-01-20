@@ -2,8 +2,8 @@
   background-color: var(--gray6);
   display: block;
   font-size: 20px;
-  height: 35px;
-  line-height: 35px;
+  height: var(--button-height);
+  line-height: var(--button-height);
   margin-bottom: 8px;
   text-align: center;
   width: 100%;

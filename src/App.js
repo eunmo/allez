@@ -1,6 +1,13 @@
-import { BrowserRouter, Navigate, Outlet, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Routes,
+  Route,
+} from 'react-router-dom';
 import style from './App.module.css';
 
+import AddGame from './AddGame';
 import AddPerson from './AddPerson';
 import Attendance from './Attendance';
 import EditPerson from './EditPerson';
@@ -26,6 +33,9 @@ export default function App() {
             <Route path="edit/:id" element={<EditPerson />} />
             <Route path="edit/list" element={<EditPersonList />} />
             <Route index element={<Attendance />} />
+          </Route>
+          <Route path="game">
+            <Route path="add" element={<AddGame />} />
           </Route>
           <Route index element={<Navigate to="person" />} />
         </Route>

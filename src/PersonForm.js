@@ -15,10 +15,13 @@ export default function PersonForm({ data, onSubmit, title }) {
     }
   }, [data]);
 
-  const onSubmitCallback = useCallback((event) => {
-    event.preventDefault();
-    onSubmit({ firstName, lastName, type });
-  }, [firstName, lastName, onSubmit, type]);
+  const onSubmitCallback = useCallback(
+    (event) => {
+      event.preventDefault();
+      onSubmit({ firstName, lastName, type });
+    },
+    [firstName, lastName, onSubmit, type]
+  );
 
   return (
     <div className={style.PersonForm}>

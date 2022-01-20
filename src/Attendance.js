@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import LinkButton from './LinkButton';
-import { get, groupByPersonType, put } from './utils';
+import { displayPersonType, get, groupByPersonType, put } from './utils';
 import style from './Attendance.module.css';
 
 export default function Attendance() {
@@ -55,6 +55,7 @@ export default function Attendance() {
         />
         {sections.map(({ code, persons }) => (
           <div key={code}>
+            <label>{displayPersonType(code)}</label>
             {persons.map(({ firstName, id }) => (
               <input
                 type="button"

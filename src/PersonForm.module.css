@@ -10,15 +10,21 @@
   grid-row-gap: 8px;
 }
 
+.PersonForm label {
+  text-align: right;
+}
+
 .buttonGroup {
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .PersonForm input[type=button]:disabled {
   background-color: var(--green);
+  border-color: var(--green);
   color: var(--background);
+  transition: 0.3s;
 }
 
 .PersonForm input[type=submit] {
