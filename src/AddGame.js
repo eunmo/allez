@@ -23,12 +23,13 @@ function PersonSelect({ sections, onClick }) {
   );
 }
 
-function PointInputValue({ digit, onClick }) {
+function PointInputValue({ digit, onClick, disabled }) {
   return (
     <input
       type="button"
       value={digit}
       onClick={(e) => onClick(e.target.value)}
+      disabled={disabled}
     />
   );
 }
@@ -62,11 +63,24 @@ function PointInput({ value, setValue }) {
       {[7, 8, 9, 4, 5, 6, 1, 2, 3].map((d) => (
         <PointInputValue key={d} digit={d} onClick={onClickDigit} />
       ))}
-      <input type="button" value="C" onClick={() => setValue()} />
-      <PointInputValue digit={0} onClick={onClickDigit} />
-      <input type="button" value="⌫" onClick={backspace} />
+      <input
+        type="button"
+        value="C"
+        onClick={() => setValue()}
+        disabled={!value}
+      />
+      <PointInputValue digit={0} onClick={onClickDigit} disabled={!value} />
+      <input type="button" value="⌫" onClick={backspace} disabled={!value} />
     </div>
   );
+}
+
+function getInputClass(value, target, selected) {
+  if (target === selected) {
+    return style.selectedInput;
+  }
+
+  return value ? undefined : style.noInput;
 }
 
 export default function AddGame() {
@@ -118,28 +132,28 @@ export default function AddGame() {
         <label>점수 1</label>
         <label>점수 2</label>
         <label>선수 2</label>
-        <label>{l && idMap.get(l)}</label>
-        <label>{lp}</label>
-        <label>{rp}</label>
-        <label>{r && idMap.get(r)}</label>
         <input
           type="button"
-          value="선택"
+          value={l ? idMap.get(l) : '선택'}
+          className={getInputClass(l, 'person1', selected)}
           onClick={() => setSelected('person1')}
         />
         <input
           type="button"
-          value="입력"
+          value={lp || '입력'}
+          className={getInputClass(lp, 'point1', selected)}
           onClick={() => setSelected('point1')}
         />
         <input
           type="button"
-          value="입력"
+          value={rp || '입력'}
+          className={getInputClass(rp, 'point2', selected)}
           onClick={() => setSelected('point2')}
         />
         <input
           type="button"
-          value="선택"
+          value={r ? idMap.get(r) : '선택'}
+          className={getInputClass(r, 'person2', selected)}
           onClick={() => setSelected('person2')}
         />
         {selected === 'person1' && (

@@ -44,10 +44,10 @@ label {
 
 input {
   border: 0;
-  border-radius: 0;
   box-sizing: border-box;
   height: var(--button-height);
   margin: 0;
+  -webkit-appearance: none;
 }
 
 input:focus {
