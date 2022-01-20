@@ -15,7 +15,8 @@ export default function PersonForm({ data, onSubmit, title }) {
     }
   }, [data]);
 
-  const onSubmitCallback = useCallback(() => {
+  const onSubmitCallback = useCallback((event) => {
+    event.preventDefault();
     onSubmit({ firstName, lastName, type });
   }, [firstName, lastName, onSubmit, type]);
 

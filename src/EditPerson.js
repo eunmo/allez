@@ -16,7 +16,7 @@ export default function EditPerson() {
   const editPerson = useCallback(
     (person) => {
       put('/api/crud/person', { ...person, id }, () => {
-        navigate('/person/attendance');
+        navigate('/person');
       });
     },
     [id, navigate]

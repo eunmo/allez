@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Routes, Route } from 'react-router-dom';
 import style from './App.module.css';
 
 import AddPerson from './AddPerson';
@@ -6,20 +6,30 @@ import Attendance from './Attendance';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 
-export default function App() {
+function Layout() {
   return (
     <div className={style.App}>
-      <BrowserRouter>
-        <div className={style.body}>
-          <Routes>
-            <Route index element={<Attendance />} />
-            <Route path="person/add" element={<AddPerson />} />
-            <Route path="person/attendance" element={<Attendance />} />
-            <Route path="person/edit/:id" element={<EditPerson />} />
-            <Route path="person/edit/list" element={<EditPersonList />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+      <div className={style.body}>
+        <Outlet />
+      </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="person">
+            <Route path="add" element={<AddPerson />} />
+            <Route path="edit/:id" element={<EditPerson />} />
+            <Route path="edit/list" element={<EditPersonList />} />
+            <Route index element={<Attendance />} />
+          </Route>
+          <Route index element={<Navigate to="person" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

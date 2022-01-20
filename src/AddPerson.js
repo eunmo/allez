@@ -10,7 +10,7 @@ export default function AddPerson() {
   const addPerson = useCallback(
     (person) => {
       post('/api/crud/person', person, () => {
-        navigate('/person/attendance');
+        navigate('/person');
       });
     },
     [navigate]
