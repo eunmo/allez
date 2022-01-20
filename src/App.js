@@ -12,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         <div className={style.body}>
           <Routes>
-            <Route index element={<AddPerson />} />
+            <Route index element={<Attendance />} />
             <Route path="person/add" element={<AddPerson />} />
             <Route path="person/attendance" element={<Attendance />} />
             <Route path="person/edit/:id" element={<EditPerson />} />
