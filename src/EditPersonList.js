@@ -20,12 +20,12 @@ export default function EditPersonList() {
   return (
     <div className={style.EditPersonList}>
       <div className="header">명부편집</div>
-      <LinkButton to="/add-person">선수등록</LinkButton>
+      <LinkButton to="/person/add">선수등록</LinkButton>
       <div className={style.grid}>
         {sections.map(({ code, persons }) => (
           <div key={code}>
             {persons.map(({ firstName, id }) => (
-              <LinkButton key={id} to={`/edit/person/${id}`}>
+              <LinkButton key={id} to={`/person/edit/${id}`}>
                 {firstName}
               </LinkButton>
             ))}

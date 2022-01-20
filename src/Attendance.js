@@ -45,7 +45,7 @@ export default function Attendance() {
   return (
     <div className={style.Attendance}>
       <div className="header">출석체크</div>
-      <LinkButton to="/edit-person-list">명부편집</LinkButton>
+      <LinkButton to="/person/edit/list">명부편집</LinkButton>
       <form onSubmit={updateAttendance}>
         <input
           type="reset"

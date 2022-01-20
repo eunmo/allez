@@ -3,6 +3,7 @@ import style from './App.module.css';
 
 import AddPerson from './AddPerson';
 import Attendance from './Attendance';
+import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 
 export default function App() {
@@ -12,9 +13,10 @@ export default function App() {
         <div className={style.body}>
           <Routes>
             <Route index element={<AddPerson />} />
-            <Route path="add-person" element={<AddPerson />} />
-            <Route path="attendance" element={<Attendance />} />
-            <Route path="edit-person-list" element={<EditPersonList />} />
+            <Route path="person/add" element={<AddPerson />} />
+            <Route path="person/attendance" element={<Attendance />} />
+            <Route path="person/edit/:id" element={<EditPerson />} />
+            <Route path="person/edit/list" element={<EditPersonList />} />
           </Routes>
         </div>
       </BrowserRouter>
