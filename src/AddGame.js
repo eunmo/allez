@@ -102,14 +102,17 @@ export default function AddGame() {
     [persons]
   );
 
-  const onSubmit = useCallback((event) => {
-    event.preventDefault();
-    const rounds = [{ l, r, lp, rp }];
-    const game = { type: 1, ls: [l], rs: [r], rounds };
-    post('/api/crud/game', { game }, () => {
-      navigate('/');
-    });
-  }, [l, lp, navigate, r, rp]);
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+      const rounds = [{ l, r, lp, rp }];
+      const game = { type: 1, ls: [l], rs: [r], rounds };
+      post('/api/crud/game', { game }, () => {
+        navigate('/');
+      });
+    },
+    [l, lp, navigate, r, rp]
+  );
 
   const next = useCallback(() => {
     if (automatic) {

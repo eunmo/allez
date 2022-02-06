@@ -32,12 +32,15 @@ export default function Attendance() {
     [came]
   );
 
-  const updateAttendance = useCallback((event) => {
-    event.preventDefault();
-    put('/api/crud/attendance', { ids: [...came] }, () => {
-      navigate('/');
-    });
-  }, [came, navigate]);
+  const updateAttendance = useCallback(
+    (event) => {
+      event.preventDefault();
+      put('/api/crud/attendance', { ids: [...came] }, () => {
+        navigate('/');
+      });
+    },
+    [came, navigate]
+  );
 
   if (data === null) {
     return null; // TODO: spinner
