@@ -12,6 +12,7 @@ import AddPerson from './AddPerson';
 import Attendance from './Attendance';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
+import Main from './Main';
 
 function Layout() {
   return (
@@ -27,7 +28,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route element={<Layout />}>
+          <Route index element={<Main />} />
           <Route path="person">
             <Route path="add" element={<AddPerson />} />
             <Route path="edit/:id" element={<EditPerson />} />
@@ -37,7 +39,6 @@ export default function App() {
           <Route path="game">
             <Route path="add" element={<AddGame />} />
           </Route>
-          <Route index element={<Navigate to="person" />} />
         </Route>
       </Routes>
     </BrowserRouter>

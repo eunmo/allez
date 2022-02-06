@@ -51,4 +51,16 @@ function groupByPersonType(persons) {
   return codes.map((code) => ({ code, persons: getGroup(code) }));
 }
 
-export { get, post, put, fetchDelete, displayPersonType, groupByPersonType };
+function toPersonIdMap(persons) {
+  return new Map(persons.map((person) => [person.id, person]));
+}
+
+export {
+  get,
+  post,
+  put,
+  fetchDelete,
+  displayPersonType,
+  groupByPersonType,
+  toPersonIdMap,
+};
