@@ -29,7 +29,7 @@ async function getGameDates() {
 }
 
 function parseGameRows(rows) {
-  return rows.map(({ id, detail }) => ({ id, detail: JSON.parse(detail) }));
+  return rows.map((row) => ({ ...row, ...JSON.parse(row.detail) }));
 }
 
 async function getGame(id) {

@@ -141,12 +141,12 @@ test('update game 1', async () => {
   await post('game', { game: dummyGame1 });
 
   let [game] = await get('/api/game/person/1');
-  expect(game.detail.rounds[0].rp).toBe(3);
+  expect(game.rounds[0].rp).toBe(3);
   const { id } = game;
 
   await put('game', { id, game: dummyGame1Update1 });
   [game] = await get('/api/game/person/1');
-  expect(game.detail.rounds[0].rp).toBe(4);
+  expect(game.rounds[0].rp).toBe(4);
 });
 
 test('update game 2', async () => {
@@ -156,7 +156,7 @@ test('update game 2', async () => {
   expect(games.length).toBe(1);
   let [game] = games;
   const { id } = game;
-  expect(game.detail.rounds[0].rp).toBe(3);
+  expect(game.rounds[0].rp).toBe(3);
 
   games = await get('/api/game/person/3');
   expect(games.length).toBe(0);
@@ -169,8 +169,8 @@ test('update game 2', async () => {
   expect(games.length).toBe(1);
 
   [game] = games;
-  expect(game.detail.rs).toStrictEqual([3]);
-  expect(game.detail.rounds[0].rp).toBe(4);
+  expect(game.rs).toStrictEqual([3]);
+  expect(game.rounds[0].rp).toBe(4);
 });
 
 test('removee game', async () => {
