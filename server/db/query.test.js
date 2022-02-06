@@ -1,5 +1,6 @@
 const {
   getPersons,
+  getToday,
   getPerson,
   getGameDates,
   getGame,
@@ -30,6 +31,11 @@ test('get persons', async () => {
   const rows = await getPersons();
   expect(rows.length).toBe(3);
   expect(rows[0].today).toBe(true);
+});
+
+test('get today', async () => {
+  const rows = await getToday();
+  expect(rows.length).toBe(2);
 });
 
 test('get person', async () => {

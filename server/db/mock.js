@@ -1,5 +1,10 @@
 const { dml, query, cleanup } = require('@eunmo/mysql');
-const { addPerson, addGame, addParticipants } = require('./dml');
+const {
+  addPerson,
+  addGame,
+  addParticipants,
+  updateAttendance,
+} = require('./dml');
 
 const personDetail1 = ['Alice', 'Last', 'f'];
 const personDetail2 = ['Bob', 'Last', 'm'];
@@ -24,6 +29,8 @@ async function prepare() {
   ({ insertId: pid1 } = await addPerson(...personDetail1));
   ({ insertId: pid2 } = await addPerson(...personDetail2));
   ({ insertId: pid3 } = await addPerson(...personDetail3));
+
+  await updateAttendance([pid1, pid2]);
 
   gid1 = await addGame(gameDetail1);
   gid2 = await addGame(gameDetail2);

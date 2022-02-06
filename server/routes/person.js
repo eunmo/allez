@@ -1,10 +1,15 @@
 const express = require('express');
-const { getPerson, getPersons } = require('../db');
+const { getPerson, getToday, getPersons } = require('../db');
 
 const router = express.Router();
 
 router.get('/list', async (req, res) => {
   const persons = await getPersons();
+  res.json(persons);
+});
+
+router.get('/today', async (req, res) => {
+  const persons = await getToday();
   res.json(persons);
 });
 

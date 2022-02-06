@@ -30,6 +30,11 @@ test('get all persons', async () => {
   expect(body.length).toBe(3);
 });
 
+test('get all persons attending today', async () => {
+  const body = await get('/api/person/today');
+  expect(body.length).toBe(2);
+});
+
 test('get one person', async () => {
   const person = await get(`/api/person/id/${pid1}`);
   expect(person.id).toBe(pid1);

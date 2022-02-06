@@ -9,6 +9,13 @@ async function getPersons() {
   return parsePersonRows(rows);
 }
 
+async function getToday() {
+  const rows = await query(
+    'SELECT id, firstName, lastName, type FROM person WHERE today = TRUE'
+  );
+  return parsePersonRows(rows);
+}
+
 async function getPerson(id) {
   const rows = await query('SELECT * FROM person WHERE id = ?', [id]);
   const [person] = parsePersonRows(rows);
@@ -82,6 +89,7 @@ async function getHistory(id1, id2) {
 
 module.exports = {
   getPersons,
+  getToday,
   getPerson,
   getGameDates,
   getGame,

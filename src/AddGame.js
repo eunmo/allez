@@ -93,7 +93,7 @@ export default function AddGame() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    get('/api/person/list', setPersons);
+    get('/api/person/today', setPersons);
   }, []);
 
   const sections = useMemo(() => groupByPersonType(persons), [persons]);
