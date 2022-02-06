@@ -32,7 +32,8 @@ export default function Attendance() {
     [came]
   );
 
-  const updateAttendance = useCallback(() => {
+  const updateAttendance = useCallback((event) => {
+    event.preventDefault();
     put('/api/crud/attendance', { ids: [...came] }, () => {
       navigate('/');
     });
