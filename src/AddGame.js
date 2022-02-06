@@ -34,16 +34,13 @@ function PointInputValue({ digit, onClick, disabled }) {
   );
 }
 
-function PointInput({ value, setValue }) {
+function PointInput({ value, setValue, onDone }) {
   const onClickDigit = useCallback(
     (digit) => {
-      if (digit === '0' && !(value && value.length > 0)) {
-        return;
-      }
-
       setValue(`${value ?? ''}${digit}`);
+      onDone();
     },
-    [value, setValue]
+    [value, setValue, onDone]
   );
 
   const backspace = useCallback(() => {
@@ -83,13 +80,16 @@ function getInputClass(value, target, selected) {
   return value ? undefined : style.noInput;
 }
 
+const steps = ['person1', 'point1', 'point2', 'person2'];
+
 export default function AddGame() {
   const [persons, setPersons] = useState(null);
   const [l, setL] = useState();
   const [r, setR] = useState();
   const [lp, setLp] = useState();
   const [rp, setRp] = useState();
-  const [selected, setSelected] = useState();
+  const [step, setStep] = useState(steps[0]);
+  const [automatic, setAutomatic] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,14 +110,32 @@ export default function AddGame() {
     });
   }, [l, lp, navigate, r, rp]);
 
-  const selectPerson1 = useCallback((id) => {
-    setL(id);
-    setSelected();
-  }, []);
+  const next = useCallback(() => {
+    if (automatic) {
+      const index = steps.findIndex((e) => e === step) + 1;
+      if (index === steps.length) {
+        setStep();
+      } else {
+        setStep(steps[index]);
+      }
+    }
+  }, [step, automatic]);
 
-  const selectPerson2 = useCallback((id) => {
-    setR(id);
-    setSelected();
+  const selectPerson = useCallback(
+    (target, id) => {
+      if (target === 'person1') {
+        setL(id);
+      } else {
+        setR(id);
+      }
+      next();
+    },
+    [next]
+  );
+
+  const manualInput = useCallback((target) => {
+    setAutomatic(false);
+    setStep(target);
   }, []);
 
   if (persons === undefined) {
@@ -135,34 +153,39 @@ export default function AddGame() {
         <input
           type="button"
           value={l ? idMap.get(l) : '선택'}
-          className={getInputClass(l, 'person1', selected)}
-          onClick={() => setSelected('person1')}
+          className={getInputClass(l, 'person1', step)}
+          onClick={() => manualInput('person1')}
         />
         <input
           type="button"
           value={lp || '입력'}
-          className={getInputClass(lp, 'point1', selected)}
-          onClick={() => setSelected('point1')}
+          className={getInputClass(lp, 'point1', step)}
+          onClick={() => manualInput('point1')}
         />
         <input
           type="button"
           value={rp || '입력'}
-          className={getInputClass(rp, 'point2', selected)}
-          onClick={() => setSelected('point2')}
+          className={getInputClass(rp, 'point2', step)}
+          onClick={() => manualInput('point2')}
         />
         <input
           type="button"
           value={r ? idMap.get(r) : '선택'}
-          className={getInputClass(r, 'person2', selected)}
-          onClick={() => setSelected('person2')}
+          className={getInputClass(r, 'person2', step)}
+          onClick={() => manualInput('person2')}
         />
-        {selected === 'person1' && (
-          <PersonSelect sections={sections} onClick={selectPerson1} />
+        {['person1', 'person2'].includes(step) && (
+          <PersonSelect
+            sections={sections}
+            onClick={(id) => selectPerson(step, id)}
+          />
         )}
-        {selected === 'point1' && <PointInput value={lp} setValue={setLp} />}
-        {selected === 'point2' && <PointInput value={rp} setValue={setRp} />}
-        {selected === 'person2' && (
-          <PersonSelect sections={sections} onClick={selectPerson2} />
+        {['point1', 'point2'].includes(step) && (
+          <PointInput
+            value={step === 'point1' ? lp : rp}
+            setValue={step === 'point1' ? setLp : setRp}
+            onDone={automatic ? next : () => {}}
+          />
         )}
         <input type="submit" value="전송" disabled={!(l && r && lp && rp)} />
       </form>
