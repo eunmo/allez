@@ -118,6 +118,8 @@ export default function AddGame() {
       } else {
         setStep(steps[index]);
       }
+    } else {
+      setStep();
     }
   }, [step, automatic]);
 
