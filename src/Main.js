@@ -17,6 +17,7 @@ export default function Main() {
     <div className={style.Main}>
       <div>
         <LinkButton to="/game/add">경기 기록 추가</LinkButton>
+        <LinkButton to="/game/calendar">과거 기록 열람</LinkButton>
         <LinkButton to="/person">출석 체크</LinkButton>
       </div>
       <div>{games && <GameList games={games} />}</div>

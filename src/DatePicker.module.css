@@ -1,0 +1,19 @@
+.DatePicker .header {
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+}
+
+.DatePicker .grid {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.DatePicker .inactive {
+  font-size: 20px;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  margin-bottom: 8px;
+  text-align: center;
+}

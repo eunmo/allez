@@ -6,8 +6,9 @@
 - [ ] pool-style summary view
 - [ ] game page for a specific date
 - [ ] game page for a specific person
+- [ ] spinner for loading
 - [ ] game page for a specific duo
-- [ ] calendar view (to switch dates)
+- [ ] calendar view: change month
 - [ ] add game page for 2v2 3v3 4v4 and tournaments
 - [ ] edit/remove game for 2v2 3v3 4v4 and tournaments
 
@@ -22,3 +23,4 @@
 - [x] edit person list page (gateway to all listed persons)
 - [x] add game page
 - [x] main dashboard page
+- [x] calendar view (to switch dates)

@@ -4,6 +4,7 @@ import style from './App.module.css';
 import AddGame from './AddGame';
 import AddPerson from './AddPerson';
 import Attendance from './Attendance';
+import DatePicker from './DatePicker';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import Main from './Main';
@@ -32,6 +33,7 @@ export default function App() {
           </Route>
           <Route path="game">
             <Route path="add" element={<AddGame />} />
+            <Route path="calendar" element={<DatePicker />} />
           </Route>
         </Route>
       </Routes>
