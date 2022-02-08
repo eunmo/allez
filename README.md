@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] do something about button colors
-- [ ] edit/remove game for 1v1
 - [ ] pool-style summary view
 - [ ] game page for a specific person
 - [ ] spinner for loading
@@ -24,3 +23,4 @@
 - [x] calendar view (to switch dates)
 - [x] game page for a specific date
 - [x] navigation bar
+- [x] edit/remove game for 1v1

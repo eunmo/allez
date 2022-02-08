@@ -5,6 +5,7 @@ import AddGame from './AddGame';
 import AddPerson from './AddPerson';
 import Attendance from './Attendance';
 import DatePicker from './DatePicker';
+import EditGame from './EditGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import GameDate from './GameDate';
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="add" element={<AddGame />} />
             <Route path="calendar" element={<DatePicker />} />
             <Route path="date/:date" element={<GameDate />} />
+            <Route path="edit/:id" element={<EditGame />} />
           </Route>
         </Route>
       </Routes>
