@@ -1,6 +1,5 @@
 # TODO
 
-- [ ] navigation bar
 - [ ] do something about button colors
 - [ ] edit/remove game for 1v1
 - [ ] pool-style summary view
@@ -24,3 +23,4 @@
 - [x] main dashboard page
 - [x] calendar view (to switch dates)
 - [x] game page for a specific date
+- [x] navigation bar

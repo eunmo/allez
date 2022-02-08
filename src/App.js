@@ -8,11 +8,13 @@ import DatePicker from './DatePicker';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import GameDate from './GameDate';
+import Header from './Header';
 import Main from './Main';
 
 function Layout() {
   return (
     <div className={style.App}>
+      <Header />
       <div className={style.body}>
         <Outlet />
       </div>

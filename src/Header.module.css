@@ -1,0 +1,18 @@
+.Header {
+  background-color: var(--gray1);
+
+  display: block;
+  font-size: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+a.Header:link,
+a.Header:visited,
+a.Header:hover,
+a.Header:active {
+  color: var(--background);
+}
