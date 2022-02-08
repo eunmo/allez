@@ -4,7 +4,6 @@
   font-size: 20px;
   height: var(--button-height);
   line-height: var(--button-height);
-  margin-bottom: 8px;
   text-align: center;
   width: 100%;
 }
