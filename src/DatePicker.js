@@ -85,7 +85,7 @@ export default function DatePicker() {
               style={divStyle}
             >
               {isActive ? (
-                <LinkButton to={`/game/date/${toYMD(y, m, date)}`}>
+                <LinkButton mb={0} to={`/game/date/${toYMD(y, m, date)}`}>
                   {date}
                 </LinkButton>
               ) : (

@@ -30,7 +30,7 @@ export default function GameList({ games }) {
             <div className={lp < rp ? style.winner : ''}>
               {personIdMap.get(r).firstName}
             </div>
-            <LinkButton to={`/game/edit/${id}`}>
+            <LinkButton mb={0} to={`/game/edit/${id}`}>
               <b>︙</b>
             </LinkButton>
           </Fragment>
