@@ -62,8 +62,8 @@ export default function DatePicker() {
 
   const month = months[monthIndex];
   const { y, m, dates, offset, active } = month;
-  const hasPrev = monthIndex > 0;
-  const hasNext = monthIndex < months.length - 1;
+  // const hasPrev = monthIndex > 0;
+  // const hasNext = monthIndex < months.length - 1;
 
   return (
     <div className={style.DatePicker}>
