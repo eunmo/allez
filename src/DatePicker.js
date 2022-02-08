@@ -42,7 +42,7 @@ function getMonths(dates) {
 }
 
 function toYMD(y, m, d) {
-  return new Date(y, m - 1, d).toISOString().substring(0, 10);
+  return new Date(Date.UTC(y, m - 1, d)).toISOString().substring(0, 10);
 }
 
 export default function DatePicker() {
