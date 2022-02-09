@@ -52,7 +52,9 @@ export default function GameGrid({ games, personIdMap }) {
       <div className={style.legend}>#</div>
       <div className={style.legend}>이름</div>
       {grid.map(({ id }, index) => (
-        <div key={id} className={style.legend}>{index + 1}</div>
+        <div key={id} className={style.legend}>
+          {index + 1}
+        </div>
       ))}
       {grid.map(({ id, firstName, result }, p1) => (
         <Fragment key={id}>
