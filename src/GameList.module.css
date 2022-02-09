@@ -29,7 +29,7 @@
 
   .divider {
     border: 0;
-    border-top: 4px dotted var(--gray4);
+    border-top: 1px solid var(--gray4);
     display: block;
     margin: 8px 0px;
   }
