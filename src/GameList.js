@@ -21,6 +21,7 @@ export default function GameList({ games, children }) {
       <div>
         {children}
         <GameGrid games={games} personIdMap={personIdMap} />
+        <hr className={style.divider} />
       </div>
       <div className={style.list}>
         {games.map(({ id, rounds }) =>

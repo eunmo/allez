@@ -4,7 +4,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-.GameList .list {
+.list {
   display: grid;
   font-size: 20px;
   grid-column-gap: 8px;
@@ -14,12 +14,23 @@
   text-align: center;
 }
 
-.GameList .winner {
+.winner {
   background-color: var(--gray6);
+}
+
+.divider {
+  display: none;
 }
 
 @media (max-width: 600px) {
   .GameList {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .divider {
+    border: 0;
+    border-top: 4px dotted var(--gray4);
+    display: block;
+    margin: 8px 0px;
   }
 }
