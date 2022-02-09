@@ -24,3 +24,5 @@
 - [x] game page for a specific date
 - [x] navigation bar
 - [x] edit/remove game for 1v1
+- [x] make button larger for larger screens
+- [x] supoort zero input

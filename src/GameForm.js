@@ -33,10 +33,14 @@ function PointInputValue({ digit, onClick, disabled }) {
   );
 }
 
+function parseValue(value) {
+  return parseInt(value ?? '0', 10);
+}
+
 function PointInput({ value, setValue, onDone }) {
   const onClickDigit = useCallback(
     (digit) => {
-      setValue(`${value ?? ''}${digit}`);
+      setValue(`${parseValue(value) * 10 + parseValue(digit)}`);
       onDone();
     },
     [value, setValue, onDone]
@@ -49,9 +53,9 @@ function PointInput({ value, setValue, onDone }) {
 
     if (value.length === 1) {
       setValue();
+    } else {
+      setValue(value.substring(0, value.length - 1));
     }
-
-    setValue(value.substring(0, value.length - 1));
   }, [value, setValue]);
 
   return (
@@ -65,7 +69,7 @@ function PointInput({ value, setValue, onDone }) {
         onClick={() => setValue()}
         disabled={!value}
       />
-      <PointInputValue digit={0} onClick={onClickDigit} disabled={!value} />
+      <PointInputValue digit={0} onClick={onClickDigit} />
       <input type="button" value="⌫" onClick={backspace} disabled={!value} />
     </div>
   );
@@ -155,6 +159,12 @@ export default function GameForm({
   );
 
   const manualInput = useCallback((target) => {
+    if (target === 'point1') {
+      setLp();
+    }
+    if (target === 'point2') {
+      setRp();
+    }
     setAutomatic(false);
     setStep(target);
   }, []);
