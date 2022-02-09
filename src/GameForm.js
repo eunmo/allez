@@ -126,7 +126,8 @@ export default function GameForm({
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      const rounds = [{ l, r, lp, rp }];
+      const [lpi, rpi] = [lp, rp].map(parseValue);
+      const rounds = [{ l, r, lp: lpi, rp: rpi }];
       const game = { type: 1, ls: [l], rs: [r], rounds };
       submit(game);
     },
