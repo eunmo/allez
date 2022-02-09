@@ -42,6 +42,10 @@ export default function GameGrid({ games, personIdMap }) {
     return persons;
   }, [games, personIdMap]);
 
+  if (grid.length === 0) {
+    return null;
+  }
+
   return (
     <div
       className={style.GameGrid}
