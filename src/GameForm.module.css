@@ -58,3 +58,9 @@ input.delete {
   grid-column-gap: 8px;
   grid-template-columns: repeat(3, 1fr);
 }
+
+@media screen and (min-width: 600px) {
+  .GameForm input {
+    height: 80px;
+  }
+}
