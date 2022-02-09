@@ -1,6 +1,12 @@
 .GameList {
   display: grid;
   grid-column-gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.GameList .list {
+  display: grid;
+  grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: 3fr repeat(4, 1fr) 3fr 40px;
   font-size: 20px;
@@ -10,4 +16,10 @@
 
 .GameList .winner {
   background-color: var(--gray6);
+}
+
+@media (max-width: 600px) {
+  .GameList {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

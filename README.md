@@ -26,3 +26,4 @@
 - [x] edit/remove game for 1v1
 - [x] make button larger for larger screens
 - [x] supoort zero input
+- [x] bug fix] convert score values into number
