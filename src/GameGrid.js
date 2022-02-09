@@ -49,14 +49,14 @@ export default function GameGrid({ games, personIdMap }) {
         gridTemplateColumns: `1fr 2fr repeat(${grid.length}, 1fr)`,
       }}
     >
-      <div>#</div>
-      <div>이름</div>
+      <div className={style.legend}>#</div>
+      <div className={style.legend}>이름</div>
       {grid.map(({ id }, index) => (
-        <div key={id}>{index + 1}</div>
+        <div key={id} className={style.legend}>{index + 1}</div>
       ))}
       {grid.map(({ id, firstName, result }, p1) => (
         <Fragment key={id}>
-          <div>{p1 + 1}</div>
+          <div className={style.legend}>{p1 + 1}</div>
           <div>{firstName}</div>
           {result.map((res, p2) => {
             const key = `${p1}-${p2}`;

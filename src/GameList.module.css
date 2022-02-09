@@ -6,10 +6,10 @@
 
 .GameList .list {
   display: grid;
+  font-size: 20px;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: 3fr repeat(4, 1fr) 3fr 40px;
-  font-size: 20px;
   line-height: 40px;
   text-align: center;
 }

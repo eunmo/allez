@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] do something about button colors
-- [ ] pool-style summary view
 - [ ] game page for a specific person
 - [ ] spinner for loading
 - [ ] game page for a specific duo
@@ -27,3 +26,4 @@
 - [x] make button larger for larger screens
 - [x] supoort zero input
 - [x] bug fix] convert score values into number
+- [x] pool-style summary view
