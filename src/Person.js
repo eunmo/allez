@@ -23,7 +23,7 @@ function Result({ result: { count, wins, ratio } }) {
   }
   return (
     <div className={`${style.result} mono`}>
-      {pad(ratio)}%{pad(wins)} /{pad(count)}
+      {pad(ratio)}%{pad(count)}전{pad(wins)}승
     </div>
   );
 }
@@ -95,7 +95,6 @@ function PersonLoaded({ games, personIdMap, id }) {
       return p1.name < p2.name ? -1 : 1;
     });
 
-  console.log(byPerson);
   const { firstName, lastName } = personIdMap.get(id);
   return (
     <div>
@@ -103,29 +102,35 @@ function PersonLoaded({ games, personIdMap, id }) {
         {lastName}
         {firstName} 전적
       </div>
-      <div className={style.byPerson}>
-        <div className={style.legend}>상대</div>
-        <div className={style.legend}>전적</div>
-        {byPerson.map((result) => (
-          <Fragment key={result.vs}>
-            <div>{result.name}</div>
-            <Result result={result} />
-          </Fragment>
-        ))}
-      </div>
-      <div className={style.byDate}>
-        <div className={style.legend}>날짜</div>
-        <div className={style.legend}>회원</div>
-        <div className={style.legend}>코치</div>
-        {byDate.map(({ date, member, coach }) => (
-          <Fragment key={date}>
-            <LinkButton size="sm" cn="mono" to={`/game/date/${date}`}>
-              {date.substring(5, 10)}
-            </LinkButton>
-            <Result result={member} />
-            <Result result={coach} />
-          </Fragment>
-        ))}
+      <div className={style.grid}>
+        <div>
+          <div className={style.byPerson}>
+            <div className={style.legend}>상대</div>
+            <div className={style.legend}>전적</div>
+            {byPerson.map((result) => (
+              <Fragment key={result.vs}>
+                <div>{result.name}</div>
+                <Result result={result} />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className={style.byDate}>
+            <div className={style.legend}>날짜</div>
+            <div className={style.legend}>회원</div>
+            <div className={style.legend}>코치</div>
+            {byDate.map(({ date, member, coach }) => (
+              <Fragment key={date}>
+                <LinkButton size="sm" cn="mono" to={`/game/date/${date}`}>
+                  {date.substring(5, 10)}
+                </LinkButton>
+                <Result result={member} />
+                <Result result={coach} />
+              </Fragment>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

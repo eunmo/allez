@@ -1,10 +1,18 @@
+.grid {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: 2fr 3fr;
+}
+
 .byDate {
   display: grid;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: 1fr repeat(2, 2fr);
+  grid-auto-rows: 40px;
   line-height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -12,15 +20,11 @@
   display: grid;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
+  grid-auto-rows: 40px;
   line-height: 40px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
-}
-
-.byDate div,
-.byPerson div {
-  height: 40px;
 }
 
 .legend {
@@ -29,4 +33,14 @@
 
 .result {
   text-align: right;
+}
+
+@media (max-width: 600px) {
+  .GameList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .byPerson {
+    grid-template-columns: 1fr 1fr;
+  }
 }
