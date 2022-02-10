@@ -1,0 +1,32 @@
+.byDate {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: 1fr repeat(2, 2fr);
+  line-height: 40px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.byPerson {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  line-height: 40px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.byDate div,
+.byPerson div {
+  height: 40px;
+}
+
+.legend {
+  background-color: var(--gray6);
+}
+
+.result {
+  text-align: right;
+}

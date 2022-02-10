@@ -10,6 +10,7 @@
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: 3fr repeat(4, 1fr) 3fr 40px;
+  grid-template-rows: 40px;
   line-height: 40px;
   text-align: center;
 }

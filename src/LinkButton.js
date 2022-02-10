@@ -5,11 +5,12 @@ export default function LinkButton({
   children,
   size = 'md',
   style: givenStyle,
+  cn = '',
   to,
 }) {
   return (
     <Link
-      className={`${style.LinkButton} ${style[size]}`}
+      className={`${style.LinkButton} ${style[size]} ${cn}`}
       style={givenStyle}
       to={to}
     >

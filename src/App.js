@@ -11,6 +11,7 @@ import EditPersonList from './EditPersonList';
 import GameDate from './GameDate';
 import Header from './Header';
 import Main from './Main';
+import Person from './Person';
 
 function Layout() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="add" element={<AddPerson />} />
             <Route path="edit/:id" element={<EditPerson />} />
             <Route path="edit/list" element={<EditPersonList />} />
+            <Route path=":id" element={<Person />} />
             <Route index element={<Attendance />} />
           </Route>
           <Route path="game">
