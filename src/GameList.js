@@ -5,7 +5,7 @@ import LinkButton from './LinkButton';
 import { get, toPersonIdMap } from './utils';
 import style from './GameList.module.css';
 
-export default function GameList({ games, children }) {
+export default function GameList({ games, children, today = false }) {
   const [personIdMap, setPersonIdMap] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function GameList({ games, children }) {
     <div className={style.GameList}>
       <div>
         {children}
-        <GameGrid games={games} personIdMap={personIdMap} />
+        <GameGrid games={games} personIdMap={personIdMap} allowEmpty={today} />
         <hr className={style.divider} />
       </div>
       <div className={style.list}>

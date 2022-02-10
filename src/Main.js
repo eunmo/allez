@@ -13,7 +13,7 @@ export default function Main() {
   }, []);
 
   return (
-    <GameList games={games}>
+    <GameList games={games} today>
       <LinkButton size="lg" to="/game/add">
         경기 기록 추가
       </LinkButton>

@@ -2,16 +2,24 @@ import { Fragment, useMemo } from 'react';
 
 import style from './GameGrid.module.css';
 
-export default function GameGrid({ games, personIdMap }) {
+export default function GameGrid({ games, personIdMap, allowEmpty=false }) {
   const grid = useMemo(() => {
-    const personIds = [
-      ...new Set(
-        games.flatMap(({ rounds }) => {
-          const [{ l, r }] = rounds;
-          return [l, r];
-        })
-      ),
-    ].filter((id) => personIdMap.get(id).type !== 'c');
+    function isCoach(id) {
+      return personIdMap.get(id).type === 'c';
+    }
+
+    const personIds = allowEmpty && games.length > 0
+      ? [...personIdMap.values()]
+          .filter(({ type, today }) => today && type !== 'c')
+          .map(({ id }) => id)
+      : [
+          ...new Set(
+            games.flatMap(({ rounds }) => {
+              const [{ l, r }] = rounds;
+              return isCoach(l) || isCoach(r) ? [] : [l, r];
+            })
+          ),
+        ];
 
     const persons = personIds
       .map((id) => ({
@@ -40,7 +48,7 @@ export default function GameGrid({ games, personIdMap }) {
     });
 
     return persons;
-  }, [games, personIdMap]);
+  }, [games, personIdMap, allowEmpty]);
 
   if (grid.length === 0) {
     return null;
