@@ -28,7 +28,7 @@ function Result({ result: { count, wins, ratio } }) {
   );
 }
 
-function PersonLoaded({ games, personIdMap, id }) {
+function ResultByDate({ games, personIdMap, id }) {
   function isCoach(pid) {
     return personIdMap.get(pid).type === 'c';
   }
@@ -63,6 +63,30 @@ function PersonLoaded({ games, personIdMap, id }) {
     coach: calc(coach),
   }));
 
+  return (
+    <div className={style.byDate}>
+      <div className={style.legend}>날짜</div>
+      <div className={style.legend}>회원</div>
+      <div className={style.legend}>코치</div>
+      {byDate.map(({ date, member, coach }) => (
+        <Fragment key={date}>
+          <LinkButton
+            size="sm"
+            cn="mono"
+            to={`/game/date/${date}`}
+            style={{ fontSize: '16px' }}
+          >
+            {date.substring(5, 10)}
+          </LinkButton>
+          <Result result={member} />
+          <Result result={coach} />
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function ResultByOpponent({ games, personIdMap, id }) {
   let byPerson = {};
   games.forEach((game) => {
     game.rounds.forEach(({ l, r, lp, rp }) => {
@@ -95,6 +119,23 @@ function PersonLoaded({ games, personIdMap, id }) {
       return p1.name < p2.name ? -1 : 1;
     });
 
+  return (
+    <div className={style.byPerson}>
+      <div className={style.legend}>상대</div>
+      <div className={style.legend}>전적</div>
+      {byPerson.map((result) => (
+        <Fragment key={result.vs}>
+          <LinkButton size="sm" to={`/person/${result.vs}`}>
+            {result.name}
+          </LinkButton>
+          <Result result={result} />
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function PersonLoaded({ games, personIdMap, id }) {
   const { firstName, lastName } = personIdMap.get(id);
   return (
     <div>
@@ -104,32 +145,10 @@ function PersonLoaded({ games, personIdMap, id }) {
       </div>
       <div className={style.grid}>
         <div>
-          <div className={style.byPerson}>
-            <div className={style.legend}>상대</div>
-            <div className={style.legend}>전적</div>
-            {byPerson.map((result) => (
-              <Fragment key={result.vs}>
-                <div>{result.name}</div>
-                <Result result={result} />
-              </Fragment>
-            ))}
-          </div>
+          <ResultByOpponent games={games} personIdMap={personIdMap} id={id} />
         </div>
         <div>
-          <div className={style.byDate}>
-            <div className={style.legend}>날짜</div>
-            <div className={style.legend}>회원</div>
-            <div className={style.legend}>코치</div>
-            {byDate.map(({ date, member, coach }) => (
-              <Fragment key={date}>
-                <LinkButton size="sm" cn="mono" to={`/game/date/${date}`}>
-                  {date.substring(5, 10)}
-                </LinkButton>
-                <Result result={member} />
-                <Result result={coach} />
-              </Fragment>
-            ))}
-          </div>
+          <ResultByDate games={games} personIdMap={personIdMap} id={id} />
         </div>
       </div>
     </div>
