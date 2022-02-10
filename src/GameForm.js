@@ -80,7 +80,11 @@ function getInputClass(value, target, selected) {
     return style.selectedInput;
   }
 
-  return value ? undefined : style.noInput;
+  if (value === undefined) {
+    return style.noInput;
+  }
+
+  return '';
 }
 
 const steps = ['person1', 'point1', 'point2', 'person2'];
@@ -190,13 +194,13 @@ export default function GameForm({
         />
         <input
           type="button"
-          value={lp || '입력'}
+          value={lp ?? '입력'}
           className={getInputClass(lp, 'point1', step)}
           onClick={() => manualInput('point1')}
         />
         <input
           type="button"
-          value={rp || '입력'}
+          value={rp ?? '입력'}
           className={getInputClass(rp, 'point2', step)}
           onClick={() => manualInput('point2')}
         />
