@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] manually maintain leaderboard/person summary
-- [ ] game page for a specific person (w/ tabs)
 - [ ] spinner for loading
 - [ ] game page for a specific duo
 - [ ] calendar view: change month
@@ -28,3 +27,4 @@
 - [x] bug fix] convert score values into number
 - [x] pool-style summary view
 - [x] do something about button colors
+- [x] game page for a specific person (w/ tabs)

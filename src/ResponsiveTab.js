@@ -17,7 +17,13 @@ function ResponsiveTabSmall({ tabNames, children }) {
     <div className={style.ResponsiveTabsSmall}>
       <div className={style.tabs} style={gridStyle}>
         {tabNames.map((tab, index) => (
-          <button onClick={() => setTabIndex(index)} className={index === tabIndex ? style.selectedTab : style.notSelectedTab}>
+          <button
+            type="button"
+            onClick={() => setTabIndex(index)}
+            className={
+              index === tabIndex ? style.selectedTab : style.notSelectedTab
+            }
+          >
             {tab}
           </button>
         ))}
@@ -27,7 +33,7 @@ function ResponsiveTabSmall({ tabNames, children }) {
   );
 }
 
-function ResponsiveTabLarge({ groups, children }) {
+function ResponsiveTabLarge({ groups, widths, children }) {
   const childrenGroups = new Array(groups.length);
   let sum = 0;
   groups.forEach((group, index) => {
@@ -35,25 +41,28 @@ function ResponsiveTabLarge({ groups, children }) {
     sum += group;
   });
 
-  const gridStyle = { gridTemplateColumns: `repeat(${groups.length}, 1fr)` };
+  const gridStyle = {
+    gridTemplateColumns: widths.map((width) => `${width}fr`).join(' '),
+  };
 
   return (
     <div className={style.ResponsiveTabLarge} style={gridStyle}>
       {childrenGroups.map(({ child, index }) => (
-        <div key={index}>
-          {child}
-        </div>
+        <div key={index}>{child}</div>
       ))}
     </div>
   );
 }
 
-export default function ResponsiveTab({ tabNames, groups, children }) {
+export default function ResponsiveTab({ tabNames, groups, sizes, children }) {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
   const filtered = children.filter((child) => child !== undefined);
+  const widths = sizes ?? groups.map(() => 1);
   return isTabletOrMobile ? (
     <ResponsiveTabSmall tabNames={tabNames}>{filtered}</ResponsiveTabSmall>
   ) : (
-    <ResponsiveTabLarge groups={groups}>{filtered}</ResponsiveTabLarge>
+    <ResponsiveTabLarge groups={groups} widths={widths}>
+      {filtered}
+    </ResponsiveTabLarge>
   );
 }
