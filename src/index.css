@@ -19,6 +19,7 @@
   --large-button-height: 88px;
 }
 
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --red: rgb(255, 59, 48);
@@ -35,6 +36,7 @@
     --text: white;
   }
 }
+*/
 
 body {
   margin: 0;
