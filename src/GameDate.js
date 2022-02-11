@@ -4,6 +4,13 @@ import { useParams } from 'react-router-dom';
 import GameList from './GameList';
 import { get } from './utils';
 
+function formatDate(date) {
+  const m = parseInt(date.substring(5, 7), 10);
+  const d = parseInt(date.substring(8, 10), 10);
+
+  return `${m}월 ${d}일`;
+}
+
 export default function GameDate() {
   const [games, setGames] = useState();
   const { date } = useParams();
@@ -14,7 +21,7 @@ export default function GameDate() {
 
   return (
     <div>
-      <div className="header">{date}</div>
+      <div className="header">{formatDate(date)}</div>
       <div>{games && <GameList games={games} />}</div>
     </div>
   );
