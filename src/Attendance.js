@@ -51,12 +51,6 @@ export default function Attendance() {
       <div className="header">출석체크</div>
       <LinkButton to="/person/edit/list">명부편집</LinkButton>
       <form onSubmit={updateAttendance}>
-        <input
-          type="reset"
-          value="초기화"
-          disabled={came.size === 0}
-          onClick={() => setCame(new Set())}
-        />
         {sections.map(({ code, persons }) => (
           <div key={code}>
             <label>{displayPersonType(code)}</label>
@@ -71,6 +65,12 @@ export default function Attendance() {
             ))}
           </div>
         ))}
+        <input
+          type="reset"
+          value="초기화"
+          disabled={came.size === 0}
+          onClick={() => setCame(new Set())}
+        />
         <input type="submit" value="제출" />
       </form>
     </div>

@@ -21,9 +21,8 @@
 }
 
 .PersonForm input[type=button]:disabled {
-  background-color: var(--green);
-  border-color: var(--green);
-  color: var(--background);
+  background-color: var(--highlight);
+  color: var(--text);
   transition: 0.3s;
 }
 

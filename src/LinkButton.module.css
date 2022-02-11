@@ -1,5 +1,5 @@
 .LinkButton {
-  background-color: var(--gray6);
+  background-color: var(--highlight);
   display: block;
   font-size: 20px;
   height: var(--button-height);

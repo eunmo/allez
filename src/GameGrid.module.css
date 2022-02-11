@@ -12,7 +12,7 @@
 }
 
 .legend {
-  color: var(--gray1);
+  color: var(--light-text);
 }
 
 .black {
@@ -20,7 +20,7 @@
 }
 
 .win {
-  background-color: var(--gray6);
+  background-color: var(--highlight);
 }
 
 .name {
