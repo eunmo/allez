@@ -1,6 +1,5 @@
 :root {
   --red: rgb(255, 59, 48);
-  --green: rgb(52, 199, 89);
   --blue: rgb(0, 122, 255);
 
   --gray1: rgb(142, 142, 147);
@@ -20,6 +19,23 @@
   --large-button-height: 88px;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --red: rgb(255, 59, 48);
+    --blue: rgb(0, 122, 255);
+
+    --gray1: rgb(142, 142, 147);
+    --gray2: rgb(99, 99, 102);
+    --gray3: rgb(72, 72, 74);
+    --gray4: rgb(58, 58, 60);
+    --gray5: rgb(44, 44, 46);
+    --gray6: rgb(28, 28, 30);
+
+    --background: black;
+    --text: white;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -27,6 +43,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 code,

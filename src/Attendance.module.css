@@ -38,7 +38,7 @@
 }
 
 .Attendance input[type="reset"]:not(:disabled) {
-  background-color: var(--lighlight);
+  background-color: var(--highlight);
 }
 
 .Attendance input[type="submit"] {
