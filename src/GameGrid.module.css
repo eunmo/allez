@@ -22,3 +22,7 @@
 .win {
   background-color: var(--gray6);
 }
+
+.name {
+  background-color: var(--background);
+}

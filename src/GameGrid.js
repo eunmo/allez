@@ -1,5 +1,6 @@
 import { Fragment, useMemo } from 'react';
 
+import LinkButton from './LinkButton';
 import style from './GameGrid.module.css';
 
 export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
@@ -72,7 +73,9 @@ export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
       {grid.map(({ id, firstName, result }, p1) => (
         <Fragment key={id}>
           <div className={style.legend}>{p1 + 1}</div>
-          <div>{firstName}</div>
+          <LinkButton size="sm" to={`/person/${id}`} cn={style.name}>
+            {firstName}
+          </LinkButton>
           {result.map((res, p2) => {
             const key = `${p1}-${p2}`;
             if (p1 === p2) {
