@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] do something about button colors
-- [ ] game page for a specific person
+- [ ] game page for a specific person (w/ tabs)
 - [ ] spinner for loading
 - [ ] game page for a specific duo
 - [ ] calendar view: change month

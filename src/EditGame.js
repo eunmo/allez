@@ -33,6 +33,9 @@ export default function AddGame() {
   }
 
   const [{ l, r, lp, rp }] = game.rounds;
+  const todayDate = new Date().toISOString().substring(0, 10);
+  const gameDate = game.time.substring(0, 10);
+  const today = todayDate === gameDate;
 
   return (
     <GameForm
@@ -44,6 +47,7 @@ export default function AddGame() {
       submit={submit}
       deleteCallback={deleteCallback}
       editMode
+      today={today}
     />
   );
 }

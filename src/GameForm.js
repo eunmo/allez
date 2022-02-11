@@ -98,6 +98,7 @@ export default function GameForm({
   editMode = false,
   submit,
   deleteCallback,
+  today = true,
 }) {
   const [persons, setPersons] = useState(null);
   const [l, setL] = useState(defaultL);
@@ -108,8 +109,8 @@ export default function GameForm({
   const [automatic, setAutomatic] = useState(true);
 
   useEffect(() => {
-    get('/api/person/today', setPersons);
-  }, []);
+    get(`/api/person/${today ? 'today' : 'list'}`, setPersons);
+  }, [today]);
 
   useEffect(() => {
     if (editMode) {
