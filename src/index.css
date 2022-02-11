@@ -64,6 +64,10 @@ input[type=text] {
   border: 2px solid var(--border);
 }
 
+input[type="submit"] {
+  text-decoration: none;
+}
+
 input[type="submit"]:not(:disabled) {
   background-color: var(--blue);
   color: var(--background);
