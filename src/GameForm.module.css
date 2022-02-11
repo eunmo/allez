@@ -16,7 +16,7 @@
 }
 
 .noInput {
-  color: var(--gray1);
+  color: var(--light-text);
 }
 
 input.selectedInput {

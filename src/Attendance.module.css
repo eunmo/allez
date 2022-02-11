@@ -20,7 +20,7 @@
 }
 
 .Attendance label {
-  background-color: var(--gray6);
+  background-color: var(--highlight);
   display: block;
   margin-bottom: 8px;
   text-align: center;
@@ -28,7 +28,7 @@
 }
 
 .Attendance input[type="button"].came {
-  background-color: var(--gray6);
+  background-color: var(--highlight);
   transition: 0.3s;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .Attendance input[type="reset"]:not(:disabled) {
-  background-color: var(--gray6);
+  background-color: var(--lighlight);
 }
 
 .Attendance input[type="submit"] {
