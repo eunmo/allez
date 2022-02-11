@@ -37,8 +37,8 @@ export default function GameList({ games, children, today = false }) {
               <div className={lp > rp ? style.winner : ''}>
                 {personIdMap.get(l).firstName}
               </div>
-              <div>{lp}</div>
-              <div>{rp}</div>
+              <div className={lp > rp ? '' : style.loserScore}>{lp}</div>
+              <div className={lp < rp ? '' : style.loserScore}>{rp}</div>
               <div className={lp < rp ? style.winner : ''}>
                 {personIdMap.get(r).firstName}
               </div>
