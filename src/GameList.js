@@ -30,15 +30,14 @@ export default function GameList({ games, children, today = false }) {
       {children}
       <GameGrid games={games} personIdMap={personIdMap} allowEmpty={today} />
       <div className={style.list}>
-        {games.map(({ id, rounds }) =>
+        {games.map(({ id, rounds }, index) =>
           rounds.map(({ l, r, lp, rp }) => (
             <Fragment key={`${id}-${l}-${r}`}>
+              <div className={style.index}>{games.length - index}</div>
               <div className={lp > rp ? style.winner : ''}>
                 {personIdMap.get(l).firstName}
               </div>
               <div>{lp}</div>
-              <div>{lp > rp && 'V'}</div>
-              <div>{lp < rp && 'V'}</div>
               <div>{rp}</div>
               <div className={lp < rp ? style.winner : ''}>
                 {personIdMap.get(r).firstName}
