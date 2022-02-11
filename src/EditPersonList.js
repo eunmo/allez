@@ -19,8 +19,8 @@ export default function EditPersonList() {
 
   return (
     <div className={style.EditPersonList}>
-      <div className="header">명부편집</div>
-      <LinkButton to="/person/add">선수등록</LinkButton>
+      <div className="header">명부 편집</div>
+      <LinkButton to="/person/add">선수 등록</LinkButton>
       <div className={style.grid}>
         {sections.map(({ code, persons }) => (
           <div key={code}>

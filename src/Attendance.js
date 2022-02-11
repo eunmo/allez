@@ -48,8 +48,8 @@ export default function Attendance() {
 
   return (
     <div className={style.Attendance}>
-      <div className="header">출석체크</div>
-      <LinkButton to="/person/edit/list">명부편집</LinkButton>
+      <div className="header">출석 체크</div>
+      <LinkButton to="/person/edit/list">명부 편집</LinkButton>
       <form onSubmit={updateAttendance}>
         {sections.map(({ code, persons }) => (
           <div key={code}>
