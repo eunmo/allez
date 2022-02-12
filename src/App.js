@@ -8,6 +8,7 @@ import DatePicker from './DatePicker';
 import EditIndividualGame from './EditIndividualGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
+import EditTeamGame from './EditTeamGame';
 import GameDate from './GameDate';
 import Main from './Main';
 import Person from './Person';
@@ -47,6 +48,7 @@ export default function App() {
             </Route>
             <Route path="team">
               <Route path="add" element={<AddTeamGame />} />
+              <Route path="edit/:id" element={<EditTeamGame />} />
             </Route>
           </Route>
         </Route>

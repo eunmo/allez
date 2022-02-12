@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { parseValue } from '../utils';
 import style from './PointInput.module.css';
 
 function PointInputValue({ digit, onClick, disabled }) {
@@ -11,10 +12,6 @@ function PointInputValue({ digit, onClick, disabled }) {
       disabled={disabled}
     />
   );
-}
-
-function parseValue(value) {
-  return parseInt(value ?? '0', 10);
 }
 
 export default function PointInput({ value, setValue, onDone }) {

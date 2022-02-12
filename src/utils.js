@@ -51,6 +51,34 @@ function toPersonIdMap(persons) {
   return new Map((persons ?? []).map((person) => [person.id, person]));
 }
 
+const gameOrder = [
+  null,
+  null,
+  [
+    [2, 1, 1, 2],
+    [3, 4, 3, 4],
+  ],
+  [
+    [3, 1, 2, 1, 3, 2, 1, 2, 3],
+    [6, 5, 4, 6, 4, 5, 4, 6, 5],
+  ],
+  [
+    [4, 1, 2, 3, 2, 1, 3, 4, 1, 2, 3, 4],
+    [8, 7, 5, 6, 7, 8, 5, 6, 5, 6, 8, 7],
+  ],
+];
+
+function buildRounds(type, ls, rs) {
+  return gameOrder[type][0].map((left, index) => {
+    const right = gameOrder[type][1][index];
+    return { l: ls[left - 1], r: rs[right - type - 1], lp: 0, rp: 0 };
+  });
+}
+
+function parseValue(value) {
+  return parseInt(value ?? '0', 10);
+}
+
 export {
   get,
   post,
@@ -59,4 +87,7 @@ export {
   displayPersonType,
   groupByPersonType,
   toPersonIdMap,
+  gameOrder,
+  buildRounds,
+  parseValue,
 };

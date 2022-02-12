@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { get, post, toPersonIdMap } from './utils';
+import { get, post, toPersonIdMap, gameOrder, buildRounds } from './utils';
 import { PersonSelect } from './components';
 import style from './AddTeamGame.module.css';
 
@@ -110,23 +110,6 @@ function ChooseTeamMembers({
   );
 }
 
-const gameOrder = [
-  null,
-  null,
-  [
-    [2, 1, 1, 2],
-    [3, 4, 3, 4],
-  ],
-  [
-    [3, 1, 2, 1, 3, 2, 1, 2, 3],
-    [6, 5, 4, 6, 4, 5, 4, 6, 5],
-  ],
-  [
-    [4, 1, 2, 3, 2, 1, 3, 4, 1, 2, 3, 4],
-    [8, 7, 5, 6, 7, 8, 5, 6, 5, 6, 8, 7],
-  ],
-];
-
 function ChooseTeamOrder({
   size,
   side,
@@ -170,17 +153,18 @@ function ChooseTeamOrder({
           <div key={index}>{n}</div>
         ))}
       </div>
-      {[...new Array(size).keys()].map((index) => (
+      {[...new Array(size).keys()].map((row) => (
         /* eslint-disable-next-line react/no-array-index-key */
-        <Fragment key={index}>
-          <div className={style.label}>선수 {size * side + index + 1}</div>
-          {list.map((id) => (
+        <Fragment key={row}>
+          <div className={style.label}>선수 {size * side + row + 1}</div>
+          {list.map((id, col) => (
             <input
-              key={id}
+              /* eslint-disable-next-line react/no-array-index-key */
+              key={`${id}-${row}-${col}`}
               type="button"
               value={idMap.get(id)?.firstName ?? '선택'}
-              className={ordered[index] === id ? style.selected : ''}
-              onClick={() => setOrder(id, index)}
+              className={ordered[row] === id ? style.selected : ''}
+              onClick={() => setOrder(id, row)}
             />
           ))}
         </Fragment>
@@ -218,7 +202,8 @@ export default function AddTeamGame() {
     if (step < 2) {
       setStep(step + 1);
     } else {
-      const game = { type: size, ls, rs, rounds: [] };
+      const rounds = buildRounds(size, ls, rs);
+      const game = { type: size, ls, rs, rounds };
       post('/api/crud/game', { game }, () => {
         navigate('/');
       });

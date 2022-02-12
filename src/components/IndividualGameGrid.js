@@ -1,7 +1,7 @@
 import { Fragment, useMemo } from 'react';
 
 import LinkButton from './LinkButton';
-import style from './GameGrid.module.css';
+import style from './IndividualGameGrid.module.css';
 
 export default function GameGrid({ games, idMap, allowEmpty = false }) {
   const grid = useMemo(() => {

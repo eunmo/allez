@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { get, toPersonIdMap } from '../utils';
+import { get, toPersonIdMap, parseValue } from '../utils';
 import PersonSelect from './PersonSelect';
 import PointInput from './PointInput';
 import style from './IndividualGameForm.module.css';
