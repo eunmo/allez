@@ -78,7 +78,7 @@ function ChooseTeamMembers({
         ['팀 2', rs],
       ].map(([teamName, list], teamIndex) => (
         <Fragment key={teamName}>
-          <label className={style.label}>{teamName}</label>
+          <label className={`${style.label} ${style.teamName}`}>{teamName}</label>
           {list.map((id, index) => (
             <input
               /* eslint-disable-next-line react/no-array-index-key */
@@ -88,7 +88,7 @@ function ChooseTeamMembers({
               className={
                 teamIndex * size + index === step ? style.selected : ''
               }
-              onClick={() => {}}
+              onClick={() => setStep(teamIndex * size + index)}
             />
           ))}
         </Fragment>
@@ -143,7 +143,7 @@ function ChooseTeamOrder({
 
   return (
     <form className={style.ChooseTeamOrder}>
-      <div className={style.gameOrderLabel}>경기 순서</div>
+      <div className={style.gameOrderLabel}>순서</div>
       <div className={style.gameOrder}>
         {gameOrder[size][side].map((n, index) => (
           /* eslint-disable-next-line react/no-array-index-key */

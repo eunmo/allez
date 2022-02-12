@@ -132,13 +132,13 @@ export default function EditTeamGame() {
             <div className={style.text}>{perRound[index][0]}</div>
             <input
               type="button"
-              value={lp ?? '입력'}
+              value={lp}
               className={getInputClass(lp, [index, 'lp'], selected)}
               onClick={() => toggle(index, 'lp')}
             />
             <input
               type="button"
-              value={rp ?? '입력'}
+              value={rp}
               className={getInputClass(rp, [index, 'rp'], selected)}
               onClick={() => toggle(index, 'rp')}
             />

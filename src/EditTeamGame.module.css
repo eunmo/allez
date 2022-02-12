@@ -23,7 +23,7 @@ input.selectedInput {
   grid-column: span 6;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 601px) {
   .text {
     height: 80px;
     line-height: 80px;
