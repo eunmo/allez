@@ -4,16 +4,18 @@ import { get, toPersonIdMap } from '../utils';
 import GameGrid from './GameGrid';
 import LinkButton from './LinkButton';
 import ResponsiveTabs from './ResponsiveTabs';
+import Score from './Score';
+import TeamGames from './TeamGames';
 import style from './GameList.module.css';
 
 export default function GameList({ games, children, today = false }) {
-  const [personIdMap, setPersonIdMap] = useState(null);
+  const [idMap, setIdMap] = useState(null);
 
   useEffect(() => {
-    get('/api/person/list', (data) => setPersonIdMap(toPersonIdMap(data)));
+    get('/api/person/list', (data) => setIdMap(toPersonIdMap(data)));
   }, []);
 
-  if (games === undefined || personIdMap === null) {
+  if (games === undefined || idMap === null) {
     return null; // TODO: spinner
   }
 
@@ -28,19 +30,22 @@ export default function GameList({ games, children, today = false }) {
   return (
     <ResponsiveTabs tabNames={tabNames} groups={groups}>
       {children && <div>{children}</div>}
-      <GameGrid games={games} personIdMap={personIdMap} allowEmpty={today} />
+      <div>
+        <GameGrid games={games} idMap={idMap} allowEmpty={today} />
+        <TeamGames games={games} idMap={idMap} />
+      </div>
       <div className={style.list}>
         {games.map(({ id, rounds }, index) =>
           rounds.map(({ l, r, lp, rp }) => (
             <Fragment key={`${id}-${l}-${r}`}>
-              <div className={style.index}>{games.length - index}</div>
-              <div className={lp > rp ? style.winner : ''}>
-                {personIdMap.get(l).firstName}
+              <div className="light-text">{games.length - index}</div>
+              <div className={lp > rp ? 'highlight' : ''}>
+                {idMap.get(l).firstName}
               </div>
-              <div className={lp > rp ? '' : style.loserScore}>{lp}</div>
-              <div className={lp < rp ? '' : style.loserScore}>{rp}</div>
-              <div className={lp < rp ? style.winner : ''}>
-                {personIdMap.get(r).firstName}
+              <Score scores={[lp, rp]} />
+              <Score scores={[rp, lp]} />
+              <div className={lp < rp ? 'highlight' : ''}>
+                {idMap.get(r).firstName}
               </div>
               <LinkButton
                 size="sm"

@@ -1,6 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { get, toPersonIdMap } from './utils';
+import { get, post, toPersonIdMap } from './utils';
 import { PersonSelect } from './components';
 import style from './AddTeamGame.module.css';
 
@@ -200,6 +201,7 @@ export default function AddTeamGame() {
   const [ls, setLs] = useState(new Array(defaultSize).fill(null));
   const [rs, setRs] = useState(new Array(defaultSize).fill(null));
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     get('/api/person/today', setPersons);
@@ -213,8 +215,15 @@ export default function AddTeamGame() {
   const idMap = useMemo(() => toPersonIdMap(persons), [persons]);
 
   const next = useCallback(() => {
-    setStep(step + 1);
-  }, [step]);
+    if (step < 2) {
+      setStep(step + 1);
+    } else {
+      const game = { type: size, ls, rs, rounds: [] };
+      post('/api/crud/game', { game }, () => {
+        navigate('/');
+      });
+    }
+  }, [step, size, ls, rs, navigate]);
 
   if (persons === undefined) {
     return null;

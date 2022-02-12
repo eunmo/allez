@@ -112,3 +112,11 @@ a:active {
   color: var(--blue);
   text-decoration: none;
 }
+
+.light-text {
+  color: var(--light-text);
+}
+
+.highlight {
+  background-color: var(--highlight);
+}

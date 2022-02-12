@@ -1,0 +1,28 @@
+.TeamGames {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  grid-template-columns: 40px 2fr 1fr 1fr 2fr 40px;
+  text-align: center;
+}
+
+.TeamGames div {
+  height: 88px;
+  line-height: 88px;
+}
+
+.members,
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.members div {
+  height: 20px;
+  line-height: 20px;
+}
+
+.loserScore {
+  color: var(--light-text);
+}

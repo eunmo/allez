@@ -7,15 +7,3 @@
   line-height: 40px;
   text-align: center;
 }
-
-.winner {
-  background-color: var(--highlight);
-}
-
-.index {
-  color: var(--light-text);
-}
-
-.loserScore {
-  color: var(--light-text);
-}

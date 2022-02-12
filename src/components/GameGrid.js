@@ -3,20 +3,22 @@ import { Fragment, useMemo } from 'react';
 import LinkButton from './LinkButton';
 import style from './GameGrid.module.css';
 
-export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
+export default function GameGrid({ games, idMap, allowEmpty = false }) {
   const grid = useMemo(() => {
     function isCoach(id) {
-      return personIdMap.get(id).type === 'c';
+      return idMap.get(id).type === 'c';
     }
 
+    const individualGames = games.filter(({ type }) => type === 1);
+
     const personIds =
-      allowEmpty && games.length > 0
-        ? [...personIdMap.values()]
+      allowEmpty && individualGames.length > 0
+        ? [...idMap.values()]
             .filter(({ type, today }) => today && type !== 'c')
             .map(({ id }) => id)
         : [
             ...new Set(
-              games.flatMap(({ rounds }) => {
+              individualGames.flatMap(({ rounds }) => {
                 const [{ l, r }] = rounds;
                 return isCoach(l) || isCoach(r) ? [] : [l, r];
               })
@@ -25,7 +27,7 @@ export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
 
     const persons = personIds
       .map((id) => ({
-        ...personIdMap.get(id),
+        ...idMap.get(id),
         result: new Array(personIds.length).fill(null),
       }))
       .sort((p1, p2) => (p1.firstName < p2.firstName ? -1 : 1));
@@ -34,7 +36,7 @@ export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
       persons.map((person, index) => [person.id, index])
     );
 
-    [...games].reverse().forEach(({ rounds }) => {
+    [...individualGames].reverse().forEach(({ rounds }) => {
       const [{ l, r, lp, rp }] = rounds;
       if (reducedMap.has(l) && reducedMap.has(r)) {
         const li = reducedMap.get(l);
@@ -50,7 +52,7 @@ export default function GameGrid({ games, personIdMap, allowEmpty = false }) {
     });
 
     return persons;
-  }, [games, personIdMap, allowEmpty]);
+  }, [games, idMap, allowEmpty]);
 
   if (grid.length === 0) {
     return null;
