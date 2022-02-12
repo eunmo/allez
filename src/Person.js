@@ -1,8 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import LinkButton from './LinkButton';
-import ResponsiveTabs from './ResponsiveTabs';
+import { LinkButton, ResponsiveTabs } from './components';
 import { get, toPersonIdMap } from './utils';
 import style from './Person.module.css';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import LinkButton from './LinkButton';
+import { LinkButton } from './components';
 import { get } from './utils';
 import style from './DatePicker.module.css';
 

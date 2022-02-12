@@ -1,5 +1,4 @@
 import { BrowserRouter, Outlet, Routes, Route } from 'react-router-dom';
-import style from './App.module.css';
 
 import AddGame from './AddGame';
 import AddPerson from './AddPerson';
@@ -9,9 +8,10 @@ import EditGame from './EditGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import GameDate from './GameDate';
-import Header from './Header';
 import Main from './Main';
 import Person from './Person';
+import { Header } from './components';
+import style from './App.module.css';
 
 function Layout() {
   return (

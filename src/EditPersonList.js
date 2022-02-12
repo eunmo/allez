@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import LinkButton from './LinkButton';
+import { LinkButton } from './components';
 import { get, groupByPersonType } from './utils';
 import style from './EditPersonList.module.css';
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { displayPersonType, get, groupByPersonType } from './utils';
+
+import { displayPersonType, get, groupByPersonType } from '../utils';
 import style from './GameForm.module.css';
 
 function PersonSelect({ sections, onClick }) {

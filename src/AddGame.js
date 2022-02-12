@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import GameForm from './GameForm';
+import { GameForm } from './components';
 import { post } from './utils';
 
 export default function AddGame() {

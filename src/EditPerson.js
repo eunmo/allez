@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import PersonForm from './PersonForm';
+import { PersonForm } from './components';
 import { get, put } from './utils';
 
 export default function EditPerson() {

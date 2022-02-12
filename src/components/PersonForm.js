@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { displayPersonType } from './utils';
+
+import { displayPersonType } from '../utils';
 import style from './PersonForm.module.css';
 
 export default function PersonForm({ data, onSubmit, title }) {

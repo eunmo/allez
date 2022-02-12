@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useState } from 'react';
 
+import { get, toPersonIdMap } from '../utils';
 import GameGrid from './GameGrid';
 import LinkButton from './LinkButton';
 import ResponsiveTabs from './ResponsiveTabs';
-import { get, toPersonIdMap } from './utils';
 import style from './GameList.module.css';
 
 export default function GameList({ games, children, today = false }) {

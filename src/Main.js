@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import GameList from './GameList';
-import LinkButton from './LinkButton';
+import { GameList, LinkButton } from './components';
 import { get } from './utils';
 
 function Menu() {

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import PersonForm from './PersonForm';
+import { PersonForm } from './components';
 import { post } from './utils';
 
 export default function AddPerson() {

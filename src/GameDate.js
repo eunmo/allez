@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import GameList from './GameList';
+import { GameList } from './components';
 import { get } from './utils';
 
 function formatDate(date) {
