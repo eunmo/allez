@@ -36,8 +36,9 @@ function ResponsiveTabsSmall({ tabNames, children }) {
 function ResponsiveTabsLarge({ groups, widths, children }) {
   const childrenGroups = new Array(groups.length);
   let sum = 0;
+  const childArray = Children.toArray(children);
   groups.forEach((group, index) => {
-    childrenGroups[index] = { child: children.slice(sum, sum + group), index };
+    childrenGroups[index] = { child: childArray.slice(sum, sum + group), index };
     sum += group;
   });
 
