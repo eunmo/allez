@@ -57,13 +57,16 @@ export default function EditTeamGame() {
     });
   }, [navigate, id]);
 
-  const toggle = useCallback((index, side) => {
-    if (index === selected?.[0] && side === selected?.[1]) {
-      setSelected();
-    } else {
-      setSelected([index, side]);
-    }
-  }, [selected]);
+  const toggle = useCallback(
+    (index, side) => {
+      if (index === selected?.[0] && side === selected?.[1]) {
+        setSelected();
+      } else {
+        setSelected([index, side]);
+      }
+    },
+    [selected]
+  );
 
   const setPoint = useCallback(
     (value) => {
@@ -109,7 +112,9 @@ export default function EditTeamGame() {
   }
 
   const { rounds } = game;
-  const done = rounds.every(({ lp, rp }) => lp !== undefined && rp !== undefined);
+  const done = rounds.every(
+    ({ lp, rp }) => lp !== undefined && rp !== undefined
+  );
 
   return (
     <div className={style.EditTeamGame}>
