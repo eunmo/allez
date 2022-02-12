@@ -78,6 +78,7 @@ button {
   font-size: 20px;
   height: var(--button-height);
   margin: 0;
+  padding: 0;
   -webkit-appearance: none;
 }
 

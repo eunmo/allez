@@ -78,7 +78,7 @@ function ChooseTeamMembers({
         ['팀 2', rs],
       ].map(([teamName, list], teamIndex) => (
         <Fragment key={teamName}>
-          <label className={`${style.label} ${style.teamName}`}>
+          <label className={style.label}>
             {teamName}
           </label>
           {list.map((id, index) => (
