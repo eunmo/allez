@@ -95,9 +95,12 @@ input[type="submit"]:not(:disabled) {
   color: var(--background);
 }
 
+input:disabled {
+  color: var(--light-text);
+}
+
 input[type="submit"]:disabled {
   background-color: var(--highlight);
-  color: var(--light-text);
 }
 
 input[type="button"] {

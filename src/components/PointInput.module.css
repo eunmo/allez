@@ -1,0 +1,13 @@
+.PointInput {
+  display: grid;
+  grid-column: span 4;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.PointInput input {
+  display: block;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
