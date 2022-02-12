@@ -2,6 +2,7 @@ import { BrowserRouter, Outlet, Routes, Route } from 'react-router-dom';
 
 import AddIndividualGame from './AddIndividualGame';
 import AddPerson from './AddPerson';
+import AddTeamGame from './AddTeamGame';
 import Attendance from './Attendance';
 import DatePicker from './DatePicker';
 import EditIndividualGame from './EditIndividualGame';
@@ -43,6 +44,9 @@ export default function App() {
             <Route path="individual">
               <Route path="add" element={<AddIndividualGame />} />
               <Route path="edit/:id" element={<EditIndividualGame />} />
+            </Route>
+            <Route path="team">
+              <Route path="add" element={<AddTeamGame />} />
             </Route>
           </Route>
         </Route>

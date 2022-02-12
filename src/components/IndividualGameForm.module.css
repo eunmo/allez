@@ -36,15 +36,10 @@ input.delete {
   grid-column: span 4;
 }
 
-.PersonSelect {
-  display: grid;
+.personSelect {
   grid-column: span 4;
-  grid-column-gap: 8px;
-  grid-template-columns: repeat(3, 1fr);
 }
 
-.PersonSelect input,
-.PersonSelect label,
 .PointInput input,
 .PointInput label {
   display: block;

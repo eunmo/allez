@@ -1,27 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { displayPersonType, get, groupByPersonType } from '../utils';
+import { get, toPersonIdMap } from '../utils';
+import PersonSelect from './PersonSelect';
 import style from './IndividualGameForm.module.css';
-
-function PersonSelect({ sections, onClick }) {
-  return (
-    <div className={style.PersonSelect}>
-      {sections.map(({ code, persons }) => (
-        <div key={code}>
-          <label>{displayPersonType(code)}</label>
-          {persons.map(({ firstName, id }) => (
-            <input
-              type="button"
-              key={id}
-              value={firstName}
-              onClick={() => onClick(id)}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function PointInputValue({ digit, onClick, disabled }) {
   return (
@@ -101,7 +82,7 @@ export default function IndividualGameForm({
   deleteCallback,
   today = true,
 }) {
-  const [persons, setPersons] = useState(null);
+  const [persons, setPersons] = useState();
   const [l, setL] = useState(defaultL);
   const [r, setR] = useState(defaultR);
   const [lp, setLp] = useState(defaultLp);
@@ -123,11 +104,7 @@ export default function IndividualGameForm({
     }
   }, [editMode]);
 
-  const sections = useMemo(() => groupByPersonType(persons), [persons]);
-  const idMap = useMemo(
-    () => new Map((persons ?? []).map(({ id, firstName }) => [id, firstName])),
-    [persons]
-  );
+  const idMap = useMemo(() => toPersonIdMap(persons), [persons]);
 
   const onSubmit = useCallback(
     (event) => {
@@ -190,7 +167,7 @@ export default function IndividualGameForm({
         <label>선수 2</label>
         <input
           type="button"
-          value={idMap.get(l) ?? '선택'}
+          value={idMap.get(l)?.firstName ?? '선택'}
           className={getInputClass(l, 'person1', step)}
           onClick={() => manualInput('person1')}
         />
@@ -208,13 +185,14 @@ export default function IndividualGameForm({
         />
         <input
           type="button"
-          value={idMap.get(r) ?? '선택'}
+          value={idMap.get(r)?.firstName ?? '선택'}
           className={getInputClass(r, 'person2', step)}
           onClick={() => manualInput('person2')}
         />
         {['person1', 'person2'].includes(step) && (
           <PersonSelect
-            sections={sections}
+            persons={persons}
+            cn={style.personSelect}
             onClick={(id) => selectPerson(step, id)}
           />
         )}

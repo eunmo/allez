@@ -1,0 +1,66 @@
+.AddTeamGame,
+.AddTeamGame input {
+  font-size: 20px;
+}
+
+.ChooseTeamMembers,
+.ChooseTeamOrder {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 8px;
+  text-align: center;
+}
+
+.label {
+  grid-column-start: 1;
+  text-align: center;
+}
+
+.AddTeamGame input[type=button]:disabled {
+  background-color: var(--highlight);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+.ChooseTeamMembers input[type=submit],
+.ChooseTeamOrder input[type=submit] {
+  grid-column: span 5;
+}
+
+input.selected {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: var(--background);
+}
+
+.personSelect {
+  grid-column: 1 / 6;
+}
+
+.gameOrder {
+  grid-column: span 4;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.gameOrderLabel {
+  background-color: var(--highlight);
+}
+
+.gameOrderLabel,
+.gameOrder div {
+  height: var(--button-height);
+  line-height: var(--button-height);
+}
+
+@media screen and (min-width: 600px) {
+  .AddTeamGame input {
+    height: 88px;
+  }
+
+  .label {
+    height: 88px;
+    line-height: 88px;
+  }
+}

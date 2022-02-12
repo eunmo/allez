@@ -26,7 +26,7 @@ export default function PersonForm({ data, onSubmit, title }) {
 
   return (
     <div className={style.PersonForm}>
-      <div className="header">선수{title}</div>
+      <div className="header">선수 {title}</div>
       <form onSubmit={onSubmitCallback}>
         <label>성</label>
         <input

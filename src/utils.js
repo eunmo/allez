@@ -37,11 +37,7 @@ function personCmp(a, b) {
 }
 
 function groupByPersonType(persons) {
-  if (persons === null) {
-    return [];
-  }
-
-  const codeSet = new Set(persons.map(({ type }) => type));
+  const codeSet = new Set((persons ?? []).map(({ type }) => type));
   const codes = [...codeSet].sort();
 
   function getGroup(code) {
@@ -52,7 +48,7 @@ function groupByPersonType(persons) {
 }
 
 function toPersonIdMap(persons) {
-  return new Map(persons.map((person) => [person.id, person]));
+  return new Map((persons ?? []).map((person) => [person.id, person]));
 }
 
 export {
