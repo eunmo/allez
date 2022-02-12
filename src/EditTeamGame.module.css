@@ -1,12 +1,16 @@
 .EditTeamGame form {
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   grid-row-gap: 8px;
   text-align: center;
 }
 
-.text {
+.EditTeamGame label.header {
+  background-color: var(--highlight);
+}
+
+.EditTeamGame label {
   height: var(--button-height);
   line-height: var(--button-height);
 }
@@ -20,16 +24,40 @@ input.selectedInput {
 .pointInput,
 .EditTeamGame input[type="submit"],
 .delete {
-  grid-column: span 6;
+  grid-column: span 7;
 }
 
 @media screen and (min-width: 601px) {
-  .text {
-    height: 80px;
-    line-height: 80px;
+  .EditTeamGame label {
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .EditTeamGame label.header {
+    height: var(--button-height);
+    line-height: var(--button-height);
   }
 
   .EditTeamGame input {
-    height: 80px;
+    height: 60px;
+    line-height: 56px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .EditTeamGame,
+  .EditTeamGame input,
+  .EditTeamGame label {
+    font-size: 16px;
+  }
+
+  .EditTeamGame label {
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .EditTeamGame input {
+    height: 30px;
+    line-height: 26px;
   }
 }

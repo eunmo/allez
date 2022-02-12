@@ -6,10 +6,6 @@
 - [ ] calendar view: change month
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
-- [ ] 2v2 3v3 4v4 adjustments:
-  - make text smaller on small screens
-  - add target point
-  - make point input appear right next to the input row
 
 # Done
 

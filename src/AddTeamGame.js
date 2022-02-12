@@ -70,6 +70,7 @@ function ChooseTeamMembers({
           key={n}
           value={n}
           onClick={() => setSize(n)}
+          style={{ gridColumnStart: n + 1 }}
           disabled={size === n}
         />
       ))}

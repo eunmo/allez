@@ -120,30 +120,32 @@ export default function EditTeamGame() {
     <div className={style.EditTeamGame}>
       <div className="header">단체전 진행</div>
       <form onSubmit={submit}>
-        <label className="highlight">선수</label>
-        <label className="highlight">소계</label>
-        <label className="highlight">누계</label>
-        <label className="highlight">누계</label>
-        <label className="highlight">소계</label>
-        <label className="highlight">선수</label>
+        <label className={style.header}>선수</label>
+        <label className={style.header}>소계</label>
+        <label className={style.header}>누계</label>
+        <label className={style.header}>득점</label>
+        <label className={style.header}>누계</label>
+        <label className={style.header}>소계</label>
+        <label className={style.header}>선수</label>
         {rounds.map(({ l, r, lp, rp }, index) => (
           <Fragment key={`${l}-${r}`}>
-            <div className={style.text}>{idMap.get(l).firstName}</div>
-            <div className={style.text}>{perRound[index][0]}</div>
+            <label>{idMap.get(l).firstName}</label>
+            <label className="light-text">{perRound[index][0]}</label>
             <input
               type="button"
               value={lp ?? '입력'}
               className={getInputClass(lp, [index, 'lp'], selected)}
               onClick={() => toggle(index, 'lp')}
             />
+            <label className="light-text">{index * 5 + 5}</label>
             <input
               type="button"
               value={rp ?? '입력'}
               className={getInputClass(rp, [index, 'rp'], selected)}
               onClick={() => toggle(index, 'rp')}
             />
-            <div className={style.text}>{perRound[index][1]}</div>
-            <div className={style.text}>{idMap.get(r).firstName}</div>
+            <label className="light-text">{perRound[index][1]}</label>
+            <label>{idMap.get(r).firstName}</label>
           </Fragment>
         ))}
         {selected && (
