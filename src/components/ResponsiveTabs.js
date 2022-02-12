@@ -18,6 +18,7 @@ function ResponsiveTabsSmall({ tabNames, children }) {
       <div className={style.tabs} style={gridStyle}>
         {tabNames.map((tab, index) => (
           <button
+            key={tab}
             type="button"
             onClick={() => setTabIndex(index)}
             className={

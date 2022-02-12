@@ -4,6 +4,7 @@ import IndividualGameForm from './IndividualGameForm';
 import LinkButton from './LinkButton';
 import PersonForm from './PersonForm';
 import PersonSelect from './PersonSelect';
+import PointInput from './PointInput';
 import ResponsiveTabs from './ResponsiveTabs';
 
 export {
@@ -13,5 +14,6 @@ export {
   LinkButton,
   PersonForm,
   PersonSelect,
+  PointInput,
   ResponsiveTabs,
 };

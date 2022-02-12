@@ -14,7 +14,7 @@ function PointInputValue({ digit, onClick, disabled }) {
   );
 }
 
-export default function PointInput({ value, setValue, onDone }) {
+export default function PointInput({ value, setValue, onDone = () => {} }) {
   const onClickDigit = useCallback(
     (digit) => {
       setValue(`${parseValue(value) * 10 + parseValue(digit)}`);

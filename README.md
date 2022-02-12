@@ -4,8 +4,8 @@
 - [ ] spinner for loading
 - [ ] game page for a specific duo
 - [ ] calendar view: change month
-- [ ] add game page for 2v2 3v3 4v4 and tournaments
-- [ ] edit/remove game for 2v2 3v3 4v4 and tournaments
+- [ ] add game page for tournaments
+- [ ] edit/remove game for tournaments
 
 # Done
 
@@ -28,3 +28,5 @@
 - [x] pool-style summary view
 - [x] do something about button colors
 - [x] game page for a specific person (w/ tabs)
+- [x] add game page for 2v2 3v3 4v4 and tournaments
+- [x] edit/remove game for 2v2 3v3 4v4 and tournaments

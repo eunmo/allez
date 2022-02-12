@@ -27,11 +27,9 @@ input.delete {
   grid-column: span 4;
 }
 
-.IndividualGameForm input[type=submit] {
-  grid-column: span 4;
-}
-
-.personSelect {
+.IndividualGameForm input[type=submit],
+.personSelect,
+.pointInput {
   grid-column: span 4;
 }
 

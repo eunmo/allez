@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { get, toPersonIdMap, parseValue } from '../utils';
+import { get, toPersonIdMap, parseRounds } from '../utils';
 import PersonSelect from './PersonSelect';
 import PointInput from './PointInput';
 import style from './IndividualGameForm.module.css';
@@ -57,8 +57,7 @@ export default function IndividualGameForm({
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      const [lpi, rpi] = [lp, rp].map(parseValue);
-      const rounds = [{ l, r, lp: lpi, rp: rpi }];
+      const rounds = parseRounds([{ l, r, lp, rp }]);
       const game = { type: 1, ls: [l], rs: [r], rounds };
       submit(game);
     },
@@ -145,11 +144,13 @@ export default function IndividualGameForm({
           />
         )}
         {['point1', 'point2'].includes(step) && (
-          <PointInput
-            value={step === 'point1' ? lp : rp}
-            setValue={step === 'point1' ? setLp : setRp}
-            onDone={automatic ? next : () => {}}
-          />
+          <div className={style.pointInput}>
+            <PointInput
+              value={step === 'point1' ? lp : rp}
+              setValue={step === 'point1' ? setLp : setRp}
+              onDone={automatic ? next : () => {}}
+            />
+          </div>
         )}
         <input
           type="submit"

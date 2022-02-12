@@ -79,6 +79,15 @@ function parseValue(value) {
   return parseInt(value ?? '0', 10);
 }
 
+function parseRounds(rounds) {
+  return rounds.map(({ l, r, lp, rp }) => ({
+    l,
+    r,
+    lp: parseValue(lp),
+    rp: parseValue(rp),
+  }));
+}
+
 export {
   get,
   post,
@@ -90,4 +99,5 @@ export {
   gameOrder,
   buildRounds,
   parseValue,
+  parseRounds,
 };

@@ -139,7 +139,7 @@ export default function Person() {
   }, []);
 
   if (games === undefined || idMap === null) {
-    return null;
+    return null; // TODO: spinner
   }
 
   return <PersonLoaded games={games} idMap={idMap} id={parseInt(id, 10)} />;
