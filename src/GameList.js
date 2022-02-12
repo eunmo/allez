@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 
 import GameGrid from './GameGrid';
 import LinkButton from './LinkButton';
-import ResponsiveTab from './ResponsiveTab';
+import ResponsiveTabs from './ResponsiveTabs';
 import { get, toPersonIdMap } from './utils';
 import style from './GameList.module.css';
 
@@ -26,8 +26,8 @@ export default function GameList({ games, children, today = false }) {
   }
 
   return (
-    <ResponsiveTab tabNames={tabNames} groups={groups}>
-      {children}
+    <ResponsiveTabs tabNames={tabNames} groups={groups}>
+      {children && <div>{children}</div>}
       <GameGrid games={games} personIdMap={personIdMap} allowEmpty={today} />
       <div className={style.list}>
         {games.map(({ id, rounds }, index) =>
@@ -53,6 +53,6 @@ export default function GameList({ games, children, today = false }) {
           ))
         )}
       </div>
-    </ResponsiveTab>
+    </ResponsiveTabs>
   );
 }

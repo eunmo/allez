@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { Children, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import style from './ResponsiveTab.module.css';
+import style from './ResponsiveTabs.module.css';
 
-function ResponsiveTabSmall({ tabNames, children }) {
+function ResponsiveTabsSmall({ tabNames, children }) {
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
     setTabIndex(0);
   }, [tabNames, children]);
 
-  const child = children[tabIndex];
+  const child = Children.toArray(children)[tabIndex];
   const gridStyle = { gridTemplateColumns: `repeat(${tabNames.length}, 1fr)` };
 
   return (
@@ -33,7 +33,7 @@ function ResponsiveTabSmall({ tabNames, children }) {
   );
 }
 
-function ResponsiveTabLarge({ groups, widths, children }) {
+function ResponsiveTabsLarge({ groups, widths, children }) {
   const childrenGroups = new Array(groups.length);
   let sum = 0;
   groups.forEach((group, index) => {
@@ -46,7 +46,7 @@ function ResponsiveTabLarge({ groups, widths, children }) {
   };
 
   return (
-    <div className={style.ResponsiveTabLarge} style={gridStyle}>
+    <div className={style.ResponsiveTabsLarge} style={gridStyle}>
       {childrenGroups.map(({ child, index }) => (
         <div key={index}>{child}</div>
       ))}
@@ -54,15 +54,15 @@ function ResponsiveTabLarge({ groups, widths, children }) {
   );
 }
 
-export default function ResponsiveTab({ tabNames, groups, sizes, children }) {
+export default function ResponsiveTabs({ tabNames, groups, sizes, children }) {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
   const filtered = children.filter((child) => child !== undefined);
   const widths = sizes ?? groups.map(() => 1);
   return isTabletOrMobile ? (
-    <ResponsiveTabSmall tabNames={tabNames}>{filtered}</ResponsiveTabSmall>
+    <ResponsiveTabsSmall tabNames={tabNames}>{filtered}</ResponsiveTabsSmall>
   ) : (
-    <ResponsiveTabLarge groups={groups} widths={widths}>
+    <ResponsiveTabsLarge groups={groups} widths={widths}>
       {filtered}
-    </ResponsiveTabLarge>
+    </ResponsiveTabsLarge>
   );
 }

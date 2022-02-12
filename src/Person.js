@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import LinkButton from './LinkButton';
-import ResponsiveTab from './ResponsiveTab';
+import ResponsiveTabs from './ResponsiveTabs';
 import { get, toPersonIdMap } from './utils';
 import style from './Person.module.css';
 
@@ -144,14 +144,14 @@ function PersonLoaded({ games, personIdMap, id }) {
         {lastName}
         {firstName} 전적
       </div>
-      <ResponsiveTab
+      <ResponsiveTabs
         tabNames={['상대별', '날짜별']}
         groups={[1, 1]}
         sizes={[3, 5]}
       >
         <ResultByOpponent games={games} personIdMap={personIdMap} id={id} />
         <ResultByDate games={games} personIdMap={personIdMap} id={id} />
-      </ResponsiveTab>
+      </ResponsiveTabs>
     </div>
   );
 }
