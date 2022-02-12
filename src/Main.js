@@ -6,8 +6,11 @@ import { get } from './utils';
 function Menu() {
   return (
     <>
-      <LinkButton size="lg" to="/game/add">
-        경기 기록 추가
+      <LinkButton size="lg" to="/game/individual/add">
+        개인전 기록
+      </LinkButton>
+      <LinkButton size="lg" to="/game/team/add">
+        단체전 시작
       </LinkButton>
       <LinkButton to="/game/calendar">과거 기록 열람</LinkButton>
       <LinkButton to="/person">출석 체크</LinkButton>

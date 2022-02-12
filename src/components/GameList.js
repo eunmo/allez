@@ -44,7 +44,7 @@ export default function GameList({ games, children, today = false }) {
               </div>
               <LinkButton
                 size="sm"
-                to={`/game/edit/${id}`}
+                to={`/game/individual/edit/${id}`}
                 style={{ borderRadius: '20px' }}
               >
                 <b>︙</b>

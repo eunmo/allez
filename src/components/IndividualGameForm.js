@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { displayPersonType, get, groupByPersonType } from '../utils';
-import style from './GameForm.module.css';
+import style from './IndividualGameForm.module.css';
 
 function PersonSelect({ sections, onClick }) {
   return (
@@ -90,7 +90,7 @@ function getInputClass(value, target, selected) {
 
 const steps = ['person1', 'point1', 'point2', 'person2'];
 
-export default function GameForm({
+export default function IndividualGameForm({
   title,
   l: defaultL,
   r: defaultR,
@@ -181,7 +181,7 @@ export default function GameForm({
   }
 
   return (
-    <div className={style.GameForm}>
+    <div className={style.IndividualGameForm}>
       <div className="header">{title}</div>
       <form onSubmit={onSubmit}>
         <label>선수 1</label>
@@ -225,7 +225,11 @@ export default function GameForm({
             onDone={automatic ? next : () => {}}
           />
         )}
-        <input type="submit" value="전송" disabled={!(l && r && lp && rp)} />
+        <input
+          type="submit"
+          value={editMode ? '수정' : '저장'}
+          disabled={!(l && r && lp && rp)}
+        />
         {deleteCallback && (
           <input
             type="button"

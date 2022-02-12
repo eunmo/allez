@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { GameForm } from './components';
+import { IndividualGameForm } from './components';
 import { fetchDelete, get, put } from './utils';
 
-export default function AddGame() {
+export default function EditIndividualGame() {
   const [game, setGame] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -38,7 +38,7 @@ export default function AddGame() {
   const today = todayDate === gameDate;
 
   return (
-    <GameForm
+    <IndividualGameForm
       title="경기 기록 수정"
       l={l}
       r={r}

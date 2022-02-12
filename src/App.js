@@ -1,10 +1,10 @@
 import { BrowserRouter, Outlet, Routes, Route } from 'react-router-dom';
 
-import AddGame from './AddGame';
+import AddIndividualGame from './AddIndividualGame';
 import AddPerson from './AddPerson';
 import Attendance from './Attendance';
 import DatePicker from './DatePicker';
-import EditGame from './EditGame';
+import EditIndividualGame from './EditIndividualGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import GameDate from './GameDate';
@@ -38,10 +38,12 @@ export default function App() {
             <Route index element={<Attendance />} />
           </Route>
           <Route path="game">
-            <Route path="add" element={<AddGame />} />
             <Route path="calendar" element={<DatePicker />} />
             <Route path="date/:date" element={<GameDate />} />
-            <Route path="edit/:id" element={<EditGame />} />
+            <Route path="individual">
+              <Route path="add" element={<AddIndividualGame />} />
+              <Route path="edit/:id" element={<EditIndividualGame />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
