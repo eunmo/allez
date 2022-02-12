@@ -71,7 +71,7 @@ const gameOrder = [
 function buildRounds(type, ls, rs) {
   return gameOrder[type][0].map((left, index) => {
     const right = gameOrder[type][1][index];
-    return { l: ls[left - 1], r: rs[right - type - 1], lp: 0, rp: 0 };
+    return { l: ls[left - 1], r: rs[right - type - 1] };
   });
 }
 

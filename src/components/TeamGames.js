@@ -4,8 +4,8 @@ import LinkButton from './LinkButton';
 import Score from './Score';
 import style from './TeamGames.module.css';
 
-function sum(array, key) {
-  return array.reduce((prev, { [key]: val }) => prev + val, 0);
+function getScore(rounds, key) {
+  return rounds.slice(-1)[0][key] ?? 0;
 }
 
 export default function TeamGames({ games, idMap }) {
@@ -15,8 +15,8 @@ export default function TeamGames({ games, idMap }) {
       .map(({ rounds, ...rest }) => ({
         ...rest,
         rounds,
-        lp: sum(rounds, 'lp'),
-        rp: sum(rounds, 'rp'),
+        lp: getScore(rounds, 'lp'),
+        rp: getScore(rounds, 'rp'),
       }));
   }, [games]);
 

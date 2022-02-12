@@ -114,35 +114,32 @@ function ChooseTeamOrder({
   size,
   side,
   list,
-  setList,
+  order,
+  setOrder,
   idMap,
   nextValue,
   onDone,
 }) {
-  const [ordered, setOrdered] = useState([]);
-
-  useEffect(() => {
-    setOrdered(new Array(size).fill(null));
-  }, [size]);
-
-  const setOrder = useCallback((id, index) => {
-    setOrdered((array) => {
-      const newArray = [...array];
-      newArray[index] = id;
-      return newArray;
-    });
-  }, []);
+  const updateOrder = useCallback(
+    (id, index) => {
+      setOrder((array) => {
+        const newArray = [...array];
+        newArray[index] = id;
+        return newArray;
+      });
+    },
+    [setOrder]
+  );
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      setList(ordered);
       onDone(event);
     },
-    [setList, ordered, onDone]
+    [onDone]
   );
 
-  const done = ordered.every((id) => id !== null);
+  const done = order.every((id) => id !== null);
 
   return (
     <form className={style.ChooseTeamOrder}>
@@ -163,8 +160,8 @@ function ChooseTeamOrder({
               key={`${id}-${row}-${col}`}
               type="button"
               value={idMap.get(id)?.firstName ?? '선택'}
-              className={ordered[row] === id ? style.selected : ''}
-              onClick={() => setOrder(id, row)}
+              className={order[row] === id ? style.selected : ''}
+              onClick={() => updateOrder(id, row)}
             />
           ))}
         </Fragment>
@@ -184,6 +181,8 @@ export default function AddTeamGame() {
   const [size, setSize] = useState(3);
   const [ls, setLs] = useState(new Array(defaultSize).fill(null));
   const [rs, setRs] = useState(new Array(defaultSize).fill(null));
+  const [lOrder, setLOrder] = useState(new Array(defaultSize).fill(null));
+  const [rOrder, setROrder] = useState(new Array(defaultSize).fill(null));
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
 
@@ -194,6 +193,8 @@ export default function AddTeamGame() {
   useEffect(() => {
     setLs(new Array(size).fill(null));
     setRs(new Array(size).fill(null));
+    setLOrder(new Array(size).fill(null));
+    setROrder(new Array(size).fill(null));
   }, [size]);
 
   const idMap = useMemo(() => toPersonIdMap(persons), [persons]);
@@ -202,13 +203,13 @@ export default function AddTeamGame() {
     if (step < 2) {
       setStep(step + 1);
     } else {
-      const rounds = buildRounds(size, ls, rs);
-      const game = { type: size, ls, rs, rounds };
+      const rounds = buildRounds(size, lOrder, rOrder);
+      const game = { type: size, ls: lOrder, rs: rOrder, rounds };
       post('/api/crud/game', { game }, () => {
         navigate('/');
       });
     }
-  }, [step, size, ls, rs, navigate]);
+  }, [step, size, lOrder, rOrder, navigate]);
 
   if (persons === undefined) {
     return null;
@@ -232,16 +233,17 @@ export default function AddTeamGame() {
         />
       )}
       {[
-        [ls, setLs, '팀 2 순서 선택'],
-        [rs, setRs, '단체전 시작'],
+        [ls, lOrder, setLOrder, '팀 2 순서 선택'],
+        [rs, rOrder, setROrder, '단체전 시작'],
       ].map(
-        ([list, setList, nextValue], index) =>
+        ([list, order, setOrder, nextValue], index) =>
           step === index + 1 && (
             <ChooseTeamOrder
               size={size}
               side={index}
               list={list}
-              setList={setList}
+              order={order}
+              setOrder={setOrder}
               idMap={idMap}
               nextValue={nextValue}
               onDone={next}

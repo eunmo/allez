@@ -48,11 +48,7 @@ function ResultByDate({ games, id }) {
       <div className="highlight">전적</div>
       {byDate.map(({ date, ...result }) => (
         <Fragment key={date}>
-          <LinkButton
-            size="sm"
-            cn="mono"
-            to={`/game/date/${date}`}
-          >
+          <LinkButton size="sm" cn="mono" to={`/game/date/${date}`}>
             {date.substring(5, 10)}
           </LinkButton>
           <Result result={result} />
@@ -119,10 +115,7 @@ function PersonLoaded({ games, idMap, id }) {
         {lastName}
         {firstName} 전적
       </div>
-      <ResponsiveTabs
-        tabNames={['상대별', '날짜별']}
-        groups={[1, 1]}
-      >
+      <ResponsiveTabs tabNames={['상대별', '날짜별']} groups={[1, 1]}>
         <ResultByOpponent games={games} idMap={idMap} id={id} />
         <ResultByDate games={games} id={id} />
       </ResponsiveTabs>
