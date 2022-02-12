@@ -1,8 +1,3 @@
-.IndividualGameForm,
-.IndividualGameForm input {
-  font-size: 20px;
-}
-
 .IndividualGameForm form {
   display: grid;
   grid-column-gap: 8px;

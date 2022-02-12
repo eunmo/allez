@@ -47,6 +47,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
   color: var(--text);
+  font-size: 20px;
 }
 
 code,
@@ -63,6 +64,7 @@ code,
 }
 
 label {
+  font-size: 20px;
   height: var(--button-height);
   line-height: var(--button-height);
 }
@@ -73,6 +75,7 @@ button {
   border-radius: 0;
   box-sizing: border-box;
   color: var(--text);
+  font-size: 20px;
   height: var(--button-height);
   margin: 0;
   -webkit-appearance: none;

@@ -1,7 +1,7 @@
 .DatePicker .header {
-  width: 100%;
-  text-align: center;
   font-size: 32px;
+  text-align: center;
+  width: 100%;
 }
 
 .DatePicker .grid {
@@ -12,7 +12,6 @@
 }
 
 .DatePicker .inactive {
-  font-size: 20px;
   height: var(--button-height);
   line-height: var(--button-height);
   text-align: center;

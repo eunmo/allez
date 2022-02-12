@@ -9,10 +9,6 @@
   margin-bottom: 16px;
 }
 
-.tabs button {
-  font-size: 20px;
-}
-
 .notSelectedTab {
   border: 2px solid var(--border);
   background-color: var(--background);

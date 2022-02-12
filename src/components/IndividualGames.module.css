@@ -1,6 +1,5 @@
 .IndividualGames {
   display: grid;
-  font-size: 20px;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;

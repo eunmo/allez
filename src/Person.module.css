@@ -1,11 +1,11 @@
+.byPerson,
 .byDate {
   display: grid;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
-  grid-template-columns: 1fr repeat(2, 2fr);
+  grid-template-columns: 1fr 2fr;
   grid-auto-rows: 40px;
   line-height: 40px;
-  font-size: 16px;
   text-align: center;
 }
 
@@ -16,13 +16,7 @@
   grid-template-columns: 1fr 2fr;
   grid-auto-rows: 40px;
   line-height: 40px;
-  font-size: 16px;
   text-align: center;
-}
-
-.legend {
-  background-color: var(--highlight);
-  font-size: 20px;
 }
 
 .result {
@@ -30,7 +24,8 @@
 }
 
 @media (max-width: 600px) {
-  .byPerson {
+  .byPerson,
+  .byDate {
     grid-template-columns: 1fr 1fr;
   }
 }

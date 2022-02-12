@@ -1,6 +1,5 @@
 .GameGrid {
   display: grid;
-  font-size: 20px;
   grid-row-gap: 8px;
   line-height: 40px;
   margin-bottom: 8px;

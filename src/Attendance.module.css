@@ -14,11 +14,6 @@
   width: 100%;
 }
 
-.Attendance input,
-.Attendance label {
-  font-size: 20px;
-}
-
 .Attendance label {
   background-color: var(--highlight);
   display: block;

@@ -6,7 +6,7 @@ import style from './IndividualGames.module.css';
 
 export default function IndividualGames({ games, idMap }) {
   const individualGames = useMemo(() => {
-    return games.filter(({ type }) => type === 1)
+    return games.filter(({ type }) => type === 1);
   }, [games]);
 
   return (
