@@ -14,7 +14,11 @@ async function editPerson(id, firstName, lastName, type) {
   );
 }
 
-async function updateAttendance(ids) {
+async function updateAttendance(id, value) {
+  return dml('UPDATE person set today = ? WHERE id = ?', [value, id]);
+}
+
+async function updateAttendances(ids) {
   await dml('UPDATE person set today = FALSE');
 
   if (ids.length === 0) {
@@ -58,6 +62,7 @@ module.exports = {
   addPerson,
   editPerson,
   updateAttendance,
+  updateAttendances,
   addGame,
   editGame,
   removeGame,

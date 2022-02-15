@@ -3,6 +3,7 @@ const {
   addPerson,
   editPerson,
   updateAttendance,
+  updateAttendances,
   addGame,
   editGame,
   removeGame,
@@ -72,16 +73,46 @@ test('update attendance', async () => {
 
   await check(1, 1);
 
-  await updateAttendance([pid1]);
+  await updateAttendance(pid2, false);
   await check(1, 0);
 
-  await updateAttendance([pid2]);
-  await check(0, 1);
-
-  await updateAttendance([]);
+  await updateAttendance(pid1, false);
   await check(0, 0);
 
-  await updateAttendance([pid1, pid2]);
+  await updateAttendance(pid2, true);
+  await check(0, 1);
+});
+
+test('update attendances', async () => {
+  await addPerson(...personDetail);
+  await addPerson(...personDetail);
+
+  const rows = await query('SELECT * FROM person');
+  expect(rows.length).toBe(2);
+  const [{ id: pid1 }, { id: pid2 }] = rows;
+
+  async function check(today1, today2) {
+    let [{ today }] = await query('SELECT today FROM person WHERE id = ?', [
+      pid1,
+    ]);
+    expect(today).toBe(today1);
+
+    [{ today }] = await query('SELECT today FROM person WHERE id = ?', [pid2]);
+    expect(today).toBe(today2);
+  }
+
+  await check(1, 1);
+
+  await updateAttendances([pid1]);
+  await check(1, 0);
+
+  await updateAttendances([pid2]);
+  await check(0, 1);
+
+  await updateAttendances([]);
+  await check(0, 0);
+
+  await updateAttendances([pid1, pid2]);
   await check(1, 1);
 });
 

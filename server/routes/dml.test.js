@@ -72,9 +72,30 @@ test('edit person', async () => {
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
   expect(person.type).toBe(type);
+  expect(person.today).toBe(true);
 });
 
 test('update attendance', async () => {
+  const [firstName, lastName, type] = ['Amy', 'Last', 'c'];
+  await post('person', { firstName, lastName, type });
+  const body = await get('/api/person/list');
+  expect(body.length).toBe(1);
+
+  const [person] = body;
+  const { id } = person;
+  let { today } = await get(`/api/person/id/${id}`);
+  expect(today).toBe(true);
+
+  await put('person', { ...person, type: 'r' });
+  ({ today } = await get(`/api/person/id/${id}`));
+  expect(today).toBe(false);
+
+  await put('person', { ...person, type: 'm' });
+  ({ today } = await get(`/api/person/id/${id}`));
+  expect(today).toBe(true);
+});
+
+test('update attendances', async () => {
   const { pid1, pid2, pid3 } = await prepare();
 
   async function check(ids, values) {

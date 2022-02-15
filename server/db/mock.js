@@ -3,7 +3,7 @@ const {
   addPerson,
   addGame,
   addParticipants,
-  updateAttendance,
+  updateAttendances,
 } = require('./dml');
 
 const personDetail1 = ['Alice', 'Last', 'f'];
@@ -30,7 +30,7 @@ async function prepare() {
   ({ insertId: pid2 } = await addPerson(...personDetail2));
   ({ insertId: pid3 } = await addPerson(...personDetail3));
 
-  await updateAttendance([pid1, pid2]);
+  await updateAttendances([pid1, pid2]);
 
   gid1 = await addGame(gameDetail1);
   gid2 = await addGame(gameDetail2);
