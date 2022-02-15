@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { LinkButton } from './components';
-import { get, groupByPersonType } from './utils';
+import { displayPersonType, get, groupByPersonType } from './utils';
 import style from './EditPersonList.module.css';
 
 export default function EditPersonList() {
@@ -24,6 +24,7 @@ export default function EditPersonList() {
       <div className={style.grid}>
         {sections.map(({ code, persons }) => (
           <div key={code}>
+            <div className={style.label}>{displayPersonType(code)}</div>
             {persons.map(({ firstName, id }) => (
               <LinkButton key={id} to={`/person/edit/${id}`}>
                 {firstName}

@@ -17,7 +17,10 @@ export default function Attendance() {
     });
   }, []);
 
-  const sections = useMemo(() => groupByPersonType(data), [data]);
+  const sections = useMemo(
+    () => groupByPersonType(data).filter(({ code }) => code !== 'r'),
+    [data]
+  );
 
   const toggle = useCallback(
     (id) => {

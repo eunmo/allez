@@ -29,7 +29,7 @@ function fetchDelete(url, body, callback) {
 }
 
 function displayPersonType(type) {
-  return { m: '남성', f: '여성', c: '코치' }[type] ?? '모름';
+  return { m: '남성', f: '여성', c: '코치', r: '은퇴' }[type] ?? '모름';
 }
 
 function personCmp(a, b) {

@@ -42,7 +42,7 @@ export default function PersonForm({ data, onSubmit, title }) {
         />
         <label>분류</label>
         <div className={style.buttonGroup}>
-          {['m', 'f', 'c'].map((typeCode) => (
+          {['m', 'f', 'c', 'r'].map((typeCode) => (
             <input
               type="button"
               key={typeCode}
