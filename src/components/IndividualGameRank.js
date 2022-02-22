@@ -1,6 +1,6 @@
 import { Fragment, useMemo } from 'react';
 
-import { sortByName } from '../utils';
+import { sortByName, ignoreType } from '../utils';
 import LinkButton from './LinkButton';
 import style from './IndividualGameRank.module.css';
 
@@ -35,7 +35,7 @@ function pad(number) {
 export default function GameGrid({ games, idMap, allowEmpty = false }) {
   const ranking = useMemo(() => {
     function isCoach(id) {
-      return idMap.get(id).type === 'c';
+      return ignoreType(idMap.get(id).type);
     }
 
     const individualGames = games.filter(({ type }) => type === 1);
@@ -43,7 +43,7 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
     const personIds =
       allowEmpty && individualGames.length > 0
         ? [...idMap.values()]
-            .filter(({ type, today }) => today && type !== 'c')
+            .filter(({ type, today }) => today && !ignoreType(type))
             .map(({ id }) => id)
         : [
             ...new Set(

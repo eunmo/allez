@@ -6,6 +6,7 @@
 - [ ] calendar view: change month
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
+- [ ] somehow separate active status (and maybe seniority) and type
 
 # Done
 

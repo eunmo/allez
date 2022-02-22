@@ -92,6 +92,10 @@ function sortByName(p1, p2) {
   return p1.firstName < p2.firstName ? -1 : 1;
 }
 
+function ignoreType(type) {
+  return type === 'c' || type === 'r';
+}
+
 export {
   get,
   post,
@@ -105,4 +109,5 @@ export {
   parseValue,
   parseRounds,
   sortByName,
+  ignoreType,
 };
