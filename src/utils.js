@@ -88,6 +88,10 @@ function parseRounds(rounds) {
   }));
 }
 
+function sortByName(p1, p2) {
+  return p1.firstName < p2.firstName ? -1 : 1;
+}
+
 export {
   get,
   post,
@@ -100,4 +104,5 @@ export {
   buildRounds,
   parseValue,
   parseRounds,
+  sortByName,
 };

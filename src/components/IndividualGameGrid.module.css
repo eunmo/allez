@@ -1,19 +1,9 @@
 .pool {
   display: grid;
   grid-row-gap: 8px;
-  margin-bottom: 8px;
 }
 
-.ranking {
-  display: grid;
-  grid-gap: 8px;
-  grid-template-columns: 1fr 2fr repeat(3, 1fr);
-  margin-bottom: 8px;
-  text-align: center;
-}
-
-.pool div,
-.ranking div {
+.pool div {
   line-height: 40px;
   height: 40px;
   text-align: center;

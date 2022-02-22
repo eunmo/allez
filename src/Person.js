@@ -115,7 +115,7 @@ function PersonLoaded({ games, idMap, id }) {
         {lastName}
         {firstName} 전적
       </div>
-      <ResponsiveTabs tabNames={['상대별', '날짜별']} groups={[1, 1]}>
+      <ResponsiveTabs tabNames={['상대별', '날짜별']}>
         <ResultByOpponent games={games} idMap={idMap} id={id} />
         <ResultByDate games={games} id={id} />
       </ResponsiveTabs>

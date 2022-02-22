@@ -34,40 +34,43 @@ function ResponsiveTabsSmall({ tabNames, children }) {
   );
 }
 
-function ResponsiveTabsLarge({ groups, widths, children }) {
-  const childrenGroups = new Array(groups.length);
-  let sum = 0;
+function ResponsiveTabsLarge({ grid, tabNames, areas, givenStyle, children }) {
   const childArray = Children.toArray(children);
-  groups.forEach((group, index) => {
-    childrenGroups[index] = {
-      child: childArray.slice(sum, sum + group),
-      index,
-    };
-    sum += group;
-  });
+  const gridSize = grid ?? childArray.length;
 
-  const gridStyle = {
-    gridTemplateColumns: widths.map((width) => `${width}fr`).join(' '),
+  const gridStyle = givenStyle ?? {
+    gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
   };
 
   return (
     <div className={style.ResponsiveTabsLarge} style={gridStyle}>
-      {childrenGroups.map(({ child, index }) => (
-        <div key={index}>{child}</div>
+      {childArray.map((child, index) => (
+        <div key={tabNames[index]} style={{ gridArea: areas?.[index] }}>
+          {child}
+        </div>
       ))}
     </div>
   );
 }
 
-export default function ResponsiveTabs({ tabNames, groups, sizes, children }) {
+export default function ResponsiveTabs({
+  tabNames,
+  grid,
+  givenStyle,
+  areas,
+  children,
+}) {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 600px)' });
-  const filtered = children.filter((child) => child !== undefined);
-  const widths = sizes ?? groups.map(() => 1);
   return isTabletOrMobile ? (
-    <ResponsiveTabsSmall tabNames={tabNames}>{filtered}</ResponsiveTabsSmall>
+    <ResponsiveTabsSmall tabNames={tabNames}>{children}</ResponsiveTabsSmall>
   ) : (
-    <ResponsiveTabsLarge groups={groups} widths={widths}>
-      {filtered}
+    <ResponsiveTabsLarge
+      grid={grid}
+      tabNames={tabNames}
+      areas={areas}
+      givenStyle={givenStyle}
+    >
+      {children}
     </ResponsiveTabsLarge>
   );
 }
