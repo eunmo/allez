@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { LinkButton } from './components';
-import { displayPersonType, get, groupByPersonType } from './utils';
+import { displayFullPersonType, get, groupByPersonType } from './utils';
 import style from './EditPersonList.module.css';
 
 export default function EditPersonList() {
@@ -23,14 +23,14 @@ export default function EditPersonList() {
       <LinkButton to="/person/add">선수 등록</LinkButton>
       <div className={style.grid}>
         {sections.map(({ code, persons }) => (
-          <div key={code}>
-            <div className={style.label}>{displayPersonType(code)}</div>
+          <Fragment key={code}>
+            <div className={style.label}>{displayFullPersonType(code)}</div>
             {persons.map(({ firstName, id }) => (
               <LinkButton key={id} to={`/person/edit/${id}`}>
                 {firstName}
               </LinkButton>
             ))}
-          </div>
+          </Fragment>
         ))}
       </div>
     </div>

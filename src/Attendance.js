@@ -2,7 +2,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LinkButton } from './components';
-import { displayPersonType, get, groupByPersonType, put } from './utils';
+import { displayFullPersonType, get, groupByPersonType, put } from './utils';
 import style from './Attendance.module.css';
 
 export default function Attendance() {
@@ -59,7 +59,7 @@ export default function Attendance() {
         />
         {sections.map(({ code, persons }) => (
           <Fragment key={code}>
-            <label>{displayPersonType(code)}</label>
+            <label>{displayFullPersonType(code)}</label>
             {persons.map(({ firstName, id }) => (
               <input
                 type="button"

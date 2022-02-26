@@ -6,6 +6,7 @@
 
 .label {
   background-color: var(--highlight);
+  grid-column: 1 / span 4;
   height: var(--button-height);
   line-height: var(--button-height);
   margin-bottom: 8px;

@@ -28,8 +28,23 @@ function fetchDelete(url, body, callback) {
   }).then(callback);
 }
 
+const personType = {
+  a: { full: '코치', simple: '코치' },
+  b: { full: '은퇴한 코치', simple: '코치' },
+  c: { full: '정규반 남자', simple: '남자' },
+  d: { full: '정규반 여자', simple: '여자' },
+  e: { full: '입문반 남자', simple: '남자' },
+  f: { full: '입문반 여자', simple: '여자' },
+  g: { full: '은퇴한 남자', simple: '남자' },
+  h: { full: '은퇴한 여자', simple: '여자' },
+};
+
+function displayFullPersonType(type) {
+  return personType[type]?.full ?? '모름';
+}
+
 function displayPersonType(type) {
-  return { m: '남성', f: '여성', c: '코치', r: '은퇴' }[type] ?? '모름';
+  return personType[type]?.simple ?? '모름';
 }
 
 function personCmp(a, b) {
@@ -101,6 +116,8 @@ export {
   post,
   put,
   fetchDelete,
+  personType,
+  displayFullPersonType,
   displayPersonType,
   groupByPersonType,
   toPersonIdMap,

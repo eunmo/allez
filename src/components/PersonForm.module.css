@@ -11,12 +11,12 @@
 
 .buttonGroup {
   display: grid;
-  grid-column-gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .PersonForm input[type=button]:disabled {
-  background-color: var(--highlight);
+  background-color: var(--border);
   color: var(--text);
   transition: 0.3s;
 }
@@ -28,4 +28,8 @@
 .PersonForm input[type=submit]:not(:disabled) {
   background-color: var(--blue);
   color: var(--background);
+}
+
+.text {
+  padding-left: 4px;
 }

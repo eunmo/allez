@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { displayPersonType } from '../utils';
+import { displayFullPersonType, personType } from '../utils';
 import style from './PersonForm.module.css';
 
 export default function PersonForm({ data, onSubmit, title }) {
@@ -31,22 +31,24 @@ export default function PersonForm({ data, onSubmit, title }) {
         <label>성</label>
         <input
           type="text"
+          className={style.text}
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
         <label>이름</label>
         <input
           type="text"
+          className={style.text}
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <label>분류</label>
         <div className={style.buttonGroup}>
-          {['m', 'f', 'c', 'r'].map((typeCode) => (
+          {Object.keys(personType).map((typeCode) => (
             <input
               type="button"
               key={typeCode}
-              value={displayPersonType(typeCode)}
+              value={displayFullPersonType(typeCode)}
               onClick={() => setType(typeCode)}
               disabled={typeCode === type}
             />
