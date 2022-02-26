@@ -62,6 +62,21 @@ function groupByPersonType(persons) {
   return codes.map((code) => ({ code, persons: getGroup(code) }));
 }
 
+function groupByPersonTypeName(persons) {
+  const nameSet = new Set(
+    (persons ?? []).map(({ type }) => displayPersonType(type))
+  );
+  const names = [...nameSet].sort().reverse();
+
+  function getGroup(name) {
+    return persons
+      .filter(({ type }) => displayPersonType(type) === name)
+      .sort(personCmp);
+  }
+
+  return names.map((name) => ({ name, persons: getGroup(name) }));
+}
+
 function toPersonIdMap(persons) {
   return new Map((persons ?? []).map((person) => [person.id, person]));
 }
@@ -120,6 +135,7 @@ export {
   displayFullPersonType,
   displayPersonType,
   groupByPersonType,
+  groupByPersonTypeName,
   toPersonIdMap,
   gameOrder,
   buildRounds,
