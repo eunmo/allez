@@ -1,11 +1,7 @@
 .Attendance form {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 8px;
-}
-
-.Attendance form div {
-  grid-column: span 2;
 }
 
 .Attendance input {
@@ -17,19 +13,25 @@
 .Attendance label {
   background-color: var(--highlight);
   display: block;
+  grid-column: 1 / span 4;
   margin-bottom: 8px;
   text-align: center;
   width: 100%;
 }
 
 .Attendance input[type="button"].came {
-  background-color: var(--highlight);
+  background-color: var(--border);
   transition: 0.3s;
 }
 
-.Attendance input[type="reset"],
 .Attendance input[type="submit"] {
-  grid-column: span 3;
+  grid-column-start: 1;
+  grid-column: span 4;
+}
+
+.Attendance a,
+.Attendance input[type="reset"] {
+  grid-column: span 2;
 }
 
 .Attendance input[type="reset"]:not(:disabled) {

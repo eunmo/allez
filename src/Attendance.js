@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LinkButton } from './components';
@@ -17,10 +17,7 @@ export default function Attendance() {
     });
   }, []);
 
-  const sections = useMemo(
-    () => groupByPersonType(data).filter(({ code }) => code !== 'r'),
-    [data]
-  );
+  const sections = useMemo(() => groupByPersonType(data), [data]);
 
   const toggle = useCallback(
     (id) => {
@@ -52,10 +49,16 @@ export default function Attendance() {
   return (
     <div className={style.Attendance}>
       <div className="header">출석 체크</div>
-      <LinkButton to="/person/edit/list">명부 편집</LinkButton>
       <form onSubmit={updateAttendance}>
+        <LinkButton to="/person/edit/list">명부 편집</LinkButton>
+        <input
+          type="reset"
+          value="초기화"
+          disabled={came.size === 0}
+          onClick={() => setCame(new Set())}
+        />
         {sections.map(({ code, persons }) => (
-          <div key={code}>
+          <Fragment key={code}>
             <label>{displayPersonType(code)}</label>
             {persons.map(({ firstName, id }) => (
               <input
@@ -66,14 +69,8 @@ export default function Attendance() {
                 onClick={() => toggle(id)}
               />
             ))}
-          </div>
+          </Fragment>
         ))}
-        <input
-          type="reset"
-          value="초기화"
-          disabled={came.size === 0}
-          onClick={() => setCame(new Set())}
-        />
         <input type="submit" value="제출" />
       </form>
     </div>
