@@ -123,7 +123,7 @@ function sortByName(p1, p2) {
 }
 
 function ignoreType(type) {
-  return type === 'c' || type === 'r';
+  return type === 'a' || type === 'b';
 }
 
 export {
