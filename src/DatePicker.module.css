@@ -1,17 +1,23 @@
-.DatePicker .header {
-  font-size: 32px;
-  text-align: center;
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   width: 100%;
 }
 
-.DatePicker .grid {
+.header button:disabled {
+  background-color: var(--background);
+  color: var(--background);
+}
+
+.grid {
   display: grid;
   grid-column-gap: 8px;
   grid-row-gap: 8px;
   grid-template-columns: repeat(7, 1fr);
 }
 
-.DatePicker .inactive {
+.inactive,
+.legend {
   height: var(--button-height);
   line-height: var(--button-height);
   text-align: center;

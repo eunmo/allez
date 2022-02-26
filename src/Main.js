@@ -7,7 +7,7 @@ import style from './Main.module.css';
 
 function getTime() {
   const now = new Date();
-  const hour = now.getHours() % 12;
+  const hour = now.getHours() % 12 || 12;
   const minute = now.getMinutes();
   return [hour, minute].map((n) => `${n}`.padStart(2, '0')).join(':');
 }

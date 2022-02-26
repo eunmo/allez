@@ -3,10 +3,8 @@
 - [ ] manually maintain leaderboard/person summary
 - [ ] spinner for loading
 - [ ] game page for a specific duo
-- [ ] calendar view: change month
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
-- [ ] somehow separate active status (and maybe seniority) and type
 
 # Done
 
@@ -33,3 +31,5 @@
 - [x] edit/remove game for 2v2 3v3 4v4
 - [x] display clock on the main page
 - [x] add game rank for a particular day
+- [x] separate active status (and maybe seniority) and type
+- [x] calendar view: change month

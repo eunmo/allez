@@ -62,15 +62,38 @@ export default function DatePicker() {
 
   const month = months[monthIndex];
   const { y, m, dates, offset, active } = month;
-  // const hasPrev = monthIndex > 0;
-  // const hasNext = monthIndex < months.length - 1;
+  const hasNext = monthIndex > 0;
+  const hasPrev = monthIndex < months.length - 1;
 
   return (
     <div className={style.DatePicker}>
-      <div className="header">
-        {y}년 {m}월
+      <div className={`${style.header} header`}>
+        <button
+          type="button"
+          onClick={() => setMonthIndex(monthIndex + 1)}
+          disabled={!hasPrev}
+        >
+          {((m + 10) % 12) + 1}월
+        </button>
+        <div>
+          {y % 100}년 {m}월
+        </div>
+        <button
+          type="button"
+          onClick={() => setMonthIndex(monthIndex - 1)}
+          disabled={!hasNext}
+        >
+          {(m % 12) + 1}월
+        </button>
       </div>
       <div className={style.grid}>
+        <div className={style.legend}>S</div>
+        <div className={style.legend}>M</div>
+        <div className={style.legend}>T</div>
+        <div className={style.legend}>W</div>
+        <div className={style.legend}>T</div>
+        <div className={style.legend}>F</div>
+        <div className={style.legend}>S</div>
         {dates.map((date) => {
           const isActive = active.has(date);
           const divStyle = {};
