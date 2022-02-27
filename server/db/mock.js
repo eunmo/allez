@@ -44,9 +44,9 @@ async function prepare() {
   gameDetail3.rs = [pid2, pid3];
   gameDetail3.rounds = [
     { l: pid1, r: pid2, lp: 5, rp: 3 },
-    { l: pid1, r: pid3, lp: 4, rp: 2 },
-    { l: pid1, r: pid2, lp: 3, rp: 1 },
-    { l: pid1, r: pid3, lp: 2, rp: 0 },
+    { l: pid1, r: pid3, lp: 9, rp: 5 },
+    { l: pid1, r: pid2, lp: 12, rp: 6 },
+    { l: pid1, r: pid3, lp: 14, rp: 6 },
   ];
   gid3 = await addGame(gameDetail3);
 

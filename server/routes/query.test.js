@@ -119,3 +119,30 @@ test('get history', async () => {
   await check(pid3, pid1, [gid3]);
   await check(pid3, pid2, [gid3, gid2]);
 });
+
+test('get rank', async () => {
+  const { ranks, persons } = await get('/api/rank');
+
+  expect(persons.length).toBe(3);
+  expect(ranks.find(({ id }) => id === pid1)).toStrictEqual({
+    id: pid1,
+    date: 2,
+    wins: 2,
+    points: 19,
+    diff: 10,
+  });
+  expect(ranks.find(({ id }) => id === pid2)).toStrictEqual({
+    id: pid2,
+    date: 2,
+    wins: 1,
+    points: 12,
+    diff: -4,
+  });
+  expect(ranks.find(({ id }) => id === pid3)).toStrictEqual({
+    id: pid3,
+    date: 1,
+    wins: 0,
+    points: 5,
+    diff: -6,
+  });
+});

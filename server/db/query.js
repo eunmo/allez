@@ -43,6 +43,12 @@ async function getGame(id) {
   return game ?? null;
 }
 
+async function getGames() {
+  const rows = await query('SELECT * FROM game ORDER BY time DESC');
+
+  return parseGameRows(rows);
+}
+
 async function getGamesByDate(date) {
   const rows = await query(
     'SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC',
@@ -96,6 +102,7 @@ module.exports = {
   getPerson,
   getGameDates,
   getGame,
+  getGames,
   getGamesByDate,
   getPersonGames,
   getHistory,

@@ -4,6 +4,7 @@ const {
   getPerson,
   getGameDates,
   getGame,
+  getGames,
   getGamesByDate,
   getPersonGames,
   getHistory,
@@ -64,6 +65,13 @@ test('get game', async () => {
 test('get unknown game', async () => {
   const row = await getGame(`${gid1}!`);
   expect(row).toBe(null);
+});
+
+test('get all games', async () => {
+  const gids = [gid3, gid2, gid1];
+  const rows = await getGames();
+  expect(rows.length).toBe(gids.length);
+  expect(rows.map((r) => r.id)).toStrictEqual(gids);
 });
 
 test('get games by date', async () => {
