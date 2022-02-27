@@ -32,18 +32,10 @@ function Menu() {
         개인전 기록
       </LinkButton>
       {isLarge && <Clock />}
-      <LinkButton to="/game/team/add">
-        단체전 시작
-      </LinkButton>
-      <LinkButton to="/person">
-        출석 체크
-      </LinkButton>
-      <LinkButton to="/person/rank">
-        순위표
-      </LinkButton>
-      <LinkButton to="/game/calendar">
-        과거 기록 열람
-      </LinkButton>
+      <LinkButton to="/game/team/add">단체전 시작</LinkButton>
+      <LinkButton to="/person">출석 체크</LinkButton>
+      <LinkButton to="/person/rank">순위표</LinkButton>
+      <LinkButton to="/game/calendar">과거 기록 열람</LinkButton>
     </div>
   );
 }
