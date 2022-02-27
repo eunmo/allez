@@ -10,6 +10,10 @@
   grid-column: span 6;
 }
 
+.button {
+  background-color: var(--highlight);
+}
+
 .button:disabled {
   background-color: var(--border);
 }
