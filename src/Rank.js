@@ -23,7 +23,7 @@ export default function Rank() {
     });
   }, []);
 
-  const ranked = useMemo(() => {
+  const [ranked, padding] = useMemo(() => {
     if (ranking === undefined || idMap === undefined) {
       return [];
     }
@@ -37,7 +37,7 @@ export default function Rank() {
     });
 
     let prevRank = 1;
-    return sorted.map((person, index) => {
+    const withRank = sorted.map((person, index) => {
       let rank = index + 1;
       if (sorted[index - 1]?.[sortKey] === person[sortKey]) {
         rank = prevRank;
@@ -47,6 +47,14 @@ export default function Rank() {
 
       return { ...person, rank };
     });
+
+    const widths = new Map(
+      Object.keys(keys).map((key) => [
+        key,
+        Math.max(...ranking.map((rank) => rank[key].toString().length)),
+      ])
+    );
+    return [withRank, widths];
   }, [ranking, idMap, sortKey]);
 
   if (ranking === undefined || idMap === undefined) {
@@ -69,16 +77,17 @@ export default function Rank() {
           {legend}
         </button>
       ))}
-      {ranked.map(({ id, date, wins, points, diff, rank }) => (
-        <Fragment key={id}>
-          <div className="mono">{rank}</div>
-          <LinkButton size="sm" to={`/person/${id}`}>
-            {idMap.get(id).firstName}
+      {ranked.map((person) => (
+        <Fragment key={person.id}>
+          <div className="mono">{person.rank}</div>
+          <LinkButton size="sm" to={`/person/${person.id}`}>
+            {idMap.get(person.id).firstName}
           </LinkButton>
-          <div className="mono">{date}</div>
-          <div className="mono">{wins}</div>
-          <div className="mono">{points}</div>
-          <div className="mono">{diff}</div>
+          {Object.keys(keys).map((key) => (
+            <div key={key} className="mono">
+              {`${person[key]}`.padStart(padding.get(key), '\xa0')}
+            </div>
+          ))}
         </Fragment>
       ))}
     </div>
