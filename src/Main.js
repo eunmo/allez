@@ -28,18 +28,21 @@ function Menu() {
 
   return (
     <div className={style.Menu}>
-      <LinkButton size="lg" to="/game/individual/add" cn={style.span3}>
+      <LinkButton size="lg" to="/game/individual/add">
         개인전 기록
       </LinkButton>
       {isLarge && <Clock />}
-      <LinkButton to="/game/team/add" cn={style.span2}>
+      <LinkButton to="/game/team/add">
         단체전 시작
       </LinkButton>
-      <LinkButton to="/game/calendar" cn={style.span2}>
-        과거 기록 열람
-      </LinkButton>
-      <LinkButton to="/person" cn={style.span2}>
+      <LinkButton to="/person">
         출석 체크
+      </LinkButton>
+      <LinkButton to="/person/rank">
+        순위표
+      </LinkButton>
+      <LinkButton to="/game/calendar">
+        과거 기록 열람
       </LinkButton>
     </div>
   );

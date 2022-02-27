@@ -1,10 +1,10 @@
 # TODO
 
-- [ ] manually maintain leaderboard/person summary
 - [ ] spinner for loading
 - [ ] game page for a specific duo
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
+- [ ] move some menu into sidebar/dropdown
 
 # Done
 
@@ -33,3 +33,4 @@
 - [x] add game rank for a particular day
 - [x] separate active status (and maybe seniority) and type
 - [x] calendar view: change month
+- [x] leaderboard

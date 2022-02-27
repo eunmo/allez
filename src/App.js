@@ -12,6 +12,7 @@ import EditTeamGame from './EditTeamGame';
 import GameDate from './GameDate';
 import Main from './Main';
 import Person from './Person';
+import Rank from './Rank';
 import { Header } from './components';
 import style from './App.module.css';
 
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="add" element={<AddPerson />} />
             <Route path="edit/:id" element={<EditPerson />} />
             <Route path="edit/list" element={<EditPersonList />} />
+            <Route path="rank" element={<Rank />} />
             <Route path=":id" element={<Person />} />
             <Route index element={<Attendance />} />
           </Route>
