@@ -9,9 +9,9 @@ const {
 const personDetail1 = ['Alice', 'Last', 'f'];
 const personDetail2 = ['Bob', 'Last', 'm'];
 const personDetail3 = ['Carol', 'Last', 'c'];
-const gameDetail1 = { name: 'g1' };
-const gameDetail2 = { name: 'g2' };
-const gameDetail3 = { name: 'g3' };
+const gameDetail1 = { type: 1 };
+const gameDetail2 = { type: 1 };
+const gameDetail3 = { type: 2 };
 let pid1;
 let pid2;
 let pid3;
@@ -32,8 +32,22 @@ async function prepare() {
 
   await updateAttendances([pid1, pid2]);
 
+  gameDetail1.ls = [pid1];
+  gameDetail1.rs = [pid2];
+  gameDetail1.rounds = [{ l: pid1, r: pid2, lp: 5, rp: 3 }];
   gid1 = await addGame(gameDetail1);
+  gameDetail2.ls = [pid2];
+  gameDetail2.rs = [pid3];
+  gameDetail2.rounds = [{ l: pid2, r: pid3, lp: 5, rp: 3 }];
   gid2 = await addGame(gameDetail2);
+  gameDetail3.ls = [pid1];
+  gameDetail3.rs = [pid2, pid3];
+  gameDetail3.rounds = [
+    { l: pid1, r: pid2, lp: 5, rp: 3 },
+    { l: pid1, r: pid3, lp: 4, rp: 2 },
+    { l: pid1, r: pid2, lp: 3, rp: 1 },
+    { l: pid1, r: pid3, lp: 2, rp: 0 },
+  ];
   gid3 = await addGame(gameDetail3);
 
   await addParticipants(gid1, [pid1, pid2]);

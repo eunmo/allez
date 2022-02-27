@@ -85,6 +85,26 @@ test('get games by pid', async () => {
   await check(pid3, [gid3, gid2]);
 });
 
+test('get summary by pid', async () => {
+  async function check(pid, dateCount, dateCounts, dateWins, person) {
+    const { persons, byDate, byPerson } = await get(
+      `/api/person/summary/${pid}`
+    );
+    expect(persons.length).toBe(3);
+    expect(byDate.length).toBe(dateCount);
+    expect(byDate.map(({ count }) => count)).toStrictEqual(dateCounts);
+    expect(byDate.map(({ wins }) => wins)).toStrictEqual(dateWins);
+    expect(byPerson).toStrictEqual(person);
+  }
+
+  const p1 = { [pid2]: { count: 1, wins: 1 } };
+  await check(pid1, 1, [1], [1], p1);
+  const p2 = { [pid1]: { count: 1, wins: 0 }, [pid3]: { count: 1, wins: 1 } };
+  await check(pid2, 2, [1, 1], [1, 0], p2);
+  const p3 = { [pid2]: { count: 1, wins: 0 } };
+  await check(pid3, 1, [1], [0], p3);
+});
+
 test('get history', async () => {
   async function check(pidA, pidB, gids) {
     const body = await get(`/api/game/history/${pidA}/${pidB}`);
