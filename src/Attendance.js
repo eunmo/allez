@@ -25,7 +25,7 @@ function Minus() {
 export default function Attendance() {
   const [data, setData] = useState(null);
   const [came, setCame] = useState(new Set());
-  const [closed, setClosed] = useState(new Set('b', 'g', 'h'));
+  const [closed, setClosed] = useState(new Set(['b', 'g', 'h']));
   const navigate = useNavigate();
 
   useEffect(() => {
