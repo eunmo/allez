@@ -35,8 +35,8 @@ const personType = {
   d: { full: '정규반 여자', simple: '여자' },
   e: { full: '입문반 남자', simple: '남자' },
   f: { full: '입문반 여자', simple: '여자' },
-  g: { full: '은퇴한 남자', simple: '남자' },
-  h: { full: '은퇴한 여자', simple: '여자' },
+  g: { full: '유령반 남자', simple: '남자' },
+  h: { full: '유령반 여자', simple: '여자' },
 };
 
 function displayFullPersonType(type) {
