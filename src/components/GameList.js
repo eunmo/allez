@@ -35,9 +35,9 @@ export default function GameList({ games, children, today = false }) {
   return (
     <ResponsiveTabs tabNames={tabNames} givenStyle={gridStyle} areas={areas}>
       {children && <div>{children}</div>}
-        <IndividualGameGrid games={games} idMap={idMap} allowEmpty={today} />
-        <IndividualGameRank games={games} idMap={idMap} allowEmpty={today} />
-        <Games games={games} idMap={idMap} />
+      <IndividualGameGrid games={games} idMap={idMap} allowEmpty={today} />
+      <IndividualGameRank games={games} idMap={idMap} allowEmpty={today} />
+      <Games games={games} idMap={idMap} />
     </ResponsiveTabs>
   );
 }
