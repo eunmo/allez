@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { get, toPersonIdMap } from '../utils';
 import IndividualGameGrid from './IndividualGameGrid';
 import IndividualGameRank from './IndividualGameRank';
-import IndividualGames from './IndividualGames';
+import Games from './Games';
 import ResponsiveTabs from './ResponsiveTabs';
-import TeamGames from './TeamGames';
 
 export default function GameList({ games, children, today = false }) {
   const [idMap, setIdMap] = useState(null);
@@ -36,16 +35,9 @@ export default function GameList({ games, children, today = false }) {
   return (
     <ResponsiveTabs tabNames={tabNames} givenStyle={gridStyle} areas={areas}>
       {children && <div>{children}</div>}
-      <div>
         <IndividualGameGrid games={games} idMap={idMap} allowEmpty={today} />
-        <TeamGames games={games} idMap={idMap} />
-      </div>
-      <div>
         <IndividualGameRank games={games} idMap={idMap} allowEmpty={today} />
-      </div>
-      <div>
-        <IndividualGames games={games} idMap={idMap} />
-      </div>
+        <Games games={games} idMap={idMap} />
     </ResponsiveTabs>
   );
 }
