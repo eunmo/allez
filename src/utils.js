@@ -30,13 +30,13 @@ function fetchDelete(url, body, callback) {
 
 const personType = {
   a: { full: '코치', simple: '코치' },
-  b: { full: '은퇴한 코치', simple: '코치' },
+  b: { full: '은퇴한 코치', simple: '코치', hide: true },
   c: { full: '정규반 남자', simple: '남자' },
   d: { full: '정규반 여자', simple: '여자' },
   e: { full: '입문반 남자', simple: '남자' },
   f: { full: '입문반 여자', simple: '여자' },
-  g: { full: '유령반 남자', simple: '남자' },
-  h: { full: '유령반 여자', simple: '여자' },
+  g: { full: '유령반 남자', simple: '남자', hide: true },
+  h: { full: '유령반 여자', simple: '여자', hide: true },
 };
 
 function displayFullPersonType(type) {

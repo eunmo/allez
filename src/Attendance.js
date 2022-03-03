@@ -2,7 +2,13 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LinkButton } from './components';
-import { displayFullPersonType, get, groupByPersonType, put } from './utils';
+import {
+  displayFullPersonType,
+  get,
+  groupByPersonType,
+  personType,
+  put,
+} from './utils';
 import style from './Attendance.module.css';
 
 function Plus() {
@@ -33,7 +39,11 @@ export default function Attendance() {
       setCame(new Set(res.filter(({ today }) => today).map(({ id }) => id)));
       setData(res);
 
-      const toClose = new Set(['b', 'g', 'h']);
+      const toClose = new Set(
+        Object.entries(personType)
+          .filter(({ 1: { hide } }) => hide)
+          .map(([code]) => code)
+      );
       res.forEach(({ type, today }) => {
         if (today && toClose.has(type)) {
           toClose.delete(type);
