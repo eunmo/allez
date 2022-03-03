@@ -25,13 +25,21 @@ function Minus() {
 export default function Attendance() {
   const [data, setData] = useState(null);
   const [came, setCame] = useState(new Set());
-  const [closed, setClosed] = useState(new Set(['b', 'g', 'h']));
+  const [closed, setClosed] = useState(new Set());
   const navigate = useNavigate();
 
   useEffect(() => {
     get('/api/person/list', (res) => {
       setCame(new Set(res.filter(({ today }) => today).map(({ id }) => id)));
       setData(res);
+
+      const toClose = new Set(['b', 'g', 'h']);
+      res.forEach(({ type, today }) => {
+        if (today && toClose.has(type)) {
+          toClose.delete(type);
+        }
+      });
+      setClosed(toClose);
     });
   }, []);
 
