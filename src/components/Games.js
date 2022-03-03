@@ -37,8 +37,9 @@ function TeamGame({ game, idMap }) {
     <>
       <div className={`${style.teamIndex} light-text`}>{index}</div>
       <div className={`${style.members} ${lp > rp ? 'highlight' : ''}`}>
-        {ls.map((pid) => (
-          <div key={pid}>{idMap.get(pid).firstName}</div>
+        {ls.map((pid, idIndex) => (
+          /* eslint-disable-next-line react/no-array-index-key */
+          <div key={`${pid}-${idIndex}`}>{idMap.get(pid).firstName}</div>
         ))}
       </div>
       <div className={style.score}>
@@ -48,8 +49,9 @@ function TeamGame({ game, idMap }) {
         <Score scores={[rp, lp]} />
       </div>
       <div className={`${style.members} ${lp < rp ? 'highlight' : ''}`}>
-        {rs.map((pid) => (
-          <div key={pid}>{idMap.get(pid).firstName}</div>
+        {rs.map((pid, idIndex) => (
+          /* eslint-disable-next-line react/no-array-index-key */
+          <div key={`${pid}-${idIndex}`}>{idMap.get(pid).firstName}</div>
         ))}
       </div>
       <div className={style.button}>
