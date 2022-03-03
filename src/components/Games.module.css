@@ -1,5 +1,6 @@
 .games {
   display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
   grid-gap: 8px;
   grid-template-columns: 40px 3fr repeat(2, 1fr) 3fr 40px;
   line-height: 40px;
@@ -8,6 +9,7 @@
 
 .participants {
   display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
   grid-gap: 8px;
   grid-template-columns: repeat(4, 1fr);
   margin-bottom: 8px;
@@ -45,11 +47,14 @@
 
 @media screen and (min-width: 601px) {
   .Games {
-    display: flex;
-    column-gap: 8px;
+    display: grid;
+    grid-gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .Games > div {
-    flex: 1;
+@media screen and (max-width: 600px) {
+  .participants {
+    margin-bottom: 8px;
   }
 }
