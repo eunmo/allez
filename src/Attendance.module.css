@@ -10,13 +10,18 @@
   width: 100%;
 }
 
-.Attendance label {
+.Attendance button {
   background-color: var(--highlight);
-  display: block;
+  display: grid;
   grid-column: 1 / span 4;
+  grid-template-columns: 40px 1fr 40px;
   margin-bottom: 8px;
   text-align: center;
   width: 100%;
+}
+
+.Attendance button div {
+  line-height: var(--button-height);
 }
 
 .Attendance input[type="button"].came {
@@ -41,4 +46,8 @@
 .Attendance input[type="submit"] {
   background-color: var(--blue);
   color: var(--background);
+}
+
+.svg {
+  fill: var(--text);
 }

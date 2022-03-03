@@ -5,9 +5,27 @@ import { LinkButton } from './components';
 import { displayFullPersonType, get, groupByPersonType, put } from './utils';
 import style from './Attendance.module.css';
 
+function Plus() {
+  return (
+    <svg viewBox="0 0 40 40">
+      <rect x="12" y="19" width="16" height="2" className={style.svg} />
+      <rect x="19" y="12" width="2" height="16" className={style.svg} />
+    </svg>
+  );
+}
+
+function Minus() {
+  return (
+    <svg viewBox="0 0 40 40">
+      <rect x="12" y="19" width="16" height="2" className={style.svg} />
+    </svg>
+  );
+}
+
 export default function Attendance() {
   const [data, setData] = useState(null);
   const [came, setCame] = useState(new Set());
+  const [closed, setClosed] = useState(new Set('b', 'g', 'h'));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +60,19 @@ export default function Attendance() {
     [came, navigate]
   );
 
+  const toggleOpen = useCallback(
+    (code) => {
+      const newSet = new Set(closed);
+      if (closed.has(code)) {
+        newSet.delete(code);
+      } else {
+        newSet.add(code);
+      }
+      setClosed(newSet);
+    },
+    [closed]
+  );
+
   if (data === null) {
     return null; // TODO: spinner
   }
@@ -57,20 +88,29 @@ export default function Attendance() {
           disabled={came.size === 0}
           onClick={() => setCame(new Set())}
         />
-        {sections.map(({ code, persons }) => (
-          <Fragment key={code}>
-            <label>{displayFullPersonType(code)}</label>
-            {persons.map(({ firstName, id }) => (
-              <input
-                type="button"
-                key={id}
-                value={firstName}
-                className={came.has(id) ? style.came : undefined}
-                onClick={() => toggle(id)}
-              />
-            ))}
-          </Fragment>
-        ))}
+        {sections.map(({ code, persons }) => {
+          const isClosed = closed.has(code);
+          const icon = isClosed ? <Plus /> : <Minus />;
+
+          return (
+            <Fragment key={code}>
+              <button type="button" onClick={() => toggleOpen(code)}>
+                <div>{icon}</div>
+                <div>{displayFullPersonType(code)}</div>
+              </button>
+              {!isClosed &&
+                persons.map(({ firstName, id }) => (
+                  <input
+                    type="button"
+                    key={id}
+                    value={firstName}
+                    className={came.has(id) ? style.came : undefined}
+                    onClick={() => toggle(id)}
+                  />
+                ))}
+            </Fragment>
+          );
+        })}
         <input type="submit" value="제출" />
       </form>
     </div>
