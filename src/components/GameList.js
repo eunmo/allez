@@ -20,16 +20,16 @@ export default function GameList({ games, children, today = false }) {
 
   const tabNames = ['종합', '순위', '상세'];
   const gridStyle = {
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'auto',
     gridGap: '16px',
-    gridTemplateAreas: `'a a b b' '. c c .'`,
+    gridTemplateAreas: `'a b' 'c c'`,
   };
   const areas = ['a', 'b', 'c'];
 
   if (children) {
     tabNames.unshift('메뉴');
-    gridStyle.gridTemplateAreas = `'d d d d' 'a a b b' '. c c .'`;
+    gridStyle.gridTemplateAreas = `'d d' 'a b' 'c c'`;
     areas.unshift('d');
   }
 

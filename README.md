@@ -34,3 +34,4 @@
 - [x] separate active status (and maybe seniority) and type
 - [x] calendar view: change month
 - [x] leaderboard
+- [x] filter by person for game list
