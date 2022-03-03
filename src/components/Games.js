@@ -9,17 +9,43 @@ function getScore(rounds, key) {
   return rounds.slice(-1)[0][key] ?? 0;
 }
 
-function IndividualGame({ game, idMap }) {
+function getNameClassL(game, selected) {
+  const { ls, lp, rp } = game;
+  const isL = ls.includes(selected);
+
+  if (lp > rp) {
+    return isL ? style.selected : 'highlight';
+  }
+
+  return '';
+}
+
+function getNameClassR(game, selected) {
+  const { rs, lp, rp } = game;
+  const isR = rs.includes(selected);
+
+  if (lp < rp) {
+    return isR ? style.selected : 'highlight';
+  }
+
+  return '';
+}
+
+function IndividualGame({ game, idMap, selected }) {
   const { id, ls, rs, lp, rp, index } = game;
   const [l] = ls;
   const [r] = rs;
   return (
     <>
       <div className="light-text">{index}</div>
-      <div className={lp > rp ? 'highlight' : ''}>{idMap.get(l).firstName}</div>
+      <div className={getNameClassL(game, selected)}>
+        {idMap.get(l).firstName}
+      </div>
       <Score scores={[lp, rp]} />
       <Score scores={[rp, lp]} />
-      <div className={lp < rp ? 'highlight' : ''}>{idMap.get(r).firstName}</div>
+      <div className={getNameClassR(game, selected)}>
+        {idMap.get(r).firstName}
+      </div>
       <LinkButton
         size="sm"
         to={`/game/individual/edit/${id}`}
@@ -31,12 +57,12 @@ function IndividualGame({ game, idMap }) {
   );
 }
 
-function TeamGame({ game, idMap }) {
+function TeamGame({ game, idMap, selected }) {
   const { id, ls, rs, lp, rp, index } = game;
   return (
     <>
       <div className={`${style.teamIndex} light-text`}>{index}</div>
-      <div className={`${style.members} ${lp > rp ? 'highlight' : ''}`}>
+      <div className={`${style.members} ${getNameClassL(game, selected)}`}>
         {ls.map((pid) => (
           <div key={pid}>{idMap.get(pid).firstName}</div>
         ))}
@@ -47,7 +73,7 @@ function TeamGame({ game, idMap }) {
       <div className={style.score}>
         <Score scores={[rp, lp]} />
       </div>
-      <div className={`${style.members} ${lp < rp ? 'highlight' : ''}`}>
+      <div className={`${style.members} ${getNameClassR(game, selected)}`}>
         {rs.map((pid) => (
           <div key={pid}>{idMap.get(pid).firstName}</div>
         ))}
@@ -115,11 +141,25 @@ export default function Games({ games, idMap }) {
           const { type, id } = game;
 
           if (type === 1) {
-            return <IndividualGame key={id} game={game} idMap={idMap} />;
+            return (
+              <IndividualGame
+                key={id}
+                game={game}
+                idMap={idMap}
+                selected={selected}
+              />
+            );
           }
 
           if ([2, 3, 4].includes(type)) {
-            return <TeamGame key={id} game={game} idMap={idMap} />;
+            return (
+              <TeamGame
+                key={id}
+                game={game}
+                idMap={idMap}
+                selected={selected}
+              />
+            );
           }
 
           return null;
