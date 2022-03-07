@@ -97,12 +97,18 @@ test('get summary by pid', async () => {
     expect(byPerson).toStrictEqual(person);
   }
 
+  /* Day 2
+   * p2 5 : 3 p3
+   * p1 14 : 6 p2+p3
+   * Day 1
+   * p1 5: 3 p2 */
+
   const p1 = { [pid2]: { count: 1, wins: 1 } };
-  await check(pid1, 1, [1], [1], p1);
+  await check(pid1, 2, [1, 1], [1, 1], p1);
   const p2 = { [pid1]: { count: 1, wins: 0 }, [pid3]: { count: 1, wins: 1 } };
-  await check(pid2, 2, [1, 1], [1, 0], p2);
+  await check(pid2, 2, [2, 1], [1, 0], p2);
   const p3 = { [pid2]: { count: 1, wins: 0 } };
-  await check(pid3, 1, [1], [0], p3);
+  await check(pid3, 1, [2], [0], p3);
 });
 
 test('get history', async () => {
