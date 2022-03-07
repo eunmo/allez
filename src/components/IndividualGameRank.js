@@ -2,6 +2,7 @@ import { Fragment, useMemo } from 'react';
 
 import { sortByName, ignoreType } from '../utils';
 import LinkButton from './LinkButton';
+import Stat from './Stat';
 import style from './IndividualGameRank.module.css';
 
 const emptyRank = { victories: 0, matches: 0, scored: 0, received: 0 };
@@ -26,10 +27,6 @@ function sortByStat(p1, p2) {
   }
 
   return 0;
-}
-
-function pad(number) {
-  return `${number}`.padStart(3, '\xa0');
 }
 
 export default function GameGrid({ games, idMap, allowEmpty = false }) {
@@ -143,9 +140,9 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
           <LinkButton size="sm" to={`/person/${id}`} cn={style.name}>
             {firstName}
           </LinkButton>
-          <div className="mono">{pad(ratio)}</div>
-          <div className="mono">{pad(diff)}</div>
-          <div className="mono">{pad(scored)}</div>
+          <Stat value={ratio} />
+          <Stat value={diff} />
+          <Stat value={scored} />
         </Fragment>
       ))}
     </div>

@@ -6,6 +6,7 @@ import PersonForm from './PersonForm';
 import PersonSelect from './PersonSelect';
 import PointInput from './PointInput';
 import ResponsiveTabs from './ResponsiveTabs';
+import Stat from './Stat';
 
 export {
   GameList,
@@ -16,4 +17,5 @@ export {
   PersonSelect,
   PointInput,
   ResponsiveTabs,
+  Stat,
 };

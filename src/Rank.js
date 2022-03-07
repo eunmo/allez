@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 
-import { LinkButton } from './components';
+import { LinkButton, Stat } from './components';
 import { get, toPersonIdMap } from './utils';
 import style from './Rank.module.css';
 
@@ -84,9 +84,7 @@ export default function Rank() {
             {idMap.get(person.id).firstName}
           </LinkButton>
           {Object.keys(keys).map((key) => (
-            <div key={key} className="mono">
-              {`${person[key]}`.padStart(padding.get(key), '\xa0')}
-            </div>
+            <Stat key={key} value={person[key]} pad={padding.get(key)} />
           ))}
         </Fragment>
       ))}
