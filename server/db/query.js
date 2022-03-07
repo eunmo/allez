@@ -9,6 +9,13 @@ async function getPersons() {
   return parsePersonRows(rows);
 }
 
+async function getPersonIdsByType(types) {
+  if (types.length === 0) {
+    return [];
+  }
+  return query('SELECT id FROM person WHERE type in (?)', [types]);
+}
+
 async function getToday() {
   const rows = await query(
     'SELECT id, firstName, lastName, type FROM person WHERE today = TRUE'
@@ -98,6 +105,7 @@ async function getHistory(id1, id2) {
 
 module.exports = {
   getPersons,
+  getPersonIdsByType,
   getToday,
   getPerson,
   getGameDates,

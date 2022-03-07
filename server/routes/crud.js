@@ -8,6 +8,7 @@ const {
   removeGame,
   addParticipants,
   removeParticipants,
+  getPersonIdsByType,
 } = require('../db');
 
 const router = express.Router();
@@ -26,6 +27,14 @@ router.put('/person', async (req, res) => {
 
 router.put('/attendance', async (req, res) => {
   const { ids } = req.body;
+  await updateAttendances(ids);
+  res.sendStatus(200);
+});
+
+router.put('/reset-attendance', async (req, res) => {
+  const { types } = req.body;
+  const personIds = await getPersonIdsByType(types);
+  const ids = personIds.map(({ id }) => id);
   await updateAttendances(ids);
   res.sendStatus(200);
 });

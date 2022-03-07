@@ -95,6 +95,26 @@ test('update attendances', async () => {
   await check([], [false, false, false]);
 });
 
+test('reset attendances', async () => {
+  const { pid1, pid2, pid3 } = await prepare();
+
+  async function check(types, values) {
+    await put('reset-attendance', { types });
+    expect(values.length).toBe(3);
+    let { today } = await get(`/api/person/id/${pid1}`);
+    expect(today).toBe(values[0]);
+    ({ today } = await get(`/api/person/id/${pid2}`));
+    expect(today).toBe(values[1]);
+    ({ today } = await get(`/api/person/id/${pid3}`));
+    expect(today).toBe(values[2]);
+  }
+
+  await check(['f'], [true, false, false]);
+  await check(['f', 'm'], [true, true, false]);
+  await check(['f', 'm', 'c'], [true, true, true]);
+  await check([], [false, false, false]);
+});
+
 const dummyGame1 = {
   type: 1,
   ls: [1],

@@ -1,5 +1,6 @@
 const {
   getPersons,
+  getPersonIdsByType,
   getToday,
   getPerson,
   getGameDates,
@@ -32,6 +33,20 @@ test('get persons', async () => {
   const rows = await getPersons();
   expect(rows.length).toBe(3);
   expect(rows[0].today).toBe(true);
+});
+
+test('get person ids by type', async () => {
+  let rows = await getPersonIdsByType([]);
+  expect(rows).toStrictEqual([]);
+
+  rows = await getPersonIdsByType(['f']);
+  expect([...new Set(rows.map(({ id }) => id))].sort()).toStrictEqual([pid1]);
+
+  rows = await getPersonIdsByType(['f', 'm']);
+  expect([...new Set(rows.map(({ id }) => id))].sort()).toStrictEqual([
+    pid1,
+    pid2,
+  ]);
 });
 
 test('get today', async () => {
