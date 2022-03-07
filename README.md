@@ -35,3 +35,4 @@
 - [x] calendar view: change month
 - [x] leaderboard
 - [x] filter by person for game list
+- [x] cron job for resetting attendance at the start of each day
