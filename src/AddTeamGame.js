@@ -1,7 +1,13 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { get, post, toPersonIdMap, gameOrder, buildRounds } from './utils';
+import {
+  get,
+  postGetJson as post,
+  toPersonIdMap,
+  gameOrder,
+  buildRounds,
+} from './utils';
 import { PersonSelect } from './components';
 import style from './AddTeamGame.module.css';
 
@@ -206,8 +212,8 @@ export default function AddTeamGame() {
     } else {
       const rounds = buildRounds(size, lOrder, rOrder);
       const game = { type: size, ls: lOrder, rs: rOrder, rounds };
-      post('/api/crud/game', { game }, () => {
-        navigate('/');
+      post('/api/crud/game', { game }, ({ gid }) => {
+        navigate(`/game/team/edit/${gid}`);
       });
     }
   }, [step, size, lOrder, rOrder, navigate]);

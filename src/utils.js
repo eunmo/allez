@@ -12,6 +12,16 @@ function post(url, body, callback) {
   }).then(callback);
 }
 
+function postGetJson(url, body, callback) {
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then(callback);
+}
+
 function put(url, body, callback) {
   fetch(url, {
     method: 'PUT',
@@ -129,6 +139,7 @@ function ignoreType(type) {
 export {
   get,
   post,
+  postGetJson,
   put,
   fetchDelete,
   personType,

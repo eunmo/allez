@@ -31,10 +31,11 @@ async function del(url, body) {
 }
 
 async function post(url, body) {
-  const { statusCode } = await request(app)
+  const { body: res, statusCode } = await request(app)
     .post(`${baseUrl}/${url}`)
     .send(body);
   expect(statusCode).toBe(200);
+  return res;
 }
 
 async function put(url, body) {
@@ -149,7 +150,8 @@ test.each([
   [1, dummyGame1, [1, 2]],
   [2, dummyGame2, [1, 2, 3, 4]],
 ])('add game %d', async (_, game, pids) => {
-  await post('game', { game });
+  const { gid } = await post('game', { game });
+  expect(gid.length).toBe(36); // uuid
 
   // eslint-disable-next-line no-restricted-syntax
   for (const pid of pids) {

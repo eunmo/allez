@@ -64,7 +64,7 @@ router.post('/game', async (req, res) => {
 
   const gid = await addGame(game);
   await addParticipants(gid, pids);
-  res.sendStatus(200);
+  res.json({ gid });
 });
 
 router.put('/game', async (req, res) => {

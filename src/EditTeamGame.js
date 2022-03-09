@@ -75,17 +75,6 @@ export default function EditTeamGame() {
       const newRounds = [...rounds];
       newRounds[index][side] = value;
       setGame({ ...rest, rounds: newRounds });
-      if (
-        side === 'rp' &&
-        ((index === 0 && value?.length === 1) || value?.length === 2)
-      ) {
-        setSelected();
-      } else if (
-        side === 'lp' &&
-        ((index === 0 && value?.length === 1) || value?.length === 2)
-      ) {
-        setSelected([index, 'rp']);
-      }
     },
     [game, selected]
   );
