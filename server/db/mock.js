@@ -54,14 +54,15 @@ async function prepare() {
   await addParticipants(gid2, [pid2, pid3]);
   await addParticipants(gid3, [pid1, pid2, pid3]);
 
-  await dml(
-    'UPDATE game SET time = DATE_SUB(time, INTERVAL 1 DAY) WHERE id = ?',
-    [gid1]
-  );
-  await dml(
-    'UPDATE game SET time = DATE_ADD(time, INTERVAL 1 SECOND) WHERE id = ?',
-    [gid3]
-  );
+  await dml('UPDATE game SET time = "2022-03-31 21:01:02" WHERE id = ?', [
+    gid1,
+  ]);
+  await dml('UPDATE game SET time = "2022-04-01 21:03:04" WHERE id = ?', [
+    gid2,
+  ]);
+  await dml('UPDATE game SET time = "2022-04-01 21:05:06" WHERE id = ?', [
+    gid3,
+  ]);
 
   [{ gameDate: date1 }] = await query(
     'SELECT DATE(time) as gameDate FROM game WHERE id = ?',

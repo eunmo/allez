@@ -127,9 +127,10 @@ test('get history', async () => {
 });
 
 test('get rank', async () => {
-  const { ranks, persons } = await get('/api/rank');
+  const { ranks, monthlyRanks, persons } = await get('/api/rank');
 
   expect(persons.length).toBe(3);
+  expect(ranks.length).toBe(3);
   expect(ranks.find(({ id }) => id === pid1)).toStrictEqual({
     id: pid1,
     date: 2,
@@ -145,6 +146,53 @@ test('get rank', async () => {
     diff: -4,
   });
   expect(ranks.find(({ id }) => id === pid3)).toStrictEqual({
+    id: pid3,
+    date: 1,
+    wins: 0,
+    points: 5,
+    diff: -6,
+  });
+
+  expect(monthlyRanks.length).toBe(2);
+  const [april, march] = monthlyRanks;
+
+  // check sort
+  expect(april.month).toStrictEqual('2022-04');
+  expect(march.month).toStrictEqual('2022-03');
+
+  // check monthly ranks
+  expect(march.ranks.length).toBe(2);
+  expect(march.ranks.find(({ id }) => id === pid1)).toStrictEqual({
+    id: pid1,
+    date: 1,
+    wins: 1,
+    points: 5,
+    diff: 2,
+  });
+  expect(march.ranks.find(({ id }) => id === pid2)).toStrictEqual({
+    id: pid2,
+    date: 1,
+    wins: 0,
+    points: 3,
+    diff: -2,
+  });
+
+  expect(april.ranks.length).toBe(3);
+  expect(april.ranks.find(({ id }) => id === pid1)).toStrictEqual({
+    id: pid1,
+    date: 1,
+    wins: 1,
+    points: 14,
+    diff: 8,
+  });
+  expect(april.ranks.find(({ id }) => id === pid2)).toStrictEqual({
+    id: pid2,
+    date: 1,
+    wins: 1,
+    points: 9,
+    diff: -2,
+  });
+  expect(april.ranks.find(({ id }) => id === pid3)).toStrictEqual({
     id: pid3,
     date: 1,
     wins: 0,

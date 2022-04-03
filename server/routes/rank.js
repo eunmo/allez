@@ -3,10 +3,7 @@ const { getPersons, getGames } = require('../db');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-  const persons = await getPersons();
-  const games = await getGames();
-
+function calculateRanks(games) {
   const personMap = new Map();
   games.forEach(({ time, ls, rs, rounds }) => {
     const date = time.toISOString().substring(0, 10);
@@ -56,7 +53,34 @@ router.get('/', async (req, res) => {
   const ranks = [...personMap.entries()].map(
     ([id, { date, wins, points, diff }]) => ({ id, date, wins, points, diff })
   );
-  res.json({ ranks, persons });
+
+  return ranks;
+}
+
+router.get('/', async (req, res) => {
+  const persons = await getPersons();
+  const allGames = await getGames();
+
+  const months = new Set();
+  const monthlyGames = new Map();
+  allGames.forEach((game) => {
+    const { time } = game;
+    const month = time.toISOString().substring(0, 7);
+    months.add(month);
+    if (!monthlyGames.has(month)) {
+      monthlyGames.set(month, []);
+    }
+    monthlyGames.get(month).push(game);
+  });
+  const monthlyRanks = [...monthlyGames.entries()]
+    .map(([month, games]) => ({
+      month,
+      ranks: calculateRanks(games),
+    }))
+    .sort((a, b) => (a.month > b.month ? -1 : 1));
+  const ranks = calculateRanks(allGames);
+
+  res.json({ ranks, monthlyRanks, persons });
 });
 
 module.exports = router;
