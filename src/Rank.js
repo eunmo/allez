@@ -89,7 +89,6 @@ export default function Rank() {
 
   useEffect(() => {
     get('/api/rank', ({ ranks, monthlyRanks, persons }) => {
-      const fullRank = { m: '전체', ranks };
       const formatted = [
         ...monthlyRanks.map((monthlyRank) => {
           const { month } = monthlyRank;
