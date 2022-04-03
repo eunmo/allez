@@ -11,17 +11,8 @@ const keys = {
   diff: { title: '득실왕', legend: '득실' },
 };
 
-export default function Rank() {
-  const [ranking, setRanking] = useState();
-  const [idMap, setIdMap] = useState();
+function RankTable({ ranking, idMap, title, children }) {
   const [sortKey, setSortKey] = useState('date');
-
-  useEffect(() => {
-    get('/api/rank', ({ ranks, persons }) => {
-      setRanking(ranks);
-      setIdMap(toPersonIdMap(persons));
-    });
-  }, []);
 
   const [ranked, padding] = useMemo(() => {
     if (ranking === undefined || idMap === undefined) {
@@ -57,13 +48,12 @@ export default function Rank() {
     return [withRank, widths];
   }, [ranking, idMap, sortKey]);
 
-  if (ranking === undefined || idMap === undefined) {
-    return null; // TODO: spinner
-  }
-
   return (
-    <div className={style.Rank}>
-      <div className={`${style.title} header`}>{keys[sortKey].title}</div>
+    <div className={style.RankTable}>
+      <div className={`${style.title} header`}>
+        {title} {keys[sortKey].title}
+      </div>
+      {children}
       <div className="light-text">순위</div>
       <div className="light-text">이름</div>
       {Object.entries(keys).map(([key, { legend }]) => (
@@ -89,5 +79,56 @@ export default function Rank() {
         </Fragment>
       ))}
     </div>
+  );
+}
+
+export default function Rank() {
+  const [rankings, setRankings] = useState();
+  const [idMap, setIdMap] = useState();
+  const [selectedRank, setSelectedRank] = useState();
+
+  useEffect(() => {
+    get('/api/rank', ({ ranks, monthlyRanks, persons }) => {
+      const fullRank = { m: '전체', ranks };
+      const formatted = [
+        ...monthlyRanks.map((monthlyRank) => {
+          const { month } = monthlyRank;
+          const title = `${parseInt(month.substring(5, 7), 10)}월`;
+          return { title, ranks: monthlyRank.ranks };
+        }),
+        { title: '전체', ranks },
+      ];
+      setRankings(formatted);
+      setSelectedRank(formatted[0]);
+      setIdMap(toPersonIdMap(persons));
+    });
+  }, []);
+
+  if (
+    rankings === undefined ||
+    idMap === undefined ||
+    selectedRank === undefined
+  ) {
+    return null; // TODO: spinner
+  }
+
+  const { title, ranks } = selectedRank;
+
+  return (
+    <RankTable ranking={ranks} idMap={idMap} title={title}>
+      <div className={style.months}>
+        {rankings.map((ranking) => (
+          <button
+            key={ranking.title}
+            type="button"
+            className={style.button}
+            onClick={() => setSelectedRank(ranking)}
+            disabled={selectedRank === ranking}
+          >
+            {ranking.title}
+          </button>
+        ))}
+      </div>
+    </RankTable>
   );
 }
