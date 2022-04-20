@@ -196,7 +196,7 @@ test('update game 2', async () => {
   expect(game.rounds[0].rp).toBe(4);
 });
 
-test('removee game', async () => {
+test('remove game', async () => {
   await post('game', { game: dummyGame1 });
 
   const [{ id }] = await get('/api/game/person/1');

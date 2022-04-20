@@ -39,14 +39,14 @@ function fetchDelete(url, body, callback) {
 }
 
 const personType = {
-  a: { full: '코치', simple: '코치' },
-  b: { full: '사라진 코치', simple: '코치', hide: true },
-  c: { full: '정규반 남자', simple: '남자' },
-  d: { full: '정규반 여자', simple: '여자' },
-  e: { full: '입문반 남자', simple: '남자' },
-  f: { full: '입문반 여자', simple: '여자' },
-  g: { full: '사라진 남자', simple: '남자', hide: true },
-  h: { full: '사라진 여자', simple: '여자', hide: true },
+  a: { full: '코치', simple: '코치', order: 1 },
+  b: { full: '사라진 코치', simple: '코치', hide: true, order: 6 },
+  c: { full: '정규반 남자', simple: '남자', order: 2 },
+  d: { full: '정규반 여자', simple: '여자', order: 3 },
+  e: { full: '입문반 남자', simple: '남자', order: 4 },
+  f: { full: '입문반 여자', simple: '여자', order: 5 },
+  g: { full: '사라진 남자', simple: '남자', hide: true, order: 7 },
+  h: { full: '사라진 여자', simple: '여자', hide: true, order: 8 },
 };
 
 function displayFullPersonType(type) {
@@ -61,9 +61,13 @@ function personCmp(a, b) {
   return a.firstName < b.firstName ? -1 : 1;
 }
 
+function typeCmp(a, b) {
+  return personType[a].order - personType[b].order;
+}
+
 function groupByPersonType(persons) {
   const codeSet = new Set((persons ?? []).map(({ type }) => type));
-  const codes = [...codeSet].sort();
+  const codes = [...codeSet].sort(typeCmp);
 
   function getGroup(code) {
     return persons.filter(({ type }) => type === code).sort(personCmp);

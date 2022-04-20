@@ -1,6 +1,6 @@
 .Attendance form {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-column-gap: 8px;
 }
 
@@ -13,7 +13,7 @@
 .Attendance button {
   background-color: var(--highlight);
   display: grid;
-  grid-column: 1 / span 4;
+  grid-column: 1 / span 6;
   grid-template-columns: 40px 1fr 40px;
   margin-bottom: 8px;
   text-align: center;
@@ -31,12 +31,12 @@
 
 .Attendance input[type="submit"] {
   grid-column-start: 1;
-  grid-column: span 4;
+  grid-column: span 6;
 }
 
 .Attendance a,
 .Attendance input[type="reset"] {
-  grid-column: span 2;
+  grid-column: span 3;
 }
 
 .Attendance input[type="reset"]:not(:disabled) {
