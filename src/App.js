@@ -13,6 +13,8 @@ import GameDate from './GameDate';
 import Main from './Main';
 import Person from './Person';
 import Rank from './Rank';
+import ViewIndividualGame from './ViewIndividualGame';
+import ViewTeamGame from './ViewTeamGame';
 import { Header } from './components';
 import style from './App.module.css';
 
@@ -47,10 +49,12 @@ export default function App() {
             <Route path="individual">
               <Route path="add" element={<AddIndividualGame />} />
               <Route path="edit/:id" element={<EditIndividualGame />} />
+              <Route path="view/:id" element={<ViewIndividualGame />} />
             </Route>
             <Route path="team">
               <Route path="add" element={<AddTeamGame />} />
               <Route path="edit/:id" element={<EditTeamGame />} />
+              <Route path="view/:id" element={<ViewTeamGame />} />
             </Route>
           </Route>
         </Route>

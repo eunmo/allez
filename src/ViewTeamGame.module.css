@@ -1,0 +1,21 @@
+.ViewTeamGame {
+  display: grid;
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(7, 1fr);
+  grid-row-gap: 8px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.header {
+  grid-column: span 7;
+}
+
+.date {
+  display: inline;
+  background-color: var(--background);
+}
+
+.person {
+  background-color: var(--background);
+}

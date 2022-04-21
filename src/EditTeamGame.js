@@ -117,7 +117,10 @@ export default function EditTeamGame() {
         <label className={style.header}>소계</label>
         <label className={style.header}>선수</label>
         {rounds.map(({ l, r, lp, rp }, index) => (
-          <Fragment key={`${l}-${r}`}>
+          <Fragment
+            /* eslint-disable-next-line react/no-array-index-key */
+            key={index}
+          >
             <label>{idMap.get(l).firstName}</label>
             <label className="light-text">{perRound[index][0]}</label>
             <input

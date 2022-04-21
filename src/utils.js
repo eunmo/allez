@@ -140,6 +140,13 @@ function ignoreType(type) {
   return type === 'a' || type === 'b';
 }
 
+function formatDate(date) {
+  const m = parseInt(date.substring(5, 7), 10);
+  const d = parseInt(date.substring(8, 10), 10);
+
+  return `${m}월 ${d}일`;
+}
+
 export {
   get,
   post,
@@ -158,4 +165,5 @@ export {
   parseRounds,
   sortByName,
   ignoreType,
+  formatDate,
 };

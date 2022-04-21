@@ -36,3 +36,4 @@
 - [x] leaderboard
 - [x] filter by person for game list
 - [x] cron job for resetting attendance at the start of each day
+- [x] disable edit for past games

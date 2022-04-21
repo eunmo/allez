@@ -27,3 +27,4 @@ yarn-error.log*
 *.swp
 
 initdb/3_populate_data.sql
+initdb/4_dump.sql

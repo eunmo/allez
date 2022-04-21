@@ -37,7 +37,7 @@ export default function GameList({ games, children, today = false }) {
       {children && <div>{children}</div>}
       <IndividualGameGrid games={games} idMap={idMap} allowEmpty={today} />
       <IndividualGameRank games={games} idMap={idMap} allowEmpty={today} />
-      <Games games={games} idMap={idMap} />
+      <Games games={games} idMap={idMap} editable={today} />
     </ResponsiveTabs>
   );
 }
