@@ -1,9 +1,11 @@
 # TODO
 
+- [ ] move some menu into sidebar/dropdown
+- [ ] handle irregular team games (1:N, N:M)
+- [ ] split branches
 - [ ] spinner for loading
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
-- [ ] move some menu into sidebar/dropdown
 
 # Done
 
