@@ -1,22 +1,18 @@
-.ViewIndividualGame {
+.Duo {
   display: grid;
   grid-column-gap: 8px;
-  grid-template-columns: 2fr 1fr 1fr 2fr;
+  grid-template-columns: 2fr 2fr 1fr 1fr 2fr;
   grid-row-gap: 8px;
   line-height: 40px;
   text-align: center;
 }
 
 .header {
-  grid-column: span 4;
+  grid-column: span 5;
   margin-bottom: 0;
 }
 
 .date {
   display: inline;
-  background-color: var(--background);
-}
-
-.person {
   background-color: var(--background);
 }

@@ -44,6 +44,11 @@ export default function ViewTeamGame() {
       <LinkButton size="sm" to={`/person/${r}`} cn={style.person}>
         {idMap.get(r).firstName}
       </LinkButton>
+      <div className={style.header}>
+        <LinkButton size="sm" to={`/game/duo/${l}/${r}`}>
+          전적 보기
+        </LinkButton>
+      </div>
     </div>
   );
 }

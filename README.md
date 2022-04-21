@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] spinner for loading
-- [ ] game page for a specific duo
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
 - [ ] move some menu into sidebar/dropdown
@@ -37,3 +36,4 @@
 - [x] filter by person for game list
 - [x] cron job for resetting attendance at the start of each day
 - [x] disable edit for past games
+- [x] game page for a specific duo

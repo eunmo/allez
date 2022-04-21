@@ -1,4 +1,12 @@
-.byPerson,
+.byPerson {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 2fr 40px;
+  grid-auto-rows: var(--button-height);
+  line-height: var(--button-height);
+  text-align: center;
+}
+
 .byDate {
   display: grid;
   grid-gap: 8px;
@@ -13,7 +21,9 @@
 }
 
 @media (max-width: 600px) {
-  .byPerson,
+  .byPerson {
+    grid-template-columns: 1fr 2fr 40px;
+  }
   .byDate {
     grid-template-columns: 1fr 1fr;
   }

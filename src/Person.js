@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { LinkButton, ResponsiveTabs } from './components';
+import { View } from './svg';
 import { get, toPersonIdMap } from './utils';
 import style from './Person.module.css';
 
@@ -46,7 +47,7 @@ function ResultByDate({ byDate }) {
   );
 }
 
-function ResultByOpponent({ byPerson, idMap }) {
+function ResultByOpponent({ byPerson, idMap, id }) {
   const calculated = useMemo(
     () =>
       Object.entries(byPerson)
@@ -70,12 +71,20 @@ function ResultByOpponent({ byPerson, idMap }) {
     <div className={style.byPerson}>
       <div className="highlight">상대</div>
       <div className="highlight">전적</div>
+      <div />
       {calculated.map((result) => (
         <Fragment key={result.vs}>
           <LinkButton size="sm" to={`/person/${result.vs}`}>
             {result.name}
           </LinkButton>
           <Result result={result} />
+          <LinkButton
+            size="sm"
+            to={`/game/duo/${id}/${result.vs}`}
+            style={{ borderRadius: '20px' }}
+          >
+            <View />
+          </LinkButton>
         </Fragment>
       ))}
     </div>
@@ -92,7 +101,7 @@ function PersonLoaded({ idMap, byPerson, byDate, id }) {
         {firstName} 전적
       </div>
       <ResponsiveTabs tabNames={['상대별', '날짜별']}>
-        <ResultByOpponent byPerson={byPerson} idMap={idMap} />
+        <ResultByOpponent byPerson={byPerson} idMap={idMap} id={id} />
         <ResultByDate byDate={byDate} />
       </ResponsiveTabs>
     </div>

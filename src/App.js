@@ -5,6 +5,7 @@ import AddPerson from './AddPerson';
 import AddTeamGame from './AddTeamGame';
 import Attendance from './Attendance';
 import DatePicker from './DatePicker';
+import Duo from './Duo';
 import EditIndividualGame from './EditIndividualGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
@@ -56,6 +57,7 @@ export default function App() {
               <Route path="edit/:id" element={<EditTeamGame />} />
               <Route path="view/:id" element={<ViewTeamGame />} />
             </Route>
+            <Route path="duo/:l/:r" element={<Duo />} />
           </Route>
         </Route>
       </Routes>
