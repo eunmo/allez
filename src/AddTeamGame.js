@@ -74,7 +74,7 @@ function ChooseTeamMembers({
         <input
           type="button"
           key={n}
-          value={n}
+          value={`${n}:${n}`}
           onClick={() => setSize(n)}
           style={{ gridColumnStart: n + 1 }}
           disabled={size === n}

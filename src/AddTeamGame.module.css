@@ -13,7 +13,7 @@
 }
 
 .AddTeamGame input[type=button]:disabled {
-  background-color: var(--highlight);
+  background-color: var(--border);
   color: var(--text);
   transition: 0.3s;
 }
@@ -25,9 +25,7 @@
 }
 
 input.selected {
-  background-color: var(--blue);
-  border-color: var(--blue);
-  color: var(--background);
+  background-color: var(--border);
 }
 
 .gameOrder {
