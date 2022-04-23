@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { get, postGetJson as post, toPersonIdMap, buildRounds } from '../utils';
+import ChooseFreeTeamMembers from './ChooseFreeTeamMembers';
 import ChooseTeamMembers from './ChooseTeamMembers';
 import ChooseTeamOrder from './ChooseTeamOrder';
 import style from './index.module.css';
@@ -35,7 +36,7 @@ export default function AddTeamGame() {
     if (step < 2) {
       setStep(step + 1);
     } else {
-      const rounds = buildRounds(size, lOrder, rOrder);
+      const rounds = size === 0 ? [] : buildRounds(size, lOrder, rOrder);
       const game = { type: size, ls: lOrder, rs: rOrder, rounds };
       post('/api/crud/game', { game }, ({ gid }) => {
         navigate(`/game/team/edit/${gid}`);
@@ -61,38 +62,64 @@ export default function AddTeamGame() {
           setRs={setRs}
           persons={persons}
           idMap={idMap}
-          nextValue="팀 1 순서 선택"
+          nextValue={size === 0 ? '팀 1 인원 선택' : '팀 1 순서 선택'}
           onDone={next}
         />
       );
       break;
     case 1:
-      body = (
-        <ChooseTeamOrder
-          size={size}
-          side={0}
-          list={ls}
-          order={lOrder}
-          setOrder={setLOrder}
-          idMap={idMap}
-          nextValue="팀 2 순서 선택"
-          onDone={next}
-        />
-      );
+      if (size === 0) {
+        body = (
+          <ChooseFreeTeamMembers
+            side={0}
+            list={lOrder}
+            setList={setLOrder}
+            persons={persons}
+            nextValue="팀 2 인원 선택"
+            onDone={next}
+          />
+        );
+      } else {
+        body = (
+          <ChooseTeamOrder
+            size={size}
+            side={0}
+            list={ls}
+            order={lOrder}
+            setOrder={setLOrder}
+            idMap={idMap}
+            nextValue="팀 2 순서 선택"
+            onDone={next}
+          />
+        );
+      }
       break;
     case 2:
-      body = (
-        <ChooseTeamOrder
-          size={size}
-          side={1}
-          list={rs}
-          order={rOrder}
-          setOrder={setROrder}
-          idMap={idMap}
-          nextValue="단체전 시작"
-          onDone={next}
-        />
-      );
+      if (size === 0) {
+        body = (
+          <ChooseFreeTeamMembers
+            side={1}
+            list={rOrder}
+            setList={setROrder}
+            persons={persons}
+            nextValue="단체전 시작"
+            onDone={next}
+          />
+        );
+      } else {
+        body = (
+          <ChooseTeamOrder
+            size={size}
+            side={1}
+            list={rs}
+            order={rOrder}
+            setOrder={setROrder}
+            idMap={idMap}
+            nextValue="단체전 시작"
+            onDone={next}
+          />
+        );
+      }
       break;
     default:
       break;

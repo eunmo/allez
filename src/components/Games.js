@@ -7,7 +7,7 @@ import Score from './Score';
 import style from './Games.module.css';
 
 function getScore(rounds, key) {
-  return rounds.slice(-1)[0][key] ?? 0;
+  return rounds.slice(-1)[0]?.[key] ?? 0;
 }
 
 function GameLink({ id, type, editable }) {
@@ -132,7 +132,7 @@ export default function Games({ games, idMap, editable }) {
             );
           }
 
-          if ([2, 3, 4].includes(type)) {
+          if ([0, 2, 3, 4].includes(type)) {
             return (
               <TeamGame
                 key={id}

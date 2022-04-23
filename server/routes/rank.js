@@ -25,7 +25,8 @@ function calculateRanks(games) {
       }
     });
 
-    const { lp: lastLp, rp: lastRp } = rounds[rounds.length - 1];
+    const lastIndex = rounds.length - 1;
+    const { lp: lastLp, rp: lastRp } = rounds[lastIndex] ?? { lp: 0, rp: 0 };
     if (lastLp > lastRp) {
       ls.forEach((pid) => {
         personMap.get(pid).wins += 1;

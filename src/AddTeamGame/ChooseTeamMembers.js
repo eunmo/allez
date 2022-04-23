@@ -9,6 +9,14 @@ function updateIndex(list, setList, index, newValue) {
   setList(newList);
 }
 
+function displaySize(size) {
+  if (size === 0) {
+    return '자유';
+  }
+
+  return `${size}:${size}`;
+}
+
 export default function ChooseTeamMembers({
   size,
   setSize,
@@ -60,42 +68,45 @@ export default function ChooseTeamMembers({
   return (
     <form className={style.ChooseTeamMembers}>
       <label className={style.label}>인원</label>
-      {[2, 3, 4].map((n) => (
+      {[0, 2, 3, 4].map((n) => (
         <input
           type="button"
           key={n}
-          value={`${n}:${n}`}
+          value={displaySize(n)}
           onClick={() => setSize(n)}
-          style={{ gridColumnStart: n + 1 }}
           disabled={size === n}
         />
       ))}
-      {[
-        ['팀 1', ls],
-        ['팀 2', rs],
-      ].map(([teamName, list], teamIndex) => (
-        <Fragment key={teamName}>
-          <label className={style.label}>{teamName}</label>
-          {list.map((id, index) => (
-            <input
-              /* eslint-disable-next-line react/no-array-index-key */
-              key={`${id}-${index}`}
-              type="button"
-              value={idMap.get(id)?.firstName ?? '선택'}
-              className={
-                teamIndex * size + index === step ? style.selected : ''
-              }
-              onClick={() => setStep(teamIndex * size + index)}
-            />
+      {size > 0 && (
+        <>
+          {[
+            ['팀 1', ls],
+            ['팀 2', rs],
+          ].map(([teamName, list], teamIndex) => (
+            <Fragment key={teamName}>
+              <label className={style.label}>{teamName}</label>
+              {list.map((id, index) => (
+                <input
+                  /* eslint-disable-next-line react/no-array-index-key */
+                  key={`${id}-${index}`}
+                  type="button"
+                  value={idMap.get(id)?.firstName ?? '선택'}
+                  className={
+                    teamIndex * size + index === step ? style.selected : ''
+                  }
+                  onClick={() => setStep(teamIndex * size + index)}
+                />
+              ))}
+            </Fragment>
           ))}
-        </Fragment>
-      ))}
-      {step >= 0 && (
-        <PersonSelect
-          persons={persons}
-          onClick={selectPerson}
-          cn={style.personSelect}
-        />
+          {step >= 0 && (
+            <PersonSelect
+              persons={persons}
+              onClick={selectPerson}
+              cn={style.personSelect}
+            />
+          )}
+        </>
       )}
       <input
         type="submit"
