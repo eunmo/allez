@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PointInput } from './components';
+import { PersonSelect, PointInput } from './components';
 import {
   fetchDelete,
   get,
@@ -68,7 +68,7 @@ export default function EditTeamGame() {
     [selected]
   );
 
-  const setPoint = useCallback(
+  const updateRound = useCallback(
     (value) => {
       const { rounds, ...rest } = game;
       const [index, side] = selected;
@@ -78,6 +78,32 @@ export default function EditTeamGame() {
     },
     [game, selected]
   );
+
+  const addRow = useCallback(() => {
+    const { rounds, ...rest } = game;
+    const { ls, rs } = game;
+    const newRound = {};
+
+    if (ls.length === 1) {
+      const [l] = ls;
+      newRound.l = l;
+    }
+    if (rs.length === 1) {
+      const [r] = rs;
+      newRound.r = r;
+    }
+
+    setGame({ ...rest, rounds: [...rounds, newRound] });
+    setSelected();
+  }, [game, setGame]);
+
+  const deleteRow = useCallback(() => {
+    const { rounds, ...rest } = game;
+    const newRounds = [...rounds];
+    newRounds.pop();
+    setGame({ ...rest, rounds: newRounds });
+    setSelected();
+  }, [game, setGame]);
 
   const perRound = useMemo(
     () =>
@@ -96,14 +122,24 @@ export default function EditTeamGame() {
     [game]
   );
 
+  const lPersons = useMemo(
+    () => game?.ls.map((l) => idMap?.get(l)),
+    [game, idMap]
+  );
+  const rPersons = useMemo(
+    () => game?.rs.map((r) => idMap?.get(r)),
+    [game, idMap]
+  );
+
   if (game === undefined || idMap === null) {
     return null; // TODO: spinner
   }
 
-  const { rounds } = game;
+  const { type, rounds } = game;
   const done = rounds.every(
     ({ lp, rp }) => lp !== undefined && rp !== undefined
   );
+  const persons = { l: lPersons, r: rPersons };
 
   return (
     <div className={style.EditTeamGame}>
@@ -121,7 +157,16 @@ export default function EditTeamGame() {
             /* eslint-disable-next-line react/no-array-index-key */
             key={index}
           >
-            <label>{idMap.get(l).firstName}</label>
+            {type === 0 ? (
+              <input
+                type="button"
+                value={idMap.get(l)?.firstName ?? '선택'}
+                className={getInputClass(l, [index, 'l'], selected)}
+                onClick={() => toggle(index, 'l')}
+              />
+            ) : (
+              <label>{idMap.get(l).firstName}</label>
+            )}
             <label className="light-text">{perRound[index][0]}</label>
             <input
               type="button"
@@ -137,16 +182,50 @@ export default function EditTeamGame() {
               onClick={() => toggle(index, 'rp')}
             />
             <label className="light-text">{perRound[index][1]}</label>
-            <label>{idMap.get(r).firstName}</label>
+            {type === 0 ? (
+              <input
+                type="button"
+                value={idMap.get(r)?.firstName ?? '선택'}
+                className={getInputClass(r, [index, 'r'], selected)}
+                onClick={() => toggle(index, 'r')}
+              />
+            ) : (
+              <label>{idMap.get(r).firstName}</label>
+            )}
           </Fragment>
         ))}
-        {selected && (
+        {['l', 'r'].includes(selected?.[1]) && (
+          <PersonSelect
+            persons={persons[selected[1]]}
+            cn={style.personSelect}
+            alignRight={selected[1] === 'r'}
+            onClick={updateRound}
+          />
+        )}
+        {['lp', 'rp'].includes(selected?.[1]) && (
           <div className={style.pointInput}>
             <PointInput
               value={rounds[selected[0]][selected[1]]}
-              setValue={setPoint}
+              setValue={updateRound}
             />
           </div>
+        )}
+        {type === 0 && (
+          <>
+            <input
+              type="button"
+              value="마지막 릴레이 삭제"
+              disabled={rounds.length === 0}
+              className={style.deleteRow}
+              onClick={deleteRow}
+            />
+            <input
+              type="button"
+              value="릴레이 추가"
+              className={style.addRow}
+              onClick={addRow}
+            />
+          </>
         )}
         <input type="submit" value="저장" disabled={!done} />
         <input

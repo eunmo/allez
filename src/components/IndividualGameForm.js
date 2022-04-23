@@ -141,6 +141,7 @@ export default function IndividualGameForm({
             persons={persons}
             cn={style.personSelect}
             onClick={(id) => selectPerson(step, id)}
+            alignRight={step === 'person2'}
           />
         )}
         {['point1', 'point2'].includes(step) && (

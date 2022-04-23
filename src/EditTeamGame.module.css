@@ -21,10 +21,19 @@ input.selectedInput {
   color: var(--background);
 }
 
+.personSelect,
 .pointInput,
 .EditTeamGame input[type="submit"],
 .delete {
   grid-column: span 7;
+}
+
+.deleteRow {
+  grid-column: span 3;
+}
+
+.addRow {
+  grid-column: span 4;
 }
 
 @media screen and (min-width: 601px) {

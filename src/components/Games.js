@@ -121,29 +121,31 @@ export default function Games({ games, idMap, editable }) {
         {filteredGames.map((game) => {
           const { type, id } = game;
 
-          if (type === 1) {
-            return (
-              <IndividualGame
-                key={id}
-                game={game}
-                idMap={idMap}
-                editable={editable}
-              />
-            );
+          switch (type) {
+            case 1:
+              return (
+                <IndividualGame
+                  key={id}
+                  game={game}
+                  idMap={idMap}
+                  editable={editable}
+                />
+              );
+            case 0:
+            case 2:
+            case 3:
+            case 4:
+              return (
+                <TeamGame
+                  key={id}
+                  game={game}
+                  idMap={idMap}
+                  editable={editable}
+                />
+              );
+            default:
+              return null;
           }
-
-          if ([0, 2, 3, 4].includes(type)) {
-            return (
-              <TeamGame
-                key={id}
-                game={game}
-                idMap={idMap}
-                editable={editable}
-              />
-            );
-          }
-
-          return null;
         })}
       </div>
     </div>
