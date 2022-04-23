@@ -24,6 +24,15 @@ function getInputClass(value, target, selected) {
   return '';
 }
 
+function filterPersons(game) {
+  const { type, ls, rs, rounds } = game;
+  const lSet = new Set(rounds.map(({ l }) => l));
+  const rSet = new Set(rounds.map(({ r }) => r));
+  const newLs = ls.filter((id) => lSet.has(id));
+  const newRs = rs.filter((id) => rSet.has(id));
+  return { type, ls: newLs, rs: newRs, rounds };
+}
+
 export default function EditTeamGame() {
   const [game, setGame] = useState();
   const [idMap, setIdMap] = useState(null);
@@ -43,7 +52,10 @@ export default function EditTeamGame() {
     (event) => {
       event.preventDefault();
       const { type, ls, rs, rounds } = game;
-      const newGame = { type, ls, rs, rounds: parseRounds(rounds) };
+      let newGame = { type, ls, rs, rounds: parseRounds(rounds) };
+      if (type === 0) {
+        newGame = filterPersons(newGame);
+      }
       put('/api/crud/game', { id, game: newGame }, () => {
         navigate('/');
       });
@@ -137,7 +149,8 @@ export default function EditTeamGame() {
 
   const { type, rounds } = game;
   const done = rounds.every(
-    ({ lp, rp }) => lp !== undefined && rp !== undefined
+    ({ l, r, lp, rp }) =>
+      l !== undefined && r !== undefined && lp !== undefined && rp !== undefined
   );
   const persons = { l: lPersons, r: rPersons };
 
