@@ -1,7 +1,6 @@
 # TODO
 
 - [ ] move some menu into sidebar/dropdown
-- [ ] handle irregular team games (1:N, N:M)
 - [ ] split branches
 - [ ] spinner for loading
 - [ ] add game page for tournaments
@@ -39,3 +38,4 @@
 - [x] cron job for resetting attendance at the start of each day
 - [x] disable edit for past games
 - [x] game page for a specific duo
+- [x] handle irregular team games (1:N, N:M)
