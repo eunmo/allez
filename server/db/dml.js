@@ -10,7 +10,11 @@ async function addPerson(firstName, lastName, branch, type) {
 
 async function editPerson(id, firstName, lastName, branch, type) {
   return dml(
-    'UPDATE person SET firstName = ?, lastName = ?, branch = ?, type = ? WHERE id = ?',
+    `
+    UPDATE person
+    SET firstName = ?, lastName = ?, branch = ?, type = ?
+    WHERE id = ?
+    `,
     [firstName, lastName, branch, type, id]
   );
 }

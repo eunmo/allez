@@ -19,7 +19,12 @@ async function getPerson(id) {
 
 async function getGameDates(branch) {
   return query(
-    'SELECT distinct(date(time)) as date FROM game WHERE branch = ? ORDER BY date DESC',
+    `
+    SELECT distinct(date(time)) as date
+    FROM game
+    WHERE branch = ?
+    ORDER BY date DESC
+    `,
     [branch]
   );
 }
@@ -50,7 +55,12 @@ async function getGames(branch) {
 
 async function getGamesByDate(branch, date) {
   const rows = await query(
-    'SELECT * FROM game WHERE branch = ? AND date(time) = ? ORDER BY time DESC',
+    `
+    SELECT *
+    FROM game
+    WHERE branch = ? AND date(time) = ?
+    ORDER BY time DESC
+    `,
     [branch, date]
   );
 
