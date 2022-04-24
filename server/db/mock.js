@@ -35,11 +35,11 @@ async function prepare() {
   gameDetail1.ls = [pid1];
   gameDetail1.rs = [pid2];
   gameDetail1.rounds = [{ l: pid1, r: pid2, lp: 5, rp: 3 }];
-  gid1 = await addGame(gameDetail1);
+  gid1 = await addGame(0, gameDetail1);
   gameDetail2.ls = [pid2];
   gameDetail2.rs = [pid3];
   gameDetail2.rounds = [{ l: pid2, r: pid3, lp: 5, rp: 3 }];
-  gid2 = await addGame(gameDetail2);
+  gid2 = await addGame(0, gameDetail2);
   gameDetail3.ls = [pid1];
   gameDetail3.rs = [pid2, pid3];
   gameDetail3.rounds = [
@@ -48,7 +48,7 @@ async function prepare() {
     { l: pid1, r: pid2, lp: 12, rp: 6 },
     { l: pid1, r: pid3, lp: 14, rp: 6 },
   ];
-  gid3 = await addGame(gameDetail3);
+  gid3 = await addGame(0, gameDetail3);
 
   await addParticipants(gid1, [pid1, pid2]);
   await addParticipants(gid2, [pid2, pid3]);

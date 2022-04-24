@@ -49,7 +49,7 @@ test('get unknown person', async () => {
 });
 
 test('get game dates', async () => {
-  const body = await get('/api/game/dates');
+  const body = await get('/api/game/dates/0');
   expect(body.length).toBe(2);
   expect(body.map((e) => new Date(e.date))).toStrictEqual([date2, date1]);
 });
@@ -67,7 +67,7 @@ test('get unknown game', async () => {
 test('get games by date', async () => {
   async function check(date, gids) {
     const dateString = date.toISOString().substring(0, 10);
-    const body = await get(`/api/game/date/${dateString}`);
+    const body = await get(`/api/game/date/0/${dateString}`);
     expect(body.length).toBe(gids.length);
     expect(body.map((g) => g.id)).toStrictEqual(gids);
   }
@@ -130,7 +130,7 @@ test('get history', async () => {
 });
 
 test('get rank', async () => {
-  const { ranks, monthlyRanks, persons } = await get('/api/rank');
+  const { ranks, monthlyRanks, persons } = await get('/api/rank/0');
 
   expect(persons.length).toBe(3);
   expect(ranks.length).toBe(3);

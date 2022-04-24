@@ -11,7 +11,6 @@ const {
 } = require('./dml');
 const {
   getPersons,
-  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,
@@ -33,7 +32,6 @@ module.exports = {
   addParticipants,
   removeParticipants,
   getPersons,
-  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,

@@ -58,9 +58,10 @@ function calculateRanks(games) {
   return ranks;
 }
 
-router.get('/', async (req, res) => {
+router.get('/:branch', async (req, res) => {
+  const { branch } = req.params;
   const persons = await getPersons();
-  const allGames = await getGames();
+  const allGames = await getGames(branch);
 
   const months = new Set();
   const monthlyGames = new Map();

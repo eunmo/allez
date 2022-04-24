@@ -153,7 +153,7 @@ test.each([
   [1, dummyGame1, [1, 2]],
   [2, dummyGame2, [1, 2, 3, 4]],
 ])('add game %d', async (_, game, pids) => {
-  const { gid } = await post('game', { game });
+  const { gid } = await post('game', { branch: 0, game });
   expect(gid.length).toBe(36); // uuid
 
   // eslint-disable-next-line no-restricted-syntax
@@ -164,7 +164,7 @@ test.each([
 });
 
 test('update game 1', async () => {
-  await post('game', { game: dummyGame1 });
+  await post('game', { branch: 0, game: dummyGame1 });
 
   let [game] = await get('/api/game/person/1');
   expect(game.rounds[0].rp).toBe(3);
@@ -176,7 +176,7 @@ test('update game 1', async () => {
 });
 
 test('update game 2', async () => {
-  await post('game', { game: dummyGame1 });
+  await post('game', { branch: 0, game: dummyGame1 });
 
   let games = await get('/api/game/person/2');
   expect(games.length).toBe(1);
@@ -200,7 +200,7 @@ test('update game 2', async () => {
 });
 
 test('remove game', async () => {
-  await post('game', { game: dummyGame1 });
+  await post('game', { branch: 0, game: dummyGame1 });
 
   const [{ id }] = await get('/api/game/person/1');
 

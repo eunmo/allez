@@ -120,15 +120,17 @@ test('update attendances', async () => {
 
 test('add one game', async () => {
   const detail = { dummy: 'dummy' };
-  const id = await addGame(detail);
+  const id = await addGame(0, detail);
   const rows = await query('SELECT * FROM game WHERE id = ?', [id]);
   expect(rows.length).toBe(1);
-  expect(JSON.parse(rows[0].detail)).toStrictEqual(detail);
+  const [row] = rows;
+  expect(row.branch).toBe(0);
+  expect(JSON.parse(row.detail)).toStrictEqual(detail);
 });
 
 test('update one game', async () => {
   const detail = { dummy: 'dummy' };
-  const id = await addGame(detail);
+  const id = await addGame(0, detail);
   let rows = await query('SELECT * FROM game WHERE id = ?', [id]);
   expect(rows.length).toBe(1);
   expect(JSON.parse(rows[0].detail)).toStrictEqual(detail);
@@ -143,7 +145,7 @@ test('update one game', async () => {
 
 test('remove one game', async () => {
   const detail = { dummy: 'dummy' };
-  const id = await addGame(detail);
+  const id = await addGame(0, detail);
   let rows = await query('SELECT * FROM game WHERE id = ?', [id]);
   expect(rows.length).toBe(1);
 
@@ -156,7 +158,7 @@ test('add participants', async () => {
   const { insertId: personId1 } = await addPerson(...personDetail);
   const { insertId: personId2 } = await addPerson(...personDetail);
   const detail = { dummy: 'dummy' };
-  const gameId = await addGame(detail);
+  const gameId = await addGame(0, detail);
 
   await addParticipants(gameId, [personId1, personId2]);
   const rows = await query('SELECT * FROM participant');
@@ -166,7 +168,7 @@ test('add participants', async () => {
 test('remove participant', async () => {
   const { insertId: personId } = await addPerson(...personDetail);
   const detail = { dummy: 'dummy' };
-  const gameId = await addGame(detail);
+  const gameId = await addGame(0, detail);
 
   await addParticipants(gameId, [personId]);
   let rows = await query('SELECT * FROM participant');

@@ -9,7 +9,6 @@ const {
   removeGame,
   addParticipants,
   removeParticipants,
-  getPersonsByType,
 } = require('../db');
 
 const router = express.Router();
@@ -58,10 +57,10 @@ function extractPids({ ls, rs }) {
 }
 
 router.post('/game', async (req, res) => {
-  const { game } = req.body;
+  const { branch, game } = req.body;
   const pids = extractPids(game);
 
-  const gid = await addGame(game);
+  const gid = await addGame(branch, game);
   await addParticipants(gid, pids);
   res.json({ gid });
 });

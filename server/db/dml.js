@@ -35,10 +35,11 @@ async function updateAttendances(ids, branch) {
   await dml('UPDATE person SET today = ? WHERE id in (?)', [branch, ids]);
 }
 
-async function addGame(detail) {
+async function addGame(branch, detail) {
   const id = uuid();
-  await dml('INSERT INTO game (id, time, detail) VALUES (?, NOW(), ?)', [
+  await dml('INSERT INTO game VALUES (?, NOW(), ?, ?)', [
     id,
+    branch,
     JSON.stringify(detail),
   ]);
   return id;

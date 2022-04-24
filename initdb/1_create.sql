@@ -16,9 +16,10 @@ CREATE TABLE person (
 CREATE TABLE game (
   id CHAR(36) NOT NULL,
   time DATETIME NOT NULL,
+  branch SMALLINT NOT NULL,
   detail JSON NOT NULL,
   PRIMARY KEY (id),
-  KEY (time)
+  KEY (branch, time)
 );
 
 CREATE TABLE participant (

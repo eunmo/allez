@@ -4,13 +4,6 @@ function getPersons() {
   return query('SELECT * FROM person');
 }
 
-function getPersonsByType(types) {
-  if (types.length === 0) {
-    return [];
-  }
-  return query('SELECT * FROM person WHERE type in (?)', [types]);
-}
-
 function getToday(branch) {
   return query(
     'SELECT id, firstName, lastName, type FROM person WHERE today = ?',
@@ -24,9 +17,10 @@ async function getPerson(id) {
   return person ?? null;
 }
 
-async function getGameDates() {
+async function getGameDates(branch) {
   return query(
-    'SELECT distinct(date(time)) as date FROM game ORDER BY date DESC'
+    'SELECT distinct(date(time)) as date FROM game WHERE branch = ? ORDER BY date DESC',
+    [branch]
   );
 }
 
@@ -45,16 +39,19 @@ async function getGame(id) {
   return game ?? null;
 }
 
-async function getGames() {
-  const rows = await query('SELECT * FROM game ORDER BY time DESC');
+async function getGames(branch) {
+  const rows = await query(
+    'SELECT * FROM game WHERE branch = ? ORDER BY time DESC',
+    [branch]
+  );
 
   return parseGameRows(rows);
 }
 
-async function getGamesByDate(date) {
+async function getGamesByDate(branch, date) {
   const rows = await query(
-    'SELECT * FROM game WHERE date(time) = ? ORDER BY time DESC',
-    [date]
+    'SELECT * FROM game WHERE branch = ? AND date(time) = ? ORDER BY time DESC',
+    [branch, date]
   );
 
   return parseGameRows(rows);
@@ -100,7 +97,6 @@ async function getHistory(id1, id2) {
 
 module.exports = {
   getPersons,
-  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,

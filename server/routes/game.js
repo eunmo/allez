@@ -15,14 +15,15 @@ router.get('/id/:id', async (req, res) => {
   res.json(game);
 });
 
-router.get('/dates', async (req, res) => {
-  const dates = await getGameDates();
+router.get('/dates/:branch', async (req, res) => {
+  const { branch } = req.params;
+  const dates = await getGameDates(branch);
   res.json(dates);
 });
 
-router.get('/date/:date', async (req, res) => {
-  const { date } = req.params;
-  const games = await getGamesByDate(date);
+router.get('/date/:branch/:date', async (req, res) => {
+  const { branch, date } = req.params;
+  const games = await getGamesByDate(branch, date);
   res.json(games);
 });
 
