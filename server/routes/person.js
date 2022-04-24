@@ -8,8 +8,9 @@ router.get('/list', async (req, res) => {
   res.json(persons);
 });
 
-router.get('/today', async (req, res) => {
-  const persons = await getToday();
+router.get('/today/:branch', async (req, res) => {
+  const { branch } = req.params;
+  const persons = await getToday(branch);
   res.json(persons);
 });
 

@@ -1,7 +1,7 @@
 const {
   addPerson,
   editPerson,
-  updateAttendance,
+  resetAttendance,
   updateAttendances,
   addGame,
   editGame,
@@ -11,7 +11,7 @@ const {
 } = require('./dml');
 const {
   getPersons,
-  getPersonIdsByType,
+  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,
@@ -25,7 +25,7 @@ const {
 module.exports = {
   addPerson,
   editPerson,
-  updateAttendance,
+  resetAttendance,
   updateAttendances,
   addGame,
   editGame,
@@ -33,7 +33,7 @@ module.exports = {
   addParticipants,
   removeParticipants,
   getPersons,
-  getPersonIdsByType,
+  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,

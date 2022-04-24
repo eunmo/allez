@@ -31,8 +31,11 @@ test('get all persons', async () => {
 });
 
 test('get all persons attending today', async () => {
-  const body = await get('/api/person/today');
+  let body = await get('/api/person/today/0');
   expect(body.length).toBe(2);
+
+  body = await get('/api/person/today/1');
+  expect(body.length).toBe(0);
 });
 
 test('get one person', async () => {

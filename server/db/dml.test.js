@@ -2,7 +2,7 @@ const { dml, query, cleanup } = require('@eunmo/mysql');
 const {
   addPerson,
   editPerson,
-  updateAttendance,
+  resetAttendance,
   updateAttendances,
   addGame,
   editGame,
@@ -21,14 +21,15 @@ beforeEach(async () => {
   await dml('TRUNCATE TABLE participant');
 });
 
-const personDetail = ['First', 'Last', 'c'];
+const personDetail = ['First', 'Last', 0, 0];
+const personDetail2 = ['First', 'Last', 1, 1];
 
 test('add one person', async () => {
   await addPerson(...personDetail);
   const rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
   const [row] = rows;
-  expect(row.today).toBe(1);
+  expect(row.today).toBe(null);
 });
 
 test('edit one person', async () => {
@@ -38,24 +39,25 @@ test('edit one person', async () => {
   let [row] = rows;
   expect(row.firstName).toBe('First');
   expect(row.lastName).toBe('Last');
-  expect(row.type).toBe('c');
-  expect(row.today).toBe(1);
+  expect(row.branch).toBe(0);
+  expect(row.type).toBe(0);
+  expect(row.today).toBe(null);
 
   const { id } = row;
-  const [first, last, type] = ['F', 'L', 'f'];
-  await editPerson(id, first, last, type);
+  await editPerson(id, 'F', 'L', 1, 2);
   rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(1);
   [row] = rows;
   expect(row.firstName).toBe('F');
   expect(row.lastName).toBe('L');
-  expect(row.type).toBe('f');
-  expect(row.today).toBe(1);
+  expect(row.branch).toBe(1);
+  expect(row.type).toBe(2);
+  expect(row.today).toBe(null);
 });
 
-test('update attendance', async () => {
+test('reset attendance', async () => {
   await addPerson(...personDetail);
-  await addPerson(...personDetail);
+  await addPerson(...personDetail2);
 
   const rows = await query('SELECT * FROM person');
   expect(rows.length).toBe(2);
@@ -71,15 +73,15 @@ test('update attendance', async () => {
     expect(today).toBe(today2);
   }
 
-  await check(1, 1);
+  await check(null, null);
 
-  await updateAttendance(pid2, false);
-  await check(1, 0);
+  await resetAttendance([0]);
+  await check(0, null);
 
-  await updateAttendance(pid1, false);
-  await check(0, 0);
+  await resetAttendance([1]);
+  await check(null, 1);
 
-  await updateAttendance(pid2, true);
+  await resetAttendance([0, 1]);
   await check(0, 1);
 });
 
@@ -101,19 +103,19 @@ test('update attendances', async () => {
     expect(today).toBe(today2);
   }
 
-  await check(1, 1);
+  await check(null, null);
 
-  await updateAttendances([pid1]);
-  await check(1, 0);
+  await updateAttendances([pid1], 0);
+  await check(0, null);
 
-  await updateAttendances([pid2]);
+  await updateAttendances([pid2], 1);
   await check(0, 1);
 
-  await updateAttendances([]);
-  await check(0, 0);
+  await updateAttendances([], 0);
+  await check(null, 1);
 
-  await updateAttendances([pid1, pid2]);
-  await check(1, 1);
+  await updateAttendances([pid1, pid2], 2);
+  await check(2, 2);
 });
 
 test('add one game', async () => {

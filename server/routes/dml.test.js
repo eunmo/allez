@@ -44,43 +44,46 @@ async function put(url, body) {
 }
 
 test('create person', async () => {
-  const [firstName, lastName, type] = ['Amy', 'Last', 'c'];
-  await post('person', { firstName, lastName, type });
+  const [firstName, lastName, branch, type] = ['Amy', 'Last', 0, 0];
+  await post('person', { firstName, lastName, branch, type });
   const body = await get('/api/person/list');
   expect(body.length).toBe(1);
 
   const [person] = body;
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
+  expect(person.branch).toBe(branch);
+  expect(person.type).toBe(type);
 });
 
 test('edit person', async () => {
-  let [firstName, lastName, type] = ['Amy', 'Last', 'c'];
-  await post('person', { firstName, lastName, type });
+  let [firstName, lastName, branch, type] = ['Amy', 'Last', 0, 0];
+  await post('person', { firstName, lastName, branch, type });
   const body = await get('/api/person/list');
   expect(body.length).toBe(1);
 
   let [person] = body;
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
+  expect(person.branch).toBe(branch);
   expect(person.type).toBe(type);
 
   const { id } = person;
-  [firstName, lastName, type] = ['Bob', 'LastName', 'm'];
-  await put('person', { id, firstName, lastName, type });
+  [firstName, lastName, branch, type] = ['Bob', 'LastName', 1, 2];
+  await put('person', { id, firstName, lastName, branch, type });
 
   person = await get(`/api/person/id/${id}`);
   expect(person.firstName).toBe(firstName);
   expect(person.lastName).toBe(lastName);
+  expect(person.branch).toBe(branch);
   expect(person.type).toBe(type);
-  expect(person.today).toBe(true);
 });
 
 test('update attendances', async () => {
   const { pid1, pid2, pid3 } = await prepare();
 
   async function check(ids, values) {
-    await put('attendance', { ids });
+    await put('attendance', { ids, branch: 1 });
     expect(values.length).toBe(3);
     let { today } = await get(`/api/person/id/${pid1}`);
     expect(today).toBe(values[0]);
@@ -90,10 +93,10 @@ test('update attendances', async () => {
     expect(today).toBe(values[2]);
   }
 
-  await check([pid1], [true, false, false]);
-  await check([pid1, pid2], [true, true, false]);
-  await check([pid1, pid2, pid3], [true, true, true]);
-  await check([], [false, false, false]);
+  await check([pid1], [1, 0, null]);
+  await check([pid1, pid2], [1, 1, null]);
+  await check([pid1, pid2, pid3], [1, 1, 1]);
+  await check([], [null, null, null]);
 });
 
 test('reset attendances', async () => {
@@ -110,10 +113,10 @@ test('reset attendances', async () => {
     expect(today).toBe(values[2]);
   }
 
-  await check(['f'], [true, false, false]);
-  await check(['f', 'm'], [true, true, false]);
-  await check(['f', 'm', 'c'], [true, true, true]);
-  await check([], [false, false, false]);
+  await check([0], [0, null, null]);
+  await check([0, 2], [0, 0, null]);
+  await check([2, 3], [null, 0, 0]);
+  await check([], [null, null, null]);
 });
 
 const dummyGame1 = {

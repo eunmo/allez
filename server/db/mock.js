@@ -6,9 +6,9 @@ const {
   updateAttendances,
 } = require('./dml');
 
-const personDetail1 = ['Alice', 'Last', 'f'];
-const personDetail2 = ['Bob', 'Last', 'm'];
-const personDetail3 = ['Carol', 'Last', 'c'];
+const personDetail1 = ['Alice', 'Last', 0, 0];
+const personDetail2 = ['Bob', 'Last', 0, 2];
+const personDetail3 = ['Carol', 'Last', 0, 3];
 const gameDetail1 = { type: 1 };
 const gameDetail2 = { type: 1 };
 const gameDetail3 = { type: 2 };
@@ -30,7 +30,7 @@ async function prepare() {
   ({ insertId: pid2 } = await addPerson(...personDetail2));
   ({ insertId: pid3 } = await addPerson(...personDetail3));
 
-  await updateAttendances([pid1, pid2]);
+  await updateAttendances([pid1, pid2], 0);
 
   gameDetail1.ls = [pid1];
   gameDetail1.rs = [pid2];

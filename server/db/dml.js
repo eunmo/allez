@@ -1,31 +1,38 @@
 const { dml } = require('@eunmo/mysql');
 const { v4: uuid } = require('uuid');
 
-async function addPerson(firstName, lastName, type) {
-  return dml('INSERT INTO person (firstName, lastName, type) VALUES (?)', [
-    [firstName, lastName, type],
-  ]);
-}
-
-async function editPerson(id, firstName, lastName, type) {
+async function addPerson(firstName, lastName, branch, type) {
   return dml(
-    'UPDATE person SET firstName = ?, lastName = ?, type = ?  WHERE id = ?',
-    [firstName, lastName, type, id]
+    'INSERT INTO person (firstName, lastName, branch, type) VALUES (?)',
+    [[firstName, lastName, branch, type]]
   );
 }
 
-async function updateAttendance(id, value) {
-  return dml('UPDATE person set today = ? WHERE id = ?', [value, id]);
+async function editPerson(id, firstName, lastName, branch, type) {
+  return dml(
+    'UPDATE person SET firstName = ?, lastName = ?, branch = ?, type = ? WHERE id = ?',
+    [firstName, lastName, branch, type, id]
+  );
 }
 
-async function updateAttendances(ids) {
-  await dml('UPDATE person set today = FALSE');
+async function resetAttendance(types) {
+  await dml('UPDATE person SET today = NULL');
+
+  if (types.length === 0) {
+    return;
+  }
+
+  await dml('UPDATE person SET today = branch WHERE type in (?)', [types]);
+}
+
+async function updateAttendances(ids, branch) {
+  await dml('UPDATE person SET today = NULL WHERE today = ?', [branch]);
 
   if (ids.length === 0) {
     return;
   }
 
-  await dml('UPDATE person SET today = TRUE WHERE id in (?)', [ids]);
+  await dml('UPDATE person SET today = ? WHERE id in (?)', [branch, ids]);
 }
 
 async function addGame(detail) {
@@ -61,7 +68,7 @@ async function removeParticipants(gameId) {
 module.exports = {
   addPerson,
   editPerson,
-  updateAttendance,
+  resetAttendance,
   updateAttendances,
   addGame,
   editGame,

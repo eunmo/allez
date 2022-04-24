@@ -2,40 +2,39 @@ const express = require('express');
 const {
   addPerson,
   editPerson,
+  resetAttendance,
   updateAttendances,
   addGame,
   editGame,
   removeGame,
   addParticipants,
   removeParticipants,
-  getPersonIdsByType,
+  getPersonsByType,
 } = require('../db');
 
 const router = express.Router();
 
 router.post('/person', async (req, res) => {
-  const { firstName, lastName, type } = req.body;
-  await addPerson(firstName, lastName, type);
+  const { firstName, lastName, branch, type } = req.body;
+  await addPerson(firstName, lastName, branch, type);
   res.sendStatus(200);
 });
 
 router.put('/person', async (req, res) => {
-  const { id, firstName, lastName, type } = req.body;
-  await editPerson(id, firstName, lastName, type);
+  const { id, firstName, lastName, branch, type } = req.body;
+  await editPerson(id, firstName, lastName, branch, type);
   res.sendStatus(200);
 });
 
 router.put('/attendance', async (req, res) => {
-  const { ids } = req.body;
-  await updateAttendances(ids);
+  const { ids, branch } = req.body;
+  await updateAttendances(ids, branch);
   res.sendStatus(200);
 });
 
 router.put('/reset-attendance', async (req, res) => {
   const { types } = req.body;
-  const personIds = await getPersonIdsByType(types);
-  const ids = personIds.map(({ id }) => id);
-  await updateAttendances(ids);
+  await resetAttendance(types);
   res.sendStatus(200);
 });
 

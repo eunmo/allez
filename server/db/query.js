@@ -1,31 +1,26 @@
 const { query } = require('@eunmo/mysql');
 
-function parsePersonRows(rows) {
-  return rows.map((row) => ({ ...row, today: row.today === 1 }));
+function getPersons() {
+  return query('SELECT * FROM person');
 }
 
-async function getPersons() {
-  const rows = await query('SELECT * FROM person');
-  return parsePersonRows(rows);
-}
-
-async function getPersonIdsByType(types) {
+function getPersonsByType(types) {
   if (types.length === 0) {
     return [];
   }
-  return query('SELECT id FROM person WHERE type in (?)', [types]);
+  return query('SELECT * FROM person WHERE type in (?)', [types]);
 }
 
-async function getToday() {
-  const rows = await query(
-    'SELECT id, firstName, lastName, type FROM person WHERE today = TRUE'
+function getToday(branch) {
+  return query(
+    'SELECT id, firstName, lastName, type FROM person WHERE today = ?',
+    [branch]
   );
-  return parsePersonRows(rows);
 }
 
 async function getPerson(id) {
   const rows = await query('SELECT * FROM person WHERE id = ?', [id]);
-  const [person] = parsePersonRows(rows);
+  const [person] = rows;
   return person ?? null;
 }
 
@@ -105,7 +100,7 @@ async function getHistory(id1, id2) {
 
 module.exports = {
   getPersons,
-  getPersonIdsByType,
+  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,

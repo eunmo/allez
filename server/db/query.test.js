@@ -1,6 +1,6 @@
 const {
   getPersons,
-  getPersonIdsByType,
+  getPersonsByType,
   getToday,
   getPerson,
   getGameDates,
@@ -32,17 +32,19 @@ beforeAll(async () => {
 test('get persons', async () => {
   const rows = await getPersons();
   expect(rows.length).toBe(3);
-  expect(rows[0].today).toBe(true);
+  expect(rows[0].today).toBe(0);
+  expect(rows[1].today).toBe(0);
+  expect(rows[2].today).toBe(null);
 });
 
 test('get person ids by type', async () => {
-  let rows = await getPersonIdsByType([]);
+  let rows = await getPersonsByType([]);
   expect(rows).toStrictEqual([]);
 
-  rows = await getPersonIdsByType(['f']);
+  rows = await getPersonsByType([0]);
   expect([...new Set(rows.map(({ id }) => id))].sort()).toStrictEqual([pid1]);
 
-  rows = await getPersonIdsByType(['f', 'm']);
+  rows = await getPersonsByType([0, 2]);
   expect([...new Set(rows.map(({ id }) => id))].sort()).toStrictEqual([
     pid1,
     pid2,
@@ -50,14 +52,17 @@ test('get person ids by type', async () => {
 });
 
 test('get today', async () => {
-  const rows = await getToday();
+  let rows = await getToday(0);
   expect(rows.length).toBe(2);
+
+  rows = await getToday(1);
+  expect(rows.length).toBe(0);
 });
 
 test('get person', async () => {
   const row = await getPerson(pid1);
   expect(row.id).toBe(pid1);
-  expect(row.today).toBe(true);
+  expect(row.today).toBe(0);
 });
 
 test('get unknown person', async () => {
