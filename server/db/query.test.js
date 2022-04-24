@@ -1,5 +1,6 @@
 const {
   getPersons,
+  getPersonsById,
   getToday,
   getPerson,
   getGameDates,
@@ -34,6 +35,12 @@ test('get persons', async () => {
   expect(rows[0].today).toBe(0);
   expect(rows[1].today).toBe(0);
   expect(rows[2].today).toBe(null);
+});
+
+test('get persons by id', async () => {
+  const rows = await getPersonsById([pid1, pid2]);
+  expect(rows.length).toBe(2);
+  expect(rows.map(({ id }) => id)).toStrictEqual([pid1, pid2]);
 });
 
 test('get today', async () => {
@@ -109,10 +116,10 @@ test('get history', async () => {
     expect(rows.map((r) => r.id)).toStrictEqual(gids);
   }
 
-  await check([pid1, pid2], [gid3, gid1]);
-  await check([pid1, pid3], [gid3]);
-  await check([pid2, pid1], [gid3, gid1]);
-  await check([pid2, pid3], [gid3, gid2]);
-  await check([pid3, pid1], [gid3]);
-  await check([pid3, pid2], [gid3, gid2]);
+  await check([pid1, pid2], [gid1]);
+  await check([pid1, pid3], []);
+  await check([pid2, pid1], [gid1]);
+  await check([pid2, pid3], [gid2]);
+  await check([pid3, pid1], []);
+  await check([pid3, pid2], [gid2]);
 });

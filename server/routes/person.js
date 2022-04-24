@@ -1,5 +1,6 @@
 const express = require('express');
 const { getPerson, getToday, getPersonGames, getPersons } = require('../db');
+const { fetchPersons } = require('./utils');
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.get('/summary/:pid', async (req, res) => {
   const { pid } = req.params;
   const id = parseInt(pid, 10);
   const games = await getPersonGames(pid);
-  const persons = await getPersons();
+  const persons = await fetchPersons(games);
 
   const byDate = [];
   const byPerson = {};

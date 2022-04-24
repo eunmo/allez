@@ -4,6 +4,10 @@ function getPersons() {
   return query('SELECT * FROM person');
 }
 
+function getPersonsById(ids) {
+  return query('SELECT * FROM person WHERE id in (?)', [ids]);
+}
+
 function getToday(branch) {
   return query(
     'SELECT id, firstName, lastName, type FROM person WHERE today = ?',
@@ -102,11 +106,12 @@ async function getHistory(id1, id2) {
     [id1, id2]
   );
 
-  return parseGameRows(rows);
+  return parseGameRows(rows).filter(({ type }) => type === 1);
 }
 
 module.exports = {
   getPersons,
+  getPersonsById,
   getToday,
   getPerson,
   getGameDates,

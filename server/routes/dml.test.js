@@ -158,40 +158,44 @@ test.each([
 
   // eslint-disable-next-line no-restricted-syntax
   for (const pid of pids) {
-    const body = await get(`/api/game/person/${pid}`);
-    expect(body.length).toBe(1);
+    const { games } = await get(`/api/game/person/${pid}`);
+    expect(games.length).toBe(1);
   }
 });
 
 test('update game 1', async () => {
   await post('game', { branch: 0, game: dummyGame1 });
 
-  let [game] = await get('/api/game/person/1');
+  let {
+    games: [game],
+  } = await get('/api/game/person/1');
   expect(game.rounds[0].rp).toBe(3);
   const { id } = game;
 
   await put('game', { id, game: dummyGame1Update1 });
-  [game] = await get('/api/game/person/1');
+  ({
+    games: [game],
+  } = await get('/api/game/person/1'));
   expect(game.rounds[0].rp).toBe(4);
 });
 
 test('update game 2', async () => {
   await post('game', { branch: 0, game: dummyGame1 });
 
-  let games = await get('/api/game/person/2');
+  let { games } = await get('/api/game/person/2');
   expect(games.length).toBe(1);
   let [game] = games;
   const { id } = game;
   expect(game.rounds[0].rp).toBe(3);
 
-  games = await get('/api/game/person/3');
+  ({ games } = await get('/api/game/person/3'));
   expect(games.length).toBe(0);
 
   await put('game', { id, game: dummyGame1Update2 });
-  games = await get('/api/game/person/2');
+  ({ games } = await get('/api/game/person/2'));
   expect(games.length).toBe(0);
 
-  games = await get('/api/game/person/3');
+  ({ games } = await get('/api/game/person/3'));
   expect(games.length).toBe(1);
 
   [game] = games;
@@ -202,10 +206,12 @@ test('update game 2', async () => {
 test('remove game', async () => {
   await post('game', { branch: 0, game: dummyGame1 });
 
-  const [{ id }] = await get('/api/game/person/1');
+  const {
+    games: [{ id }],
+  } = await get('/api/game/person/1');
 
   await del('game', { id });
 
-  const games = await get('/api/game/person/1');
+  const { games } = await get('/api/game/person/1');
   expect(games.length).toBe(0);
 });
