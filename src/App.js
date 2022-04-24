@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 
 import BranchApp from './BranchApp';
+import { branchCodes } from './utils';
 import style from './App.module.css';
 
 export default function App() {
@@ -9,7 +10,7 @@ export default function App() {
       <div className={style.App}>
         <Routes>
           <Route path=":branch/*" element={<BranchApp />} />
-          <Route path="*" element={<Navigate to="daechi" replace />} />
+          <Route path="*" element={<Navigate to={branchCodes[0]} replace />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -29,7 +29,7 @@ export default function BranchApp() {
 
   useEffect(() => {
     if (!branchCodes.includes(branch)) {
-      navigate('/daechi');
+      navigate(`/${branchCodes[0]}`);
     }
   }, [navigate, branch]);
 
