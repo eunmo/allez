@@ -18,7 +18,10 @@ export default function EditPersonList() {
     get('/api/person/list', setData);
   }, []);
 
-  const branches = useMemo(() => groupByBranch(data, branchId), [data, branchId]);
+  const branches = useMemo(
+    () => groupByBranch(data, branchId),
+    [data, branchId]
+  );
 
   if (data === null) {
     return null; // TODO: spinner;
