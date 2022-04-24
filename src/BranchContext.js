@@ -1,9 +1,9 @@
 import { createContext, useContext, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { branches, branchToId } from './utils';
+import { branchCodes, branchToId } from './utils';
 
-const [defaultBranch] = branches;
+const [defaultBranch] = branchCodes;
 
 const defaultValue = {
   branch: defaultBranch,

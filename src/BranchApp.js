@@ -19,7 +19,7 @@ import Rank from './Rank';
 import ViewIndividualGame from './ViewIndividualGame';
 import ViewTeamGame from './ViewTeamGame';
 import { Header } from './components';
-import { branches } from './utils';
+import { branchCodes } from './utils';
 import style from './App.module.css';
 
 export default function BranchApp() {
@@ -27,7 +27,7 @@ export default function BranchApp() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!branches.includes(branch)) {
+    if (!branchCodes.includes(branch)) {
       navigate('/daechi');
     }
   }, [navigate, branch]);

@@ -159,9 +159,18 @@ function formatDate(date) {
   return `${m}월 ${d}일`;
 }
 
-const branches = ['seocho', 'daechi', 'cheonan', 'hanam'];
-const branchToId = Object.fromEntries(branches.map((br, i) => [br, i]));
-const branchNames = ['서초점', '대치점', '천안아산점', '하남미사점'];
+const branches = [
+  { code: 'seocho', index: 0, name: '서초점' },
+  { code: 'daechi', index: 1, name: '대치점' },
+  { code: 'cheonan', index: 2, name: '천안아산점' },
+  { code: 'hanam', index: 2, name: '하남미사점' },
+];
+
+const branchCodes = ['seocho', 'daechi', 'cheonan', 'hanam'];
+const branchToId = Object.fromEntries(
+  branches.map(({ code, index }) => [code, index])
+);
+const branchNames = branches.map(({ name }) => name);
 
 export {
   get,
@@ -183,7 +192,7 @@ export {
   sortByName,
   ignoreType,
   formatDate,
-  branches,
+  branchCodes,
   branchToId,
   branchNames,
 };
