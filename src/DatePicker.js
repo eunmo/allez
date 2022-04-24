@@ -22,9 +22,14 @@ function getDates(y, m) {
   };
 }
 
+function newMonth(y, m) {
+  return { y, m, ...getDates(y, m), active: new Set() };
+}
+
 function getMonths(dates) {
   const ret = [];
-  let cur;
+  const [nowY, nowM] = extractYMD(new Date().toISOString());
+  let cur = newMonth(nowY, nowM);
   dates.forEach(({ date }) => {
     const [y, m, d] = extractYMD(date);
 
@@ -32,7 +37,7 @@ function getMonths(dates) {
       if (cur !== undefined) {
         ret.push(cur);
       }
-      cur = { y, m, ...getDates(y, m), active: new Set() };
+      cur = newMonth(y, m);
     }
 
     cur.active.add(d);

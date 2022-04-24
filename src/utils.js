@@ -162,8 +162,8 @@ function formatDate(date) {
 const branches = [
   { code: 'seocho', index: 0, name: '서초점' },
   { code: 'daechi', index: 1, name: '대치점' },
-  { code: 'cheonan', index: 2, name: '천안아산점' },
-  { code: 'hanam', index: 2, name: '하남미사점' },
+  { code: 'cheonan', index: 2, name: '천안점' },
+  { code: 'hanam', index: 3, name: '하남미사점' },
 ];
 
 const branchCodes = ['seocho', 'daechi', 'cheonan', 'hanam'];
@@ -192,6 +192,7 @@ export {
   sortByName,
   ignoreType,
   formatDate,
+  branches,
   branchCodes,
   branchToId,
   branchNames,

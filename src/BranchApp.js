@@ -6,6 +6,7 @@ import AddPerson from './AddPerson';
 import AddTeamGame from './AddTeamGame';
 import Attendance from './Attendance';
 import { BranchProvider } from './BranchContext';
+import BranchSelect from './BranchSelect';
 import DatePicker from './DatePicker';
 import Duo from './Duo';
 import EditIndividualGame from './EditIndividualGame';
@@ -61,6 +62,7 @@ export default function BranchApp() {
             </Route>
             <Route path="duo/:l/:r" element={<Duo />} />
           </Route>
+          <Route path="branch" element={<BranchSelect />} />
         </Routes>
       </div>
     </BranchProvider>

@@ -1,0 +1,12 @@
+<svg viewBox="0 0 24 24">
+  <path d="
+    M 0 4 h4 v-4 h4 v4 h8 v-4 h4 v4 h4 v20 h-24 v-20z
+    M 3 8 v13 h18 v-13z
+  " fill="white" />
+  <circle cx="7" cy="12" r="1.5" fill="white" />
+  <circle cx="12" cy="12" r="1.5" fill="white" />
+  <circle cx="17" cy="12" r="1.5" fill="white" />
+  <circle cx="7" cy="17" r="1.5" fill="white" />
+  <circle cx="12" cy="17" r="1.5" fill="white" />
+  <circle cx="17" cy="17" r="1.5" fill="white" />
+</svg>
