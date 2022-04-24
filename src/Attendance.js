@@ -75,7 +75,7 @@ export default function Attendance() {
     });
   }, [branchId]);
 
-  const branches = useMemo(() => groupByBranch(data), [data]);
+  const branches = useMemo(() => groupByBranch(data, branchId), [data, branchId]);
 
   const toggle = useCallback(
     (id) => {

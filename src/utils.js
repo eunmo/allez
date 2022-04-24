@@ -76,9 +76,18 @@ function groupByPersonType(persons) {
   return codes.map((code) => ({ code, persons: getGroup(code) }));
 }
 
-function groupByBranch(persons) {
+function groupByBranch(persons, currentBranch) {
   const branchSet = new Set((persons ?? []).map(({ branch }) => branch));
-  const branches = [...branchSet].sort();
+  function branchCmp(a, b) {
+    if (a === currentBranch) {
+      return -1;
+    }
+    if (b === currentBranch) {
+      return 1;
+    }
+    return a - b;
+  }
+  const branches = [...branchSet].sort(branchCmp);
 
   return branches.map((branch) => ({
     branch,

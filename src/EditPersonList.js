@@ -12,13 +12,13 @@ import style from './EditPersonList.module.css';
 
 export default function EditPersonList() {
   const [data, setData] = useState(null);
-  const { branch } = useBranch();
+  const { branch, branchId } = useBranch();
 
   useEffect(() => {
     get('/api/person/list', setData);
   }, []);
 
-  const branches = useMemo(() => groupByBranch(data), [data]);
+  const branches = useMemo(() => groupByBranch(data, branchId), [data, branchId]);
 
   if (data === null) {
     return null; // TODO: spinner;
