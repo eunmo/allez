@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { useBranch } from '../BranchContext';
 import {
   displayFullPersonType,
   personType,
@@ -13,6 +14,11 @@ export default function PersonForm({ data, onSubmit, title }) {
   const [lastName, setLastName] = useState('');
   const [branch, setBranch] = useState(0);
   const [type, setType] = useState(2);
+  const { branchId } = useBranch();
+
+  useEffect(() => {
+    setBranch(branchId);
+  }, [branchId]);
 
   useEffect(() => {
     if (data) {
