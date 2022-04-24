@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { IndividualGameForm } from './components';
+import { useBranch } from './BranchContext';
 import { fetchDelete, get, put } from './utils';
 
 export default function EditIndividualGame() {
   const [game, setGame] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { branch } = useBranch();
 
   useEffect(() => {
     get(`/api/game/id/${id}`, setGame);
@@ -15,18 +17,19 @@ export default function EditIndividualGame() {
 
   const submit = useCallback(
     (data) => {
-      put('/api/crud/game', { id, game: data }, () => {
-        navigate('/');
+      const { branch: br } = game;
+      put('/api/crud/game', { id, game: data, branch: br }, () => {
+        navigate(`/${branch}`);
       });
     },
-    [navigate, id]
+    [navigate, id, branch, game]
   );
 
   const deleteCallback = useCallback(() => {
     fetchDelete('/api/crud/game', { id }, () => {
-      navigate('/');
+      navigate(`/${branch}`);
     });
-  }, [navigate, id]);
+  }, [navigate, id, branch]);
 
   if (game === undefined) {
     return null; // TODO: spinner

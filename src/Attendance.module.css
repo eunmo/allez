@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+.Attendance button.branch {
+  background-color: var(--border);
+}
+
 .Attendance button div {
   line-height: var(--button-height);
 }

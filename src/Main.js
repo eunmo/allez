@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import { GameList, LinkButton } from './components';
+import { useBranch } from './BranchContext';
 import { get } from './utils';
 import style from './Main.module.css';
 
@@ -28,26 +29,32 @@ function Menu() {
 
   return (
     <div className={style.Menu}>
-      <LinkButton size="lg" to="/game/individual/add">
+      <LinkButton size="lg" to="game/individual/add">
         개인전 기록
       </LinkButton>
       {isLarge && <Clock />}
-      <LinkButton to="/game/team/add">단체전 시작</LinkButton>
-      <LinkButton to="/person">출석 체크</LinkButton>
-      <LinkButton to="/person/rank">순위표</LinkButton>
-      <LinkButton to="/game/calendar">과거 기록 열람</LinkButton>
+      <LinkButton to="game/team/add">단체전 시작</LinkButton>
+      <LinkButton to="person">출석 체크</LinkButton>
+      <LinkButton to="person/rank">순위표</LinkButton>
+      <LinkButton to="game/calendar">과거 기록 열람</LinkButton>
     </div>
   );
 }
 
 export default function Main() {
   const [games, setGames] = useState();
+  const [persons, setPersons] = useState();
   const isLarge = useMediaQuery({ query: '(min-width: 601px)' });
+  const { branchId } = useBranch();
 
   useEffect(() => {
     const dateString = new Date().toISOString().substring(0, 10);
-    get(`/api/game/date/${dateString}`, setGames);
-  }, []);
+    get(`/api/game/date/${branchId}/${dateString}`, (data) => {
+      const { games: gs } = data;
+      setGames(gs);
+    });
+    get(`/api/person/today/${branchId}`, setPersons);
+  }, [branchId]);
 
   if (games === undefined || games.length === 0) {
     return <Menu />;
@@ -57,13 +64,13 @@ export default function Main() {
     return (
       <>
         <Menu />
-        <GameList games={games} today />
+        <GameList games={games} persons={persons} today />
       </>
     );
   }
 
   return (
-    <GameList games={games} today>
+    <GameList games={games} persons={persons} today>
       <Menu />
     </GameList>
   );

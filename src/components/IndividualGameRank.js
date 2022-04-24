@@ -1,5 +1,6 @@
 import { Fragment, useMemo } from 'react';
 
+import { useBranch } from '../BranchContext';
 import { sortByName, ignoreType } from '../utils';
 import LinkButton from './LinkButton';
 import Stat from './Stat';
@@ -30,6 +31,8 @@ function sortByStat(p1, p2) {
 }
 
 export default function GameGrid({ games, idMap, allowEmpty = false }) {
+  const { branch } = useBranch();
+
   const ranking = useMemo(() => {
     function isCoach(id) {
       return ignoreType(idMap.get(id).type);
@@ -40,7 +43,7 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
     const personIds =
       allowEmpty && individualGames.length > 0
         ? [...idMap.values()]
-            .filter(({ type, today }) => today && !ignoreType(type))
+            .filter(({ type }) => !ignoreType(type))
             .map(({ id }) => id)
         : [
             ...new Set(
@@ -137,7 +140,7 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
       {ranking.map(({ id, firstName, rank, ratio, diff, scored }) => (
         <Fragment key={id}>
           <div className={style.rank}>{rank}</div>
-          <LinkButton size="sm" to={`/person/${id}`} cn={style.name}>
+          <LinkButton size="sm" to={`/${branch}/person/${id}`} cn={style.name}>
             {firstName}
           </LinkButton>
           <Stat value={ratio} />

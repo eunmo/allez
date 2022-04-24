@@ -4,11 +4,16 @@
   grid-template-columns: repeat(6, 1fr);
 }
 
-.label {
+.branchLabel,
+.sectionLabel {
   background-color: var(--highlight);
   grid-column: 1 / span 6;
   height: var(--button-height);
   line-height: var(--button-height);
   margin-bottom: 8px;
   text-align: center;
+}
+
+.branchLabel {
+  background-color: var(--border);
 }

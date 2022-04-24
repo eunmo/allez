@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { LinkButton } from './components';
+import { useBranch } from './BranchContext';
 import { get } from './utils';
 import style from './DatePicker.module.css';
 
@@ -48,13 +49,14 @@ function toYMD(y, m, d) {
 export default function DatePicker() {
   const [months, setMonths] = useState();
   const [monthIndex, setMonthIndex] = useState();
+  const { branch, branchId } = useBranch();
 
   useEffect(() => {
-    get('/api/game/dates', (dates) => {
+    get(`/api/game/dates/${branchId}`, (dates) => {
       setMonths(getMonths(dates));
       setMonthIndex(0);
     });
-  }, []);
+  }, [branchId]);
 
   if (months === undefined || monthIndex === undefined) {
     return null; // TODO: spinner
@@ -108,7 +110,10 @@ export default function DatePicker() {
               style={divStyle}
             >
               {isActive ? (
-                <LinkButton size="sm" to={`/game/date/${toYMD(y, m, date)}`}>
+                <LinkButton
+                  size="sm"
+                  to={`/${branch}/game/date/${toYMD(y, m, date)}`}
+                >
                   {date}
                 </LinkButton>
               ) : (

@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
-import { get, toPersonIdMap } from '../utils';
+import { toPersonIdMap } from '../utils';
 import IndividualGameGrid from './IndividualGameGrid';
 import IndividualGameRank from './IndividualGameRank';
 import Games from './Games';
 import ResponsiveTabs from './ResponsiveTabs';
 
-export default function GameList({ games, children, today = false }) {
-  const [idMap, setIdMap] = useState(null);
+export default function GameList({ games, persons, children, today = false }) {
+  const idMap = useMemo(() => toPersonIdMap(persons ?? []), [persons]);
 
-  useEffect(() => {
-    get('/api/person/list', (data) => setIdMap(toPersonIdMap(data)));
-  }, []);
-
-  if (games === undefined || idMap === null) {
+  if (games === undefined || persons === undefined) {
     return null; // TODO: spinner
   }
 

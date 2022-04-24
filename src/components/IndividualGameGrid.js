@@ -1,10 +1,13 @@
 import { Fragment, useMemo } from 'react';
 
+import { useBranch } from '../BranchContext';
 import { sortByName, ignoreType } from '../utils';
 import LinkButton from './LinkButton';
 import style from './IndividualGameGrid.module.css';
 
 export default function GameGrid({ games, idMap, allowEmpty = false }) {
+  const { branch } = useBranch();
+
   const grid = useMemo(() => {
     function isCoach(id) {
       return ignoreType(idMap.get(id).type);
@@ -15,7 +18,7 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
     const personIds =
       allowEmpty && individualGames.length > 0
         ? [...idMap.values()]
-            .filter(({ type, today }) => today && !ignoreType(type))
+            .filter(({ type }) => !ignoreType(type))
             .map(({ id }) => id)
         : [
             ...new Set(
@@ -77,7 +80,11 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
         {grid.map(({ id, firstName, result }, p1) => (
           <Fragment key={id}>
             <div className={style.legend}>{p1 + 1}</div>
-            <LinkButton size="sm" to={`/person/${id}`} cn={style.name}>
+            <LinkButton
+              size="sm"
+              to={`/${branch}/person/${id}`}
+              cn={style.name}
+            >
               {firstName}
             </LinkButton>
             {result.map((res, p2) => {

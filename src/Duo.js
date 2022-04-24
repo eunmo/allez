@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { get, toPersonIdMap, parseValue } from './utils';
 import { LinkButton } from './components';
+import { useBranch } from './BranchContext';
+import { get, toPersonIdMap, parseValue } from './utils';
 import style from './Duo.module.css';
 
 function describe(games, wins) {
@@ -28,14 +29,14 @@ export default function Duo() {
   const [games, setGames] = useState();
   const [idMap, setIdMap] = useState(null);
   const { l, r } = useParams();
+  const { branch } = useBranch();
 
   useEffect(() => {
-    get(`/api/game/history/${l}/${r}`, setGames);
+    get(`/api/game/history/${l}/${r}`, (data) => {
+      setGames(data.games);
+      setIdMap(toPersonIdMap(data.persons));
+    });
   }, [l, r]);
-
-  useEffect(() => {
-    get('/api/person/list', (data) => setIdMap(toPersonIdMap(data)));
-  }, []);
 
   const lv = useMemo(() => parseValue(l), [l]);
   const rv = useMemo(() => parseValue(r), [r]);
@@ -84,7 +85,7 @@ export default function Duo() {
       </div>
       {individualGames.map(({ id, time, lp, rp }) => (
         <Fragment key={id}>
-          <LinkButton size="sm" cn="mono" to={`/game/date/${time}`}>
+          <LinkButton size="sm" cn="mono" to={`/${branch}/game/date/${time}`}>
             {time.substring(5, 10)}
           </LinkButton>
           <div>{lFirstName}</div>
@@ -94,7 +95,7 @@ export default function Duo() {
         </Fragment>
       ))}
       <div className={style.header}>
-        <LinkButton size="sm" to={`/game/duo/${r}/${l}`}>
+        <LinkButton size="sm" to={`/${branch}/game/duo/${r}/${l}`}>
           {`${rLastName}${rFirstName} vs ${lLastName}${lFirstName} 전적 보기`}
         </LinkButton>
       </div>

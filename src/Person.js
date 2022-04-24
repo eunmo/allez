@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { LinkButton, ResponsiveTabs } from './components';
+import { useBranch } from './BranchContext';
 import { View } from './svg';
 import { get, toPersonIdMap } from './utils';
 import style from './Person.module.css';
@@ -26,6 +27,8 @@ function Result({ result: { count, wins, ratio } }) {
 }
 
 function ResultByDate({ byDate }) {
+  const { branch } = useBranch();
+
   const calculated = useMemo(
     () => byDate.map((date) => ({ ...date, ratio: calc(date) })),
     [byDate]
@@ -37,7 +40,7 @@ function ResultByDate({ byDate }) {
       <div className="highlight">전적</div>
       {calculated.map(({ date, ...result }) => (
         <Fragment key={date}>
-          <LinkButton size="sm" cn="mono" to={`/game/date/${date}`}>
+          <LinkButton size="sm" cn="mono" to={`/${branch}/game/date/${date}`}>
             {date.substring(5, 10)}
           </LinkButton>
           <Result result={result} />
@@ -48,6 +51,8 @@ function ResultByDate({ byDate }) {
 }
 
 function ResultByOpponent({ byPerson, idMap, id }) {
+  const { branch } = useBranch();
+
   const calculated = useMemo(
     () =>
       Object.entries(byPerson)
@@ -74,13 +79,13 @@ function ResultByOpponent({ byPerson, idMap, id }) {
       <div />
       {calculated.map((result) => (
         <Fragment key={result.vs}>
-          <LinkButton size="sm" to={`/person/${result.vs}`}>
+          <LinkButton size="sm" to={`/${branch}/person/${result.vs}`}>
             {result.name}
           </LinkButton>
           <Result result={result} />
           <LinkButton
             size="sm"
-            to={`/game/duo/${id}/${result.vs}`}
+            to={`/${branch}/game/duo/${id}/${result.vs}`}
             style={{ borderRadius: '20px' }}
           >
             <View />

@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { LinkButton, Stat } from './components';
+import { useBranch } from './BranchContext';
 import { get, toPersonIdMap } from './utils';
 import style from './Rank.module.css';
 
@@ -13,6 +14,7 @@ const keys = {
 
 function RankTable({ ranking, idMap, title, children }) {
   const [sortKey, setSortKey] = useState('date');
+  const { branch } = useBranch();
 
   const [ranked, padding] = useMemo(() => {
     if (ranking === undefined || idMap === undefined) {
@@ -70,7 +72,7 @@ function RankTable({ ranking, idMap, title, children }) {
       {ranked.map((person) => (
         <Fragment key={person.id}>
           <div className="mono">{person.rank}</div>
-          <LinkButton size="sm" to={`/person/${person.id}`}>
+          <LinkButton size="sm" to={`/${branch}/person/${person.id}`}>
             {idMap.get(person.id).firstName}
           </LinkButton>
           {Object.keys(keys).map((key) => (
@@ -86,9 +88,10 @@ export default function Rank() {
   const [rankings, setRankings] = useState();
   const [idMap, setIdMap] = useState();
   const [selectedRank, setSelectedRank] = useState();
+  const { branchId } = useBranch();
 
   useEffect(() => {
-    get('/api/rank', ({ ranks, monthlyRanks, persons }) => {
+    get(`/api/rank/${branchId}`, ({ ranks, monthlyRanks, persons }) => {
       const formatted = [
         ...monthlyRanks.map((monthlyRank) => {
           const { month } = monthlyRank;
@@ -101,7 +104,7 @@ export default function Rank() {
       setSelectedRank(formatted[0]);
       setIdMap(toPersonIdMap(persons));
     });
-  }, []);
+  }, [branchId]);
 
   if (
     rankings === undefined ||

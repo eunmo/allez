@@ -2,12 +2,15 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { LinkButton } from './components';
+import { useBranch } from './BranchContext';
 import {
   displayFullPersonType,
   get,
-  groupByPersonType,
+  groupByBranch,
   personType,
   put,
+  branchToId,
+  branchNames,
 } from './utils';
 import style from './Attendance.module.css';
 
@@ -31,29 +34,48 @@ function Minus() {
 export default function Attendance() {
   const [data, setData] = useState(null);
   const [came, setCame] = useState(new Set());
-  const [closed, setClosed] = useState(new Set());
+  const [branchClosed, setBranchClosed] = useState(new Set());
+  const [sectionClosed, setSectionClosed] = useState(new Set());
   const navigate = useNavigate();
+  const { branch, branchId } = useBranch();
 
   useEffect(() => {
     get('/api/person/list', (res) => {
-      setCame(new Set(res.filter(({ today }) => today).map(({ id }) => id)));
+      setCame(
+        new Set(
+          res.filter(({ today }) => today === branchId).map(({ id }) => id)
+        )
+      );
       setData(res);
 
-      const toClose = new Set(
+      const branchIds = Object.values(branchToId);
+      const branchesToClose = new Set(branchIds);
+      branchesToClose.delete(branchId);
+
+      const sectionsToClose = new Set(
         Object.entries(personType)
           .filter(({ 1: { hide } }) => hide)
           .map(([code]) => code)
       );
-      res.forEach(({ type, today }) => {
-        if (today && toClose.has(type)) {
-          toClose.delete(type);
+      const targetSections = [...sectionsToClose];
+      const fullSectionsToClose = new Set(
+        branchIds.flatMap((i) => targetSections.map((code) => `${i}_${code}`))
+      );
+      res.forEach(({ branch: br, type, today }) => {
+        const code = `${br}_${type}`;
+        if (today === branchId && branchesToClose.has(br)) {
+          branchesToClose.delete(br);
+        }
+        if (today === branchId && fullSectionsToClose.has(code)) {
+          fullSectionsToClose.delete(code);
         }
       });
-      setClosed(toClose);
+      setBranchClosed(branchesToClose);
+      setSectionClosed(fullSectionsToClose);
     });
-  }, []);
+  }, [branchId]);
 
-  const sections = useMemo(() => groupByPersonType(data), [data]);
+  const branches = useMemo(() => groupByBranch(data), [data]);
 
   const toggle = useCallback(
     (id) => {
@@ -71,24 +93,37 @@ export default function Attendance() {
   const updateAttendance = useCallback(
     (event) => {
       event.preventDefault();
-      put('/api/crud/attendance', { ids: [...came] }, () => {
-        navigate('/');
+      put('/api/crud/attendance', { ids: [...came], branch: branchId }, () => {
+        navigate(`/${branch}`);
       });
     },
-    [came, navigate]
+    [came, navigate, branch, branchId]
   );
 
-  const toggleOpen = useCallback(
+  const toggleBranchOpen = useCallback(
     (code) => {
-      const newSet = new Set(closed);
-      if (closed.has(code)) {
+      const newSet = new Set(branchClosed);
+      if (branchClosed.has(code)) {
         newSet.delete(code);
       } else {
         newSet.add(code);
       }
-      setClosed(newSet);
+      setBranchClosed(newSet);
     },
-    [closed]
+    [branchClosed]
+  );
+
+  const toggleSectionOpen = useCallback(
+    (code) => {
+      const newSet = new Set(sectionClosed);
+      if (sectionClosed.has(code)) {
+        newSet.delete(code);
+      } else {
+        newSet.add(code);
+      }
+      setSectionClosed(newSet);
+    },
+    [sectionClosed]
   );
 
   if (data === null) {
@@ -99,33 +134,55 @@ export default function Attendance() {
     <div className={style.Attendance}>
       <div className="header">출석 체크</div>
       <form onSubmit={updateAttendance}>
-        <LinkButton to="/person/edit/list">명부 편집</LinkButton>
+        <LinkButton to={`/${branch}/person/edit/list`}>명부 편집</LinkButton>
         <input
           type="reset"
           value="초기화"
           disabled={came.size === 0}
           onClick={() => setCame(new Set())}
         />
-        {sections.map(({ code, persons }) => {
-          const isClosed = closed.has(code);
-          const icon = isClosed ? <Plus /> : <Minus />;
+        {branches.map(({ branch: br, sections }) => {
+          const isBranchClosed = branchClosed.has(br);
+          const branchIcon = isBranchClosed ? <Plus /> : <Minus />;
 
           return (
-            <Fragment key={code}>
-              <button type="button" onClick={() => toggleOpen(code)}>
-                <div>{icon}</div>
-                <div>{displayFullPersonType(code)}</div>
+            <Fragment key={br}>
+              <button
+                type="button"
+                onClick={() => toggleBranchOpen(br)}
+                className={style.branch}
+              >
+                <div>{branchIcon}</div>
+                <div>{branchNames[br]}</div>
               </button>
-              {!isClosed &&
-                persons.map(({ firstName, id }) => (
-                  <input
-                    type="button"
-                    key={id}
-                    value={firstName}
-                    className={came.has(id) ? style.came : undefined}
-                    onClick={() => toggle(id)}
-                  />
-                ))}
+              {!isBranchClosed &&
+                sections.map(({ code, persons }) => {
+                  const key = `${br}_${code}`;
+                  const isSectionClosed = sectionClosed.has(key);
+                  const sectionIcon = isSectionClosed ? <Plus /> : <Minus />;
+
+                  return (
+                    <Fragment key={code}>
+                      <button
+                        type="button"
+                        onClick={() => toggleSectionOpen(key)}
+                      >
+                        <div>{sectionIcon}</div>
+                        <div>{displayFullPersonType(code)}</div>
+                      </button>
+                      {!isSectionClosed &&
+                        persons.map(({ firstName, id }) => (
+                          <input
+                            type="button"
+                            key={id}
+                            value={firstName}
+                            className={came.has(id) ? style.came : undefined}
+                            onClick={() => toggle(id)}
+                          />
+                        ))}
+                    </Fragment>
+                  );
+                })}
             </Fragment>
           );
         })}

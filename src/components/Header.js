@@ -4,7 +4,8 @@ import style from './Header.module.css';
 
 export default function Header() {
   return (
-    <Link className={style.Header} to="/">
+    /* eslint-disable-next-line jsx-a11y/anchor-is-valid */
+    <Link className={style.Header} to="">
       YFC 서초점 기록실
     </Link>
   );

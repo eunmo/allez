@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { get, toPersonIdMap, formatDate } from './utils';
 import { LinkButton } from './components';
+import { useBranch } from './BranchContext';
+import { get, toPersonIdMap, formatDate } from './utils';
 import style from './ViewTeamGame.module.css';
 
 const gameTypes = {
@@ -19,14 +20,14 @@ export default function ViewTeamGame() {
   const [game, setGame] = useState();
   const [idMap, setIdMap] = useState(null);
   const { id } = useParams();
+  const { branch } = useBranch();
 
   useEffect(() => {
-    get(`/api/game/id/${id}`, setGame);
+    get(`/api/game/id/${id}`, (data) => {
+      setGame(data.game);
+      setIdMap(toPersonIdMap(data.persons));
+    });
   }, [id]);
-
-  useEffect(() => {
-    get('/api/person/list', (data) => setIdMap(toPersonIdMap(data)));
-  }, []);
 
   const calculated = useMemo(
     () =>
@@ -48,7 +49,7 @@ export default function ViewTeamGame() {
         <LinkButton
           size="sm"
           cn={style.date}
-          to={`/game/date/${game.time.substring(0, 10)}`}
+          to={`/${branch}/game/date/${game.time.substring(0, 10)}`}
         >
           {formatDate(game.time)}
         </LinkButton>
@@ -66,7 +67,7 @@ export default function ViewTeamGame() {
           /* eslint-disable-next-line react/no-array-index-key */
           key={index}
         >
-          <LinkButton size="sm" to={`/person/${l}`} cn={style.person}>
+          <LinkButton size="sm" to={`/${branch}/person/${l}`} cn={style.person}>
             {idMap.get(l).firstName}
           </LinkButton>
           <div className="light-text">{ld}</div>
@@ -74,7 +75,7 @@ export default function ViewTeamGame() {
           <div className="light-text">{index * 5 + 5}</div>
           <div className={lp <= rp ? 'highlight' : ''}>{rp}</div>
           <div className="light-text">{rd}</div>
-          <LinkButton size="sm" to={`/person/${r}`} cn={style.person}>
+          <LinkButton size="sm" to={`/${branch}/person/${r}`} cn={style.person}>
             {idMap.get(r).firstName}
           </LinkButton>
         </Fragment>

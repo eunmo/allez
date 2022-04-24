@@ -39,14 +39,14 @@ function fetchDelete(url, body, callback) {
 }
 
 const personType = {
-  a: { full: '코치', simple: '코치', order: 1 },
-  b: { full: '사라진 코치', simple: '코치', hide: true, order: 6 },
-  c: { full: '정규반 남자', simple: '남자', order: 2 },
-  d: { full: '정규반 여자', simple: '여자', order: 3 },
-  e: { full: '입문반 남자', simple: '남자', order: 4 },
-  f: { full: '입문반 여자', simple: '여자', order: 5 },
-  g: { full: '사라진 남자', simple: '남자', hide: true, order: 7 },
-  h: { full: '사라진 여자', simple: '여자', hide: true, order: 8 },
+  0: { full: '코치', simple: '코치', order: 1 },
+  1: { full: '사라진 코치', simple: '코치', hide: true, order: 6 },
+  2: { full: '정규반 남자', simple: '남자', order: 2 },
+  3: { full: '정규반 여자', simple: '여자', order: 3 },
+  4: { full: '입문반 남자', simple: '남자', order: 4 },
+  5: { full: '입문반 여자', simple: '여자', order: 5 },
+  6: { full: '사라진 남자', simple: '남자', hide: true, order: 7 },
+  7: { full: '사라진 여자', simple: '여자', hide: true, order: 8 },
 };
 
 function displayFullPersonType(type) {
@@ -74,6 +74,18 @@ function groupByPersonType(persons) {
   }
 
   return codes.map((code) => ({ code, persons: getGroup(code) }));
+}
+
+function groupByBranch(persons) {
+  const branchSet = new Set((persons ?? []).map(({ branch }) => branch));
+  const branches = [...branchSet].sort();
+
+  return branches.map((branch) => ({
+    branch,
+    sections: groupByPersonType(
+      persons.filter(({ branch: b }) => b === branch)
+    ),
+  }));
 }
 
 function groupByPersonTypeName(persons) {
@@ -137,7 +149,7 @@ function sortByName(p1, p2) {
 }
 
 function ignoreType(type) {
-  return type === 'a' || type === 'b';
+  return [0, 1].includes(type);
 }
 
 function formatDate(date) {
@@ -146,6 +158,10 @@ function formatDate(date) {
 
   return `${m}월 ${d}일`;
 }
+
+const branches = ['seocho', 'daechi', 'cheonan', 'hanam'];
+const branchToId = Object.fromEntries(branches.map((br, i) => [br, i]));
+const branchNames = ['서초점', '대치점', '천안아산점', '하남미사점'];
 
 export {
   get,
@@ -157,6 +173,7 @@ export {
   displayFullPersonType,
   displayPersonType,
   groupByPersonType,
+  groupByBranch,
   groupByPersonTypeName,
   toPersonIdMap,
   gameOrder,
@@ -166,4 +183,7 @@ export {
   sortByName,
   ignoreType,
   formatDate,
+  branches,
+  branchToId,
+  branchNames,
 };

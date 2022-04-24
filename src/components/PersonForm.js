@@ -1,12 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { displayFullPersonType, personType } from '../utils';
+import {
+  displayFullPersonType,
+  personType,
+  branchToId,
+  branchNames,
+} from '../utils';
 import style from './PersonForm.module.css';
 
 export default function PersonForm({ data, onSubmit, title }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [type, setType] = useState('m');
+  const [branch, setBranch] = useState(0);
+  const [type, setType] = useState(2);
 
   useEffect(() => {
     if (data) {
@@ -19,9 +25,9 @@ export default function PersonForm({ data, onSubmit, title }) {
   const onSubmitCallback = useCallback(
     (event) => {
       event.preventDefault();
-      onSubmit({ firstName, lastName, type });
+      onSubmit({ firstName, lastName, branch, type });
     },
-    [firstName, lastName, onSubmit, type]
+    [firstName, lastName, onSubmit, branch, type]
   );
 
   return (
@@ -42,6 +48,18 @@ export default function PersonForm({ data, onSubmit, title }) {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
+        <label>지점</label>
+        <div className={style.buttonGroup}>
+          {Object.values(branchToId).map((br) => (
+            <input
+              type="button"
+              key={br}
+              value={branchNames[br]}
+              onClick={() => setBranch(br)}
+              disabled={br === branch}
+            />
+          ))}
+        </div>
         <label>분류</label>
         <div className={style.buttonGroup}>
           {Object.keys(personType).map((typeCode) => (
@@ -50,7 +68,7 @@ export default function PersonForm({ data, onSubmit, title }) {
               key={typeCode}
               value={displayFullPersonType(typeCode)}
               onClick={() => setType(typeCode)}
-              disabled={typeCode === type}
+              disabled={typeCode === `${type}`}
             />
           ))}
         </div>

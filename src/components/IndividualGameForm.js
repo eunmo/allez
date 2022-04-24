@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { useBranch } from '../BranchContext';
 import { get, toPersonIdMap, parseRounds } from '../utils';
 import PersonSelect from './PersonSelect';
 import PointInput from './PointInput';
@@ -28,7 +29,6 @@ export default function IndividualGameForm({
   editMode = false,
   submit,
   deleteCallback,
-  today = true,
 }) {
   const [persons, setPersons] = useState();
   const [l, setL] = useState(defaultL);
@@ -37,10 +37,11 @@ export default function IndividualGameForm({
   const [rp, setRp] = useState(defaultRp);
   const [step, setStep] = useState(steps[0]);
   const [automatic, setAutomatic] = useState(true);
+  const { branchId } = useBranch();
 
   useEffect(() => {
-    get(`/api/person/${today ? 'today' : 'list'}`, setPersons);
-  }, [today]);
+    get(`/api/person/today/${branchId}`, setPersons);
+  }, [branchId]);
 
   useEffect(() => {
     if (editMode) {

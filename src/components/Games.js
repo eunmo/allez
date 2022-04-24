@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 
+import { useBranch } from '../BranchContext';
 import { Edit, View } from '../svg';
 import { sortByName } from '../utils';
 import LinkButton from './LinkButton';
@@ -11,7 +12,8 @@ function getScore(rounds, key) {
 }
 
 function GameLink({ id, type, editable }) {
-  const to = `/game/${type}/${editable ? 'edit' : 'view'}/${id}`;
+  const { branch } = useBranch();
+  const to = `/${branch}/game/${type}/${editable ? 'edit' : 'view'}/${id}`;
   return (
     <LinkButton size="sm" to={to} style={{ borderRadius: '20px' }}>
       {editable ? <Edit /> : <View />}

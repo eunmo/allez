@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useBranch } from '../BranchContext';
 import { get, postGetJson as post, toPersonIdMap, buildRounds } from '../utils';
 import ChooseFreeTeamMembers from './ChooseFreeTeamMembers';
 import ChooseTeamMembers from './ChooseTeamMembers';
@@ -18,10 +19,11 @@ export default function AddTeamGame() {
   const [rOrder, setROrder] = useState(new Array(defaultSize).fill(null));
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
+  const { branch, branchId } = useBranch();
 
   useEffect(() => {
-    get('/api/person/today', setPersons);
-  }, []);
+    get(`/api/person/today/${branchId}`, setPersons);
+  }, [branchId]);
 
   useEffect(() => {
     setLs(new Array(size).fill(null));
@@ -38,11 +40,11 @@ export default function AddTeamGame() {
     } else {
       const rounds = size === 0 ? [] : buildRounds(size, lOrder, rOrder);
       const game = { type: size, ls: lOrder, rs: rOrder, rounds };
-      post('/api/crud/game', { game }, ({ gid }) => {
-        navigate(`/game/team/edit/${gid}`);
+      post('/api/crud/game', { game, branch: branchId }, ({ gid }) => {
+        navigate(`/${branch}/game/team/edit/${gid}`);
       });
     }
-  }, [step, size, lOrder, rOrder, navigate]);
+  }, [step, size, lOrder, rOrder, navigate, branch, branchId]);
 
   if (persons === undefined) {
     return null;

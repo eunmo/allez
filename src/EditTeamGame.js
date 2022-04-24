@@ -2,6 +2,7 @@ import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { PersonSelect, PointInput } from './components';
+import { useBranch } from './BranchContext';
 import {
   fetchDelete,
   get,
@@ -39,35 +40,38 @@ export default function EditTeamGame() {
   const [selected, setSelected] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { branch, branchId } = useBranch();
 
   useEffect(() => {
-    get(`/api/game/id/${id}`, setGame);
+    get(`/api/game/id/${id}`, (data) => setGame(data.game));
   }, [id]);
 
   useEffect(() => {
-    get('/api/person/list', (data) => setIdMap(toPersonIdMap(data)));
-  }, []);
+    get(`/api/person/today/${branchId}`, (data) =>
+      setIdMap(toPersonIdMap(data))
+    );
+  }, [branchId]);
 
   const submit = useCallback(
     (event) => {
       event.preventDefault();
-      const { type, ls, rs, rounds } = game;
+      const { branch: br, type, ls, rs, rounds } = game;
       let newGame = { type, ls, rs, rounds: parseRounds(rounds) };
       if (type === 0) {
         newGame = filterPersons(newGame);
       }
-      put('/api/crud/game', { id, game: newGame }, () => {
-        navigate('/');
+      put('/api/crud/game', { id, game: newGame, branch: br }, () => {
+        navigate(`/${branch}`);
       });
     },
-    [navigate, id, game]
+    [navigate, id, game, branch]
   );
 
   const deleteCallback = useCallback(() => {
     fetchDelete('/api/crud/game', { id }, () => {
-      navigate('/');
+      navigate(`/${branch}`);
     });
-  }, [navigate, id]);
+  }, [navigate, id, branch]);
 
   const toggle = useCallback(
     (index, side) => {
