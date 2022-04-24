@@ -17,16 +17,15 @@ export default function PersonForm({ data, onSubmit, title }) {
   const { branchId } = useBranch();
 
   useEffect(() => {
-    setBranch(branchId);
-  }, [branchId]);
-
-  useEffect(() => {
     if (data) {
       setFirstName(data.firstName);
       setLastName(data.lastName);
+      setBranch(data.branch);
       setType(data.type);
+    } else {
+      setBranch(branchId);
     }
-  }, [data]);
+  }, [data, branchId]);
 
   const onSubmitCallback = useCallback(
     (event) => {
