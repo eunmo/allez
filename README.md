@@ -1,7 +1,5 @@
 # TODO
 
-- [ ] move some menu into sidebar/dropdown
-- [ ] split branches
 - [ ] spinner for loading
 - [ ] add game page for tournaments
 - [ ] edit/remove game for tournaments
@@ -39,3 +37,5 @@
 - [x] disable edit for past games
 - [x] game page for a specific duo
 - [x] handle irregular team games (1:N, N:M)
+- [x] move some menu into sidebar/dropdown
+- [x] split branches
