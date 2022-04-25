@@ -121,30 +121,20 @@ export default function IndividualGameForm({
         <label>점수 1</label>
         <label>점수 2</label>
         <label>선수 2</label>
-        <input
-          type="button"
-          value={idMap.get(l)?.firstName ?? '선택'}
-          className={getInputClass(l, 'person1', step)}
-          onClick={() => manualInput('person1')}
-        />
-        <input
-          type="button"
-          value={lp ?? '입력'}
-          className={getInputClass(lp, 'point1', step)}
-          onClick={() => manualInput('point1')}
-        />
-        <input
-          type="button"
-          value={rp ?? '입력'}
-          className={getInputClass(rp, 'point2', step)}
-          onClick={() => manualInput('point2')}
-        />
-        <input
-          type="button"
-          value={idMap.get(r)?.firstName ?? '선택'}
-          className={getInputClass(r, 'person2', step)}
-          onClick={() => manualInput('person2')}
-        />
+        {[
+          [idMap.get(l)?.firstName, l, 'person1'],
+          [lp, lp, 'point1'],
+          [rp, rp, 'point2'],
+          [idMap.get(r)?.firstName, r, 'person2'],
+         ].map(([displayValue, value, title]) => (
+          <input
+            key={title}
+            type="button"
+            value={displayValue ?? '선택'}
+            className={getInputClass(value, title, step)}
+            onClick={() => manualInput(title)}
+          />
+         ))}
         {['person1', 'person2'].includes(step) && (
           <PersonSelect
             persons={persons}
