@@ -126,15 +126,15 @@ export default function IndividualGameForm({
           [lp, lp, 'point1'],
           [rp, rp, 'point2'],
           [idMap.get(r)?.firstName, r, 'person2'],
-         ].map(([displayValue, value, title]) => (
+        ].map(([displayValue, value, key]) => (
           <input
-            key={title}
+            key={key}
             type="button"
             value={displayValue ?? '선택'}
-            className={getInputClass(value, title, step)}
-            onClick={() => manualInput(title)}
+            className={getInputClass(value, key, step)}
+            onClick={() => manualInput(key)}
           />
-         ))}
+        ))}
         {['person1', 'person2'].includes(step) && (
           <PersonSelect
             persons={persons}
