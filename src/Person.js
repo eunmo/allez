@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { LinkButton, ResponsiveTabs } from './components';
 import { useBranch } from './BranchContext';
 import { View } from './svg';
-import { get, toPersonIdMap } from './utils';
+import { get, toPersonIdMap, branchCodes } from './utils';
 import style from './Person.module.css';
 
 function calc({ count, wins }) {
@@ -27,8 +27,6 @@ function Result({ result: { count, wins, ratio } }) {
 }
 
 function ResultByDate({ byDate }) {
-  const { branch } = useBranch();
-
   const calculated = useMemo(
     () => byDate.map((date) => ({ ...date, ratio: calc(date) })),
     [byDate]
@@ -38,9 +36,13 @@ function ResultByDate({ byDate }) {
     <div className={style.byDate}>
       <div className="highlight">날짜</div>
       <div className="highlight">전적</div>
-      {calculated.map(({ date, ...result }) => (
+      {calculated.map(({ date, branch, ...result }) => (
         <Fragment key={date}>
-          <LinkButton size="sm" cn="mono" to={`/${branch}/game/date/${date}`}>
+          <LinkButton
+            size="sm"
+            cn="mono"
+            to={`/${branchCodes[branch]}/game/date/${date}`}
+          >
             {date.substring(5, 10)}
           </LinkButton>
           <Result result={result} />

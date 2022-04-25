@@ -29,10 +29,10 @@ router.get('/summary/:pid', async (req, res) => {
 
   const byDate = [];
   const byPerson = {};
-  games.forEach(({ time, type, ls, rounds }) => {
+  games.forEach(({ time, branch, type, ls, rounds }) => {
     const date = time.toISOString().substring(0, 10);
     if (byDate.length === 0 || byDate[byDate.length - 1].date !== date) {
-      byDate.push({ date, count: 0, wins: 0 });
+      byDate.push({ date, branch, count: 0, wins: 0 });
     }
 
     const [dateObj] = byDate.slice(-1);

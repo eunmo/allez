@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { LinkButton } from './components';
 import { useBranch } from './BranchContext';
-import { get, toPersonIdMap, parseValue } from './utils';
+import { get, toPersonIdMap, parseValue, branchCodes } from './utils';
 import style from './Duo.module.css';
 
 function describe(games, wins) {
@@ -45,7 +45,7 @@ export default function Duo() {
     () =>
       games
         ?.filter(({ type }) => type === 1)
-        .map(({ id, time, rounds }) => {
+        .map(({ id, branch: br, time, rounds }) => {
           const [{ r: gameR }] = rounds;
           let [{ lp, rp }] = rounds;
 
@@ -53,7 +53,7 @@ export default function Duo() {
             [lp, rp] = [rp, lp];
           }
 
-          return { id, time: time.substring(0, 10), lp, rp };
+          return { id, br, time: time.substring(0, 10), lp, rp };
         }) ?? [],
     [games, lv]
   );
@@ -83,9 +83,13 @@ export default function Duo() {
       <div className={style.header}>
         {`${individualGames.length}경기 ${wins}승 ${desc}`}
       </div>
-      {individualGames.map(({ id, time, lp, rp }) => (
+      {individualGames.map(({ id, br, time, lp, rp }) => (
         <Fragment key={id}>
-          <LinkButton size="sm" cn="mono" to={`/${branch}/game/date/${time}`}>
+          <LinkButton
+            size="sm"
+            cn="mono"
+            to={`/${branchCodes[br]}/game/date/${time}`}
+          >
             {time.substring(5, 10)}
           </LinkButton>
           <div>{lFirstName}</div>
