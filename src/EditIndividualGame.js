@@ -12,7 +12,7 @@ export default function EditIndividualGame() {
   const { branch } = useBranch();
 
   useEffect(() => {
-    get(`/api/game/id/${id}`, setGame);
+    get(`/api/game/id/${id}`, (data) => setGame(data.game));
   }, [id]);
 
   const submit = useCallback(
