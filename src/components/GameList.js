@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { toPersonIdMap } from '../utils';
+import { toPersonIdMap, ignoreType } from '../utils';
 import IndividualGameGrid from './IndividualGameGrid';
 import IndividualGameRank from './IndividualGameRank';
 import Games from './Games';
@@ -8,6 +8,10 @@ import ResponsiveTabs from './ResponsiveTabs';
 
 export default function GameList({ games, persons, children, today = false }) {
   const idMap = useMemo(() => toPersonIdMap(persons ?? []), [persons]);
+  const wideView = useMemo(
+    () => (persons ?? []).filter(({ type }) => !ignoreType(type)).length >= 10,
+    [persons]
+  );
 
   if (games === undefined || persons === undefined) {
     return null; // TODO: spinner
@@ -22,6 +26,14 @@ export default function GameList({ games, persons, children, today = false }) {
   };
   const areas = ['a', 'b', 'c'];
 
+  if (wideView) {
+    if (children) {
+      gridStyle.gridTemplateAreas = `'d d' 'a a' 'b c'`;
+    } else {
+      gridStyle.gridTemplateAreas = `'a a' 'b c'`;
+    }
+  }
+
   if (children) {
     tabNames.unshift('메뉴');
     gridStyle.gridTemplateAreas = `'d d' 'a b' 'c c'`;
@@ -33,7 +45,12 @@ export default function GameList({ games, persons, children, today = false }) {
       {children && <div>{children}</div>}
       <IndividualGameGrid games={games} idMap={idMap} allowEmpty={today} />
       <IndividualGameRank games={games} idMap={idMap} allowEmpty={today} />
-      <Games games={games} idMap={idMap} editable={today} />
+      <Games
+        games={games}
+        idMap={idMap}
+        editable={today}
+        singleColumn={wideView}
+      />
     </ResponsiveTabs>
   );
 }

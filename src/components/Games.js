@@ -67,7 +67,12 @@ function TeamGame({ game, idMap, editable }) {
   );
 }
 
-export default function Games({ games, idMap, editable }) {
+export default function Games({
+  games,
+  idMap,
+  editable,
+  singleColumn = false,
+}) {
   const [selected, setSelected] = useState(-1);
 
   const indexedGames = useMemo(() => {
@@ -106,7 +111,7 @@ export default function Games({ games, idMap, editable }) {
   }, [indexedGames, selected]);
 
   return (
-    <div className={style.Games}>
+    <div className={singleColumn ? '' : style.Games}>
       <div className={style.participants}>
         {participants.map(({ id, firstName }) => (
           <button
