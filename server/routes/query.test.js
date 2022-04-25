@@ -79,6 +79,19 @@ test('get games by date', async () => {
   await check(date2, [gid3, gid2], 3);
 });
 
+test('get games for today', async () => {
+  async function check(date, gids, personLength) {
+    const dateString = date.toISOString().substring(0, 10);
+    const { games, persons } = await get(`/api/game/today/0/${dateString}`);
+    expect(games.length).toBe(gids.length);
+    expect(games.map((g) => g.id)).toStrictEqual(gids);
+    expect(persons.length).toBe(personLength);
+  }
+
+  await check(date1, [gid1], 2);
+  await check(date2, [gid3, gid2], 3);
+});
+
 test('get games by pid', async () => {
   async function check(pid, gids) {
     const { games } = await get(`/api/game/person/${pid}`);

@@ -5,6 +5,7 @@ const {
   getGamesByDate,
   getPersonGames,
   getHistory,
+  getToday,
 } = require('../db');
 const { fetchPersons } = require('./utils');
 
@@ -30,6 +31,15 @@ router.get('/date/:branch/:date', async (req, res) => {
   const { branch, date } = req.params;
   const games = await getGamesByDate(branch, date);
   const persons = await fetchPersons(games);
+  res.json({ games, persons });
+});
+
+router.get('/today/:branch/:date', async (req, res) => {
+  const { branch, date } = req.params;
+  const games = await getGamesByDate(branch, date);
+  const today = await getToday(branch);
+  const todayIds = today.map(({ id }) => id);
+  const persons = await fetchPersons(games, todayIds);
   res.json({ games, persons });
 });
 

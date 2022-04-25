@@ -49,11 +49,10 @@ export default function Main() {
 
   useEffect(() => {
     const dateString = new Date().toISOString().substring(0, 10);
-    get(`/api/game/date/${branchId}/${dateString}`, (data) => {
-      const { games: gs } = data;
-      setGames(gs);
+    get(`/api/game/today/${branchId}/${dateString}`, (data) => {
+      setGames(data.games);
+      setPersons(data.persons);
     });
-    get(`/api/person/today/${branchId}`, setPersons);
   }, [branchId]);
 
   if (games === undefined || games.length === 0) {
