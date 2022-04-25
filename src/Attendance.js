@@ -52,15 +52,19 @@ export default function Attendance() {
       const branchesToClose = new Set(branchIds);
       branchesToClose.delete(branchId);
 
+      const personTypes = Object.entries(personType);
       const sectionsToClose = new Set(
-        Object.entries(personType)
-          .filter(({ 1: { hide } }) => hide)
-          .map(([code]) => code)
+        personTypes.filter(({ 1: { hide } }) => hide).map(([code]) => code)
       );
-      const targetSections = [...sectionsToClose];
-      const fullSectionsToClose = new Set(
-        branchIds.flatMap((i) => targetSections.map((code) => `${i}_${code}`))
-      );
+      const allSections = personTypes.map(([code]) => code);
+      const otherBranches = branchIds.filter((id) => id !== branchId);
+      const fullSectionsToClose = new Set([
+        ...[...sectionsToClose].map((code) => `${branchId}_${code}`),
+        ...otherBranches.flatMap((br) =>
+          allSections.map((code) => `${br}_${code}`)
+        ),
+      ]);
+
       res.forEach(({ branch: br, type, today }) => {
         const code = `${br}_${type}`;
         if (today === branchId && branchesToClose.has(br)) {
