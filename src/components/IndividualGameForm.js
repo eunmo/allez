@@ -3,8 +3,16 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useBranch } from '../BranchContext';
 import { get, toPersonIdMap, parseRounds } from '../utils';
 import PersonSelect from './PersonSelect';
-import PointInput from './PointInput';
 import style from './IndividualGameForm.module.css';
+
+function PointInput({ value, setValue, onDone }) {
+  const onClick = useCallback(() => {
+    setValue(value);
+    onDone();
+  }, [value, setValue, onDone]);
+
+  return <input type="button" value={value} onClick={onClick} />;
+}
 
 function getInputClass(value, target, selected) {
   if (target === selected) {
@@ -147,11 +155,15 @@ export default function IndividualGameForm({
         )}
         {['point1', 'point2'].includes(step) && (
           <div className={style.pointInput}>
-            <PointInput
-              value={step === 'point1' ? lp : rp}
-              setValue={step === 'point1' ? setLp : setRp}
-              onDone={automatic ? next : () => {}}
-            />
+            <label className={style.pointInputDivider}>점수 선택</label>
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((v) => (
+              <PointInput
+                key={v}
+                value={v}
+                setValue={step === 'point1' ? setLp : setRp}
+                onDone={automatic ? next : () => {}}
+              />
+            ))}
           </div>
         )}
         <input

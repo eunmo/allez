@@ -1,8 +1,8 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { PersonSelect, PointInput } from './components';
-import { useBranch } from './BranchContext';
+import { PersonSelect } from '../components';
+import { useBranch } from '../BranchContext';
 import {
   fetchDelete,
   get,
@@ -10,8 +10,9 @@ import {
   toPersonIdMap,
   parseValue,
   parseRounds,
-} from './utils';
-import style from './EditTeamGame.module.css';
+} from '../utils';
+import PointInput from './PointInput';
+import style from './index.module.css';
 
 function getInputClass(value, target, selected) {
   if (target[0] === selected?.[0] && target[1] === selected?.[1]) {

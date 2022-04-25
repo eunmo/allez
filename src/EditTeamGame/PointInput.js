@@ -37,6 +37,7 @@ export default function PointInput({ value, setValue, onDone = () => {} }) {
 
   return (
     <div className={style.PointInput}>
+      <label className={style.label}>점수 입력</label>
       {[7, 8, 9, 4, 5, 6, 1, 2, 3].map((d) => (
         <PointInputValue key={d} digit={d} onClick={onClickDigit} />
       ))}

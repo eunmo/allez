@@ -1,0 +1,17 @@
+.PointInput {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.PointInput input {
+  display: block;
+}
+
+.PointInput .label {
+  background-color: var(--highlight);
+  grid-column: span 3;
+  height: var(--button-height);
+  line-height: var(--button-height);
+  text-align: center;
+}
