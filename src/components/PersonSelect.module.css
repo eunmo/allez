@@ -15,3 +15,14 @@
   background-color: var(--highlight);
   text-align: center;
 }
+
+.wideColumn {
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-column-gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.wideColumn .label {
+  grid-column: 1 / span 2;
+}
