@@ -159,7 +159,7 @@ export default function IndividualGameForm({
         <input
           type="submit"
           value={editMode ? '수정' : '저장'}
-          disabled={!(l && r && lp && rp)}
+          disabled={!(l && r && lp !== undefined && rp !== undefined)}
         />
         {deleteCallback && (
           <input
