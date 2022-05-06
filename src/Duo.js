@@ -78,7 +78,13 @@ export default function Duo() {
   return (
     <div className={style.Duo}>
       <div className={`header ${style.header}`}>
-        {`${lLastName}${lFirstName} vs ${rLastName}${rFirstName}`}
+        <LinkButton size="sm" to={`/${branch}/person/${l}`} cn={style.name}>
+          {lLastName}{lFirstName}
+        </LinkButton>
+        {' vs '}
+        <LinkButton size="sm" to={`/${branch}/person/${r}`} cn={style.name}>
+          {rLastName}{rFirstName}
+        </LinkButton>
       </div>
       <div className={style.header}>
         {`${individualGames.length}경기 ${wins}승 ${desc}`}

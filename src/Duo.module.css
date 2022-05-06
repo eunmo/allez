@@ -12,7 +12,8 @@
   margin-bottom: 0;
 }
 
-.date {
+.date,
+.name {
   display: inline;
   background-color: var(--background);
 }
