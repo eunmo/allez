@@ -79,11 +79,13 @@ export default function Duo() {
     <div className={style.Duo}>
       <div className={`header ${style.header}`}>
         <LinkButton size="sm" to={`/${branch}/person/${l}`} cn={style.name}>
-          {lLastName}{lFirstName}
+          {lLastName}
+          {lFirstName}
         </LinkButton>
         {' vs '}
         <LinkButton size="sm" to={`/${branch}/person/${r}`} cn={style.name}>
-          {rLastName}{rFirstName}
+          {rLastName}
+          {rFirstName}
         </LinkButton>
       </div>
       <div className={style.header}>
