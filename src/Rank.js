@@ -56,7 +56,7 @@ function RankTable({ ranking, idMap, title, children }) {
         {title} {keys[sortKey].title}
       </div>
       {children}
-      <div className="light-text">순위</div>
+      <div className={`${style.label} light-text`}>순위</div>
       <div className="light-text">이름</div>
       {Object.entries(keys).map(([key, { legend }]) => (
         <button
@@ -118,8 +118,8 @@ export default function Rank() {
 
   return (
     <RankTable ranking={ranks} idMap={idMap} title={title}>
-      <div className={style.months}>
-        {rankings.map((ranking) => (
+      {rankings.length >= 3 &&
+        rankings.map((ranking) => (
           <button
             key={ranking.title}
             type="button"
@@ -130,7 +130,6 @@ export default function Rank() {
             {ranking.title}
           </button>
         ))}
-      </div>
     </RankTable>
   );
 }

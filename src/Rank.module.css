@@ -19,11 +19,6 @@
   background-color: var(--border);
 }
 
-.months {
-  display: grid;
-  grid-column: span 6;
-  grid-gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
-  line-height: var(--button-height);
-  text-align: center;
+.label {
+  grid-column-start: 1;
 }
