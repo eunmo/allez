@@ -40,13 +40,19 @@ function fetchDelete(url, body, callback) {
 
 const personType = {
   0: { full: '코치', simple: '코치', order: 1 },
-  1: { full: '사라진 코치', simple: '코치', hide: true, order: 6 },
+  1: { full: '사라진 코치', simple: '코치', hide: true, order: 12 },
   2: { full: '정규반 남자', simple: '남자', order: 2 },
   3: { full: '정규반 여자', simple: '여자', order: 3 },
   4: { full: '입문반 남자', simple: '남자', order: 4 },
   5: { full: '입문반 여자', simple: '여자', order: 5 },
-  6: { full: '사라진 남자', simple: '남자', hide: true, order: 7 },
-  7: { full: '사라진 여자', simple: '여자', hide: true, order: 8 },
+  6: { full: '사라진 남자', simple: '남자', hide: true, order: 13 },
+  7: { full: '사라진 여자', simple: '여자', hide: true, order: 14 },
+  8: { full: '고등부 남자', simple: '남자', order: 6 },
+  9: { full: '고등부 여자', simple: '여자', order: 7 },
+  10: { full: '중등부 남자', simple: '남자', order: 8 },
+  11: { full: '중등부 여자', simple: '여자', order: 9 },
+  12: { full: '초등부 남자', simple: '남자', order: 10 },
+  13: { full: '초등부 여자', simple: '여자', order: 11 },
 };
 
 function displayFullPersonType(type) {
@@ -169,13 +175,17 @@ function formatDate(date) {
 }
 
 const branches = [
-  { code: 'seocho', index: 0, name: '서초점' },
-  { code: 'daechi', index: 1, name: '대치점' },
-  { code: 'cheonan', index: 2, name: '천안점' },
-  { code: 'hanam', index: 3, name: '하남점' },
+  { code: 'seocho', index: 0, name: '서초 성인반', order: 1 },
+  { code: 'daechi', index: 1, name: '대치 성인반', order: 3 },
+  { code: 'cheonan', index: 2, name: '천안 성인반', order: 5 },
+  { code: 'hanam', index: 3, name: '하남 성인반', order: 7 },
+  { code: 'seocho-kids', index: 4, name: '서초 학생반', order: 2 },
+  { code: 'daechi-kids', index: 5, name: '대치 학생반', order: 4 },
+  { code: 'cheonan-kids', index: 6, name: '천안 학생반', order: 6 },
+  { code: 'hanam-kids', index: 7, name: '하남 학생반', order: 8 },
 ];
 
-const branchCodes = ['seocho', 'daechi', 'cheonan', 'hanam'];
+const branchCodes = branches.map(({ code }) => code);
 const branchToId = Object.fromEntries(
   branches.map(({ code, index }) => [code, index])
 );
