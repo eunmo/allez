@@ -2,6 +2,7 @@ const {
   getPersons,
   getPersonsById,
   getToday,
+  getTodayByType,
   getPerson,
   getGameDates,
   getGame,
@@ -19,6 +20,7 @@ afterAll(async () => {
 let pid1;
 let pid2;
 let pid3;
+let pid4;
 let gid1;
 let gid2;
 let gid3;
@@ -26,15 +28,17 @@ let date1;
 let date2;
 
 beforeAll(async () => {
-  ({ pid1, pid2, pid3, gid1, gid2, gid3, date1, date2 } = await prepare());
+  ({ pid1, pid2, pid3, pid4, gid1, gid2, gid3, date1, date2 } =
+    await prepare());
 });
 
 test('get persons', async () => {
   const rows = await getPersons();
-  expect(rows.length).toBe(3);
+  expect(rows.length).toBe(4);
   expect(rows[0].today).toBe(0);
   expect(rows[1].today).toBe(0);
   expect(rows[2].today).toBe(null);
+  expect(rows[3].today).toBe(null);
 });
 
 test('get persons by id', async () => {
@@ -51,6 +55,12 @@ test('get today', async () => {
   expect(rows.length).toBe(0);
 });
 
+test('get today by type', async () => {
+  const rows = await getTodayByType(0, 0);
+  expect(rows.length).toBe(1);
+  expect(rows[0].firstName).toBe('Alice');
+});
+
 test('get person', async () => {
   const row = await getPerson(pid1);
   expect(row.id).toBe(pid1);
@@ -58,7 +68,7 @@ test('get person', async () => {
 });
 
 test('get unknown person', async () => {
-  const row = await getPerson(pid3 + 1);
+  const row = await getPerson(pid4 + 1);
   expect(row).toBe(null);
 });
 

@@ -15,6 +15,18 @@ function getToday(branch) {
   );
 }
 
+function getTodayByType(branch, type) {
+  return query(
+    `
+    SELECT id, firstName, lastName, type
+    FROM person
+    WHERE today = ?
+    AND type = ?
+    `,
+    [branch, type]
+  );
+}
+
 async function getPerson(id) {
   const rows = await query('SELECT * FROM person WHERE id = ?', [id]);
   const [person] = rows;
@@ -113,6 +125,7 @@ module.exports = {
   getPersons,
   getPersonsById,
   getToday,
+  getTodayByType,
   getPerson,
   getGameDates,
   getGame,

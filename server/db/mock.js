@@ -9,37 +9,31 @@ const {
 const personDetail1 = ['Alice', 'Last', 0, 0];
 const personDetail2 = ['Bob', 'Last', 0, 2];
 const personDetail3 = ['Carol', 'Last', 0, 3];
+const personDetail4 = ['Dorothy', 'Last', 4, 9];
 const gameDetail1 = { type: 1 };
 const gameDetail2 = { type: 1 };
 const gameDetail3 = { type: 2 };
-let pid1;
-let pid2;
-let pid3;
-let gid1;
-let gid2;
-let gid3;
-let date1;
-let date2;
 
 async function prepare() {
   await dml('TRUNCATE TABLE person');
   await dml('TRUNCATE TABLE game');
   await dml('TRUNCATE TABLE participant');
 
-  ({ insertId: pid1 } = await addPerson(...personDetail1));
-  ({ insertId: pid2 } = await addPerson(...personDetail2));
-  ({ insertId: pid3 } = await addPerson(...personDetail3));
+  const { insertId: pid1 } = await addPerson(...personDetail1);
+  const { insertId: pid2 } = await addPerson(...personDetail2);
+  const { insertId: pid3 } = await addPerson(...personDetail3);
+  const { insertId: pid4 } = await addPerson(...personDetail4);
 
   await updateAttendances([pid1, pid2], 0);
 
   gameDetail1.ls = [pid1];
   gameDetail1.rs = [pid2];
   gameDetail1.rounds = [{ l: pid1, r: pid2, lp: 5, rp: 3 }];
-  gid1 = await addGame(0, gameDetail1);
+  const gid1 = await addGame(0, gameDetail1);
   gameDetail2.ls = [pid2];
   gameDetail2.rs = [pid3];
   gameDetail2.rounds = [{ l: pid2, r: pid3, lp: 5, rp: 3 }];
-  gid2 = await addGame(0, gameDetail2);
+  const gid2 = await addGame(0, gameDetail2);
   gameDetail3.ls = [pid1];
   gameDetail3.rs = [pid2, pid3];
   gameDetail3.rounds = [
@@ -48,7 +42,7 @@ async function prepare() {
     { l: pid1, r: pid2, lp: 12, rp: 6 },
     { l: pid1, r: pid3, lp: 14, rp: 6 },
   ];
-  gid3 = await addGame(0, gameDetail3);
+  const gid3 = await addGame(0, gameDetail3);
 
   await addParticipants(gid1, [pid1, pid2]);
   await addParticipants(gid2, [pid2, pid3]);
@@ -64,16 +58,16 @@ async function prepare() {
     gid3,
   ]);
 
-  [{ gameDate: date1 }] = await query(
+  const [{ gameDate: date1 }] = await query(
     'SELECT DATE(time) as gameDate FROM game WHERE id = ?',
     [gid1]
   );
-  [{ gameDate: date2 }] = await query(
+  const [{ gameDate: date2 }] = await query(
     'SELECT DATE(time) as gameDate FROM game WHERE id = ?',
     [gid2]
   );
 
-  return { pid1, pid2, pid3, gid1, gid2, gid3, date1, date2 };
+  return { pid1, pid2, pid3, pid4, gid1, gid2, gid3, date1, date2 };
 }
 
 module.exports = { prepare, cleanup };

@@ -1,5 +1,11 @@
 const express = require('express');
-const { getPerson, getToday, getPersonGames, getPersons } = require('../db');
+const {
+  getPerson,
+  getToday,
+  getTodayByType,
+  getPersonGames,
+  getPersons,
+} = require('../db');
 const { fetchPersons } = require('./utils');
 
 const router = express.Router();
@@ -9,9 +15,21 @@ router.get('/list', async (req, res) => {
   res.json(persons);
 });
 
+const kidsBranchMap = {
+  4: { adultBranch: 0 }, // 서초
+  5: { adultBranch: 1 }, // 대치
+  6: { adultBranch: 2 }, // 천안
+  7: { adultBranch: 3 }, // 하남
+};
+
 router.get('/today/:branch', async (req, res) => {
   const { branch } = req.params;
-  const persons = await getToday(branch);
+  let persons = await getToday(branch);
+  if (branch in kidsBranchMap) {
+    const { adultBranch } = kidsBranchMap[branch];
+    const coaches = await getTodayByType(adultBranch, 0);
+    persons = [...persons, ...coaches];
+  }
   res.json(persons);
 });
 

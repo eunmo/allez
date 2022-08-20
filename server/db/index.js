@@ -12,6 +12,7 @@ const {
 const {
   getPersons,
   getToday,
+  getTodayByType,
   getPerson,
   getPersonsById,
   getGameDates,
@@ -34,6 +35,7 @@ module.exports = {
   removeParticipants,
   getPersons,
   getToday,
+  getTodayByType,
   getPerson,
   getPersonsById,
   getGameDates,

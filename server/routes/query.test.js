@@ -9,6 +9,7 @@ afterAll(async () => {
 let pid1;
 let pid2;
 let pid3;
+let pid4;
 let gid1;
 let gid2;
 let gid3;
@@ -16,7 +17,8 @@ let date1;
 let date2;
 
 beforeAll(async () => {
-  ({ pid1, pid2, pid3, gid1, gid2, gid3, date1, date2 } = await prepare());
+  ({ pid1, pid2, pid3, pid4, gid1, gid2, gid3, date1, date2 } =
+    await prepare());
 });
 
 async function get(url) {
@@ -27,7 +29,7 @@ async function get(url) {
 
 test('get all persons', async () => {
   const body = await get('/api/person/list');
-  expect(body.length).toBe(3);
+  expect(body.length).toBe(4);
 });
 
 test('get all persons attending today', async () => {
@@ -36,6 +38,10 @@ test('get all persons attending today', async () => {
 
   body = await get('/api/person/today/1');
   expect(body.length).toBe(0);
+
+  body = await get('/api/person/today/4');
+  expect(body.length).toBe(1);
+  expect(body[0].id).toBe(pid1);
 });
 
 test('get one person', async () => {
@@ -44,7 +50,7 @@ test('get one person', async () => {
 });
 
 test('get unknown person', async () => {
-  const person = await get(`/api/person/id/${pid3 + 1}`);
+  const person = await get(`/api/person/id/${pid4 + 1}`);
   expect(person).toBe(null);
 });
 
@@ -149,7 +155,7 @@ test('get history', async () => {
 test('get rank', async () => {
   const { ranks, monthlyRanks, persons } = await get('/api/rank/0');
 
-  expect(persons.length).toBe(3);
+  expect(persons.length).toBe(4);
   expect(ranks.length).toBe(3);
   expect(ranks.find(({ id }) => id === pid1)).toStrictEqual({
     id: pid1,
