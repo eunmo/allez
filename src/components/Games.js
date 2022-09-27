@@ -67,7 +67,7 @@ function TeamGame({ game, idMap, editable }) {
   );
 }
 
-function Tournament({ game, idMap, editable }) {
+function Tournament({ game, editable }) {
   const { id, ls, index } = game;
   return (
     <>

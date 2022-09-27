@@ -81,10 +81,12 @@ export default function AssignPools({
 
   return (
     <div>
-      <p>
-        뿔을 변경하려면, 변경하려는 두 명의 이름을 순서대로 누르던가, 재배정
-        버튼을 눌러주세요.
-      </p>
+      {pools.length > 1 && (
+        <p>
+          뿔을 변경하려면, 변경하려는 두 명의 이름을 순서대로 누르던가, 재배정
+          버튼을 눌러주세요.
+        </p>
+      )}
       <form
         className={style.AssignPools}
         style={{ gridTemplateColumns: `repeat(${pools.length}, 1fr)` }}
@@ -107,13 +109,15 @@ export default function AssignPools({
             ))}
           </div>
         ))}
-        <input
-          style={{ gridColumn: `span ${pools.length}` }}
-          className={style.shuffle}
-          type="button"
-          value="랜덤 재배정"
-          onClick={shuffle}
-        />
+        {pools.length > 1 && (
+          <input
+            style={{ gridColumn: `span ${pools.length}` }}
+            className={style.shuffle}
+            type="button"
+            value="랜덤 재배정"
+            onClick={shuffle}
+          />
+        )}
         <input
           style={{ gridColumn: `span ${pools.length}` }}
           type="submit"

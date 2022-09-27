@@ -14,6 +14,7 @@ import EditIndividualGame from './EditIndividualGame';
 import EditPerson from './EditPerson';
 import EditPersonList from './EditPersonList';
 import EditTeamGame from './EditTeamGame';
+import EditTournament from './EditTournament';
 import GameDate from './GameDate';
 import Main from './Main';
 import Person from './Person';
@@ -63,6 +64,7 @@ export default function BranchApp() {
             </Route>
             <Route path="tournament">
               <Route path="add" element={<AddTournament />} />
+              <Route path="edit/:id" element={<EditTournament />} />
             </Route>
             <Route path="duo/:l/:r" element={<Duo />} />
           </Route>

@@ -146,6 +146,41 @@ function buildRounds(type, ls, rs) {
   });
 }
 
+const poolOrder = [
+  null,
+  null,
+  null,
+  null,
+  [
+    // 4명 14 23 13 24 34 12
+    [1, 2, 1, 2, 3, 1],
+    [4, 3, 3, 4, 4, 2],
+  ],
+  [
+    // 5명 12 34 51 23 45 13 25 14 35 24
+    [1, 3, 1, 2, 4, 1, 2, 1, 3, 2],
+    [2, 4, 5, 3, 5, 3, 5, 4, 5, 4],
+  ],
+  [
+    // 6명 12 34 56 13 26 45 16 35 24 15 46 23 14 25 36
+    [1, 3, 5, 1, 2, 4, 1, 3, 2, 1, 4, 2, 1, 2, 3],
+    [2, 4, 6, 3, 6, 5, 6, 5, 4, 5, 6, 3, 4, 5, 6],
+  ],
+  [
+    // 7명 14 25 36 17 45 23 67 15 34 26 57 13 46 27 35 16 24 37 56 12 47
+    [1, 2, 3, 1, 4, 2, 6, 1, 3, 2, 5, 1, 4, 2, 3, 1, 2, 3, 5, 1, 4],
+    [4, 5, 6, 7, 5, 3, 7, 5, 4, 6, 7, 3, 6, 7, 5, 6, 4, 7, 6, 2, 7],
+  ],
+];
+
+function buildPoolRounds(ids) {
+  const size = ids.length;
+  return poolOrder[size][0].map((left, index) => {
+    const right = poolOrder[size][1][index];
+    return { l: ids[left - 1], r: ids[right - 1] };
+  });
+}
+
 function parseValue(value) {
   return parseInt(value ?? '0', 10);
 }
@@ -206,6 +241,7 @@ export {
   toPersonIdMap,
   gameOrder,
   buildRounds,
+  buildPoolRounds,
   parseValue,
   parseRounds,
   sortByName,

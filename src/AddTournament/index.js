@@ -2,7 +2,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useBranch } from '../BranchContext';
-import { get, postGetJson as post, toPersonIdMap } from '../utils';
+import {
+  get,
+  postGetJson as post,
+  toPersonIdMap,
+  buildPoolRounds,
+} from '../utils';
 import AssignPools from './AssignPools';
 import ChooseParticipants from './ChooseParticipants';
 import style from './index.module.css';
@@ -26,7 +31,16 @@ export default function AddTournament() {
   }, [step]);
 
   const submit = useCallback(() => {
-    const game = { type: 'T', ls: participants, rs: [], pools };
+    const poolsWithRounds = pools.map((pool) => ({
+      ...pool,
+      rounds: buildPoolRounds(pool.participants),
+    }));
+    const game = {
+      type: 'T',
+      ls: participants,
+      rs: [],
+      pools: poolsWithRounds,
+    };
     post('/api/crud/game', { game, branch: branchId }, ({ gid }) => {
       navigate(`/${branch}/game/tournament/edit/${gid}`);
     });
