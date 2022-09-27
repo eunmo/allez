@@ -4,6 +4,7 @@ import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import AddIndividualGame from './AddIndividualGame';
 import AddPerson from './AddPerson';
 import AddTeamGame from './AddTeamGame';
+import AddTournament from './AddTournament';
 import Attendance from './Attendance';
 import { BranchProvider } from './BranchContext';
 import BranchSelect from './BranchSelect';
@@ -59,6 +60,9 @@ export default function BranchApp() {
               <Route path="add" element={<AddTeamGame />} />
               <Route path="edit/:id" element={<EditTeamGame />} />
               <Route path="view/:id" element={<ViewTeamGame />} />
+            </Route>
+            <Route path="tournament">
+              <Route path="add" element={<AddTournament />} />
             </Route>
             <Route path="duo/:l/:r" element={<Duo />} />
           </Route>

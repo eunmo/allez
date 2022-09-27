@@ -1,0 +1,20 @@
+.AssignPools {
+  display: grid;
+  grid-gap: 8px;
+  text-align: center;
+}
+
+.pool {
+  display: grid;
+  grid-auto-rows: minmax(min-content, max-content);
+  grid-gap: 8px;
+}
+
+.label {
+  background-color: var(--highlight);
+}
+
+input[type="button"].shuffle,
+input[type="button"].selected {
+  background-color: var(--border);
+}
