@@ -6,19 +6,20 @@
   text-align: center;
 }
 
-.Pool label.header {
-  background-color: var(--highlight);
-}
-
 input.selectedInput {
   background-color: var(--blue);
   border-color: var(--blue);
   color: var(--background);
 }
 
-.PointInput {
-  display: grid;
-  grid-column: span 5;
-  grid-gap: 8px;
-  grid-template-columns: repeat(6, 1fr);
+input.lp:nth-child(3n+2) {
+  grid-column-start: 1;
+}
+
+input.rp:nth-child(3n+2) {
+  grid-column-start: 3;
+}
+
+.lpFiller{
+  grid-column: 4 / 6;
 }

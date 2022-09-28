@@ -10,7 +10,6 @@ export default function PoolRank({ ranking, idMap }) {
 
   return (
     <div className={style.Rank}>
-      <div className={`${style.header} header`}>예선 순위</div>
       <div className={style.legend}>순위</div>
       <div className={style.legend}>이름</div>
       <div className={style.legend}>승률</div>

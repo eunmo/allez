@@ -10,10 +10,6 @@
   text-align: center;
 }
 
-.header {
-  grid-column: span 5;
-}
-
 .legend {
   color: var(--light-text);
 }

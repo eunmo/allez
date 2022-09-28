@@ -68,6 +68,7 @@ function calculateRanking({ pools, ls: ids }) {
 export default function EditTournament() {
   const [game, setGame] = useState();
   const [idMap, setIdMap] = useState(null);
+  const [tab, setTab] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
   const { branch, branchId } = useBranch();
@@ -121,16 +122,58 @@ export default function EditTournament() {
   return (
     <div className={style.EditTournament}>
       <div className="header">{`${ids.length}인 토너먼트`}</div>
-      {pools.map((pool) => (
-        <Pool key={pool.index} pool={pool} setPool={setPool} idMap={idMap} />
-      ))}
-      <Rank ranking={ranking} idMap={idMap} />
-      <Elimination
-        ranking={ranking}
-        rounds={elimination}
-        setRounds={setElimination}
-        idMap={idMap}
-      />
+      <div
+        className={style.tabs}
+        style={{ gridTemplateColumns: `repeat(${pools.length + 2}, 1fr)` }}
+      >
+        {pools.map(({ index }) => (
+          <button
+            key={index}
+            type="button"
+            className={style.button}
+            onClick={() => setTab(index)}
+            disabled={tab === index}
+          >
+            {`뿔 ${index + 1}`}
+          </button>
+        ))}
+        <button
+          type="button"
+          className={style.button}
+          onClick={() => setTab('rank')}
+          disabled={tab === 'rank'}
+        >
+          예선 순위
+        </button>
+        <button
+          type="button"
+          className={style.button}
+          onClick={() => setTab('elimination')}
+          disabled={tab === 'elimination'}
+        >
+          본선
+        </button>
+      </div>
+      {pools.map(
+        (pool) =>
+          tab === pool.index && (
+            <Pool
+              key={pool.index}
+              pool={pool}
+              setPool={setPool}
+              idMap={idMap}
+            />
+          )
+      )}
+      {tab === 'rank' && <Rank ranking={ranking} idMap={idMap} />}
+      {tab === 'elimination' && (
+        <Elimination
+          ranking={ranking}
+          rounds={elimination}
+          setRounds={setElimination}
+          idMap={idMap}
+        />
+      )}
       <input
         type="button"
         value="저장"

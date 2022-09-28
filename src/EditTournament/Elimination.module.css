@@ -5,10 +5,6 @@
   text-align: center;
 }
 
-.header {
-  grid-column: span 6;
-}
-
 .round {
   background-color: var(--border);
   grid-column: span 6;
@@ -26,9 +22,6 @@ input.selectedInput {
   color: var(--background);
 }
 
-.PointInput {
-  display: grid;
-  grid-column: span 6;
-  grid-gap: 8px;
-  grid-template-columns: repeat(4, 1fr);
+.pointInput:nth-child(4n+2) {
+  grid-column-start: 2;
 }

@@ -109,18 +109,20 @@ function Bout({ power, bout, setBout, winnerMap, idMap, size }) {
       <label className={r === undefined ? 'light-text' : ''}>{rName}</label>
       <label className="light-text">{rr}</label>
       {selected !== undefined && (
-        <div className={style.PointInput}>
+        <>
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map(
             (value) => (
               <input
                 type="button"
                 key={value}
                 value={value}
+                className={style.pointInput}
                 onClick={() => setScore(value)}
               />
             )
           )}
-        </div>
+          <div />
+        </>
       )}
     </>
   );
@@ -201,7 +203,6 @@ export default function Elimination({ ranking, rounds, setRounds, idMap }) {
 
   return (
     <div className={style.Elimination}>
-      <div className={`${style.header} header`}>본선 진행</div>
       {rounds.map(({ power, bouts }, roundIndex) => (
         <Fragment key={power}>
           <div className={style.round}>{roundNames[power]}</div>

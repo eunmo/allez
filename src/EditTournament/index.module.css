@@ -2,3 +2,36 @@
   display: grid;
   grid-gap: 8px;
 }
+
+.tabs {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.tabs .button {
+  background-color: var(--background);
+  border: 2px solid var(--border);
+}
+
+.tabs .button:disabled {
+  background-color: var(--border);
+}
+
+input.save {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: var(--background);
+}
+
+input.delete {
+  background-color: var(--highlight);
+  border-color: var(--highlight);
+  color: var(--red);
+}
+
+@media screen and (min-width: 601px) {
+  input.save {
+    height: 80px;
+    margin-top: 8px;
+  }
+}

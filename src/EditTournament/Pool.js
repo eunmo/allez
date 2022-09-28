@@ -43,11 +43,10 @@ export default function Pool({ pool, setPool, idMap }) {
     [pool, selected, setPool]
   );
 
-  const { index: poolIndex, rounds } = pool;
+  const { rounds } = pool;
 
   return (
     <div className={style.Pool}>
-      <div className="header">{`뿔 ${poolIndex + 1} 진행`}</div>
       <form onSubmit={submit}>
         <label className={style.header}>선수</label>
         <label className={style.header}>득점</label>
@@ -75,16 +74,18 @@ export default function Pool({ pool, setPool, idMap }) {
             />
             <label>{idMap.get(r).firstName}</label>
             {selected?.[0] === index && (
-              <div className={style.PointInput}>
+              <>
                 {[0, 1, 2, 3, 4, 5].map((value) => (
                   <input
                     type="button"
                     key={value}
                     value={value}
+                    className={style[selected[1]]}
                     onClick={() => setScore(value)}
                   />
                 ))}
-              </div>
+                {selected[1] === 'lp' && <div className={style.lpFiller} />}
+              </>
             )}
           </Fragment>
         ))}
