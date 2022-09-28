@@ -3,12 +3,17 @@
   font-size: 48px;
   line-height: 88px;
   margin-bottom: 8px;
+  grid-area: b;
 }
 
 @media screen and (min-width: 601px) {
   .Menu {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 8px;
+    grid-template-areas:
+      "a b"
+      "c e"
+      "d e";
+    grid-template-columns: repeat(2, 1fr);
   }
 }
