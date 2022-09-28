@@ -22,6 +22,9 @@ input.selectedInput {
   color: var(--background);
 }
 
-.pointInput:nth-child(4n+2) {
+.pointInput0,
+.pointInput4,
+.pointInput8,
+.pointInput12 {
   grid-column-start: 2;
 }

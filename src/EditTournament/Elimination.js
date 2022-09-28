@@ -1,14 +1,7 @@
 import { Fragment, useCallback, useMemo, useState } from 'react';
 
+import { getEliminationWinners, eliminationRoundNames } from '../utils';
 import style from './Elimination.module.css';
-
-const roundNames = {
-  2: '결승',
-  4: '4강',
-  8: '8강',
-  16: '16강',
-  32: '32강',
-};
 
 function getInputClass(value, target, selected) {
   if (target === selected) {
@@ -116,7 +109,7 @@ function Bout({ power, bout, setBout, winnerMap, idMap, size }) {
                 type="button"
                 key={value}
                 value={value}
-                className={style.pointInput}
+                className={style[`pointInput${value}`]}
                 onClick={() => setScore(value)}
               />
             )
@@ -131,54 +124,10 @@ function Bout({ power, bout, setBout, winnerMap, idMap, size }) {
 export default function Elimination({ ranking, rounds, setRounds, idMap }) {
   const size = useMemo(() => ranking?.length, [ranking]);
 
-  const winnerMap = useMemo(() => {
-    const map = {};
-    if (ranking === undefined) {
-      return map;
-    }
-
-    const { power: basePower } = rounds[0];
-    /* eslint-disable-next-line no-bitwise */
-    const baseRound = basePower << 1;
-
-    map[baseRound] = {};
-    ranking.forEach(({ id, rank }) => {
-      map[baseRound][rank] = id;
-    });
-
-    if (basePower !== ranking.length) {
-      map[basePower] = {};
-      rounds[0].bouts.forEach(({ lr, rr }) => {
-        if (lr > ranking.length) {
-          map[basePower][rr] = map[baseRound][rr];
-        } else if (rr > ranking.length) {
-          map[basePower][lr] = map[baseRound][lr];
-        }
-      });
-    }
-
-    rounds.forEach(({ power, bouts }) => {
-      if (map[power] === undefined) {
-        map[power] = {};
-      }
-
-      bouts.forEach(({ l, r, lp, rp, lr, rr }) => {
-        const minRank = Math.min(lr, rr);
-
-        if (lp === undefined || rp === undefined) {
-          return;
-        }
-
-        if (lp > rp) {
-          map[power][minRank] = l;
-        } else if (lp < rp) {
-          map[power][minRank] = r;
-        }
-      });
-    });
-
-    return map;
-  }, [ranking, rounds]);
+  const winnerMap = useMemo(
+    () => getEliminationWinners(rounds, ranking),
+    [ranking, rounds]
+  );
 
   const setBout = useCallback(
     (newBout, roundIndex, boutIndex) => {
@@ -205,7 +154,7 @@ export default function Elimination({ ranking, rounds, setRounds, idMap }) {
     <div className={style.Elimination}>
       {rounds.map(({ power, bouts }, roundIndex) => (
         <Fragment key={power}>
-          <div className={style.round}>{roundNames[power]}</div>
+          <div className={style.round}>{eliminationRoundNames[power]}</div>
           <label className={style.label}>시드</label>
           <label className={style.label}>선수</label>
           <label className={style.label}>득점</label>

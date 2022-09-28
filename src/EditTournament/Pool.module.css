@@ -12,11 +12,13 @@ input.selectedInput {
   color: var(--background);
 }
 
-input.lp:nth-child(3n+2) {
+input.lp0,
+input.lp3 {
   grid-column-start: 1;
 }
 
-input.rp:nth-child(3n+2) {
+input.rp0,
+input.rp3 {
   grid-column-start: 3;
 }
 

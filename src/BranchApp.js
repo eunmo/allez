@@ -21,6 +21,7 @@ import Person from './Person';
 import Rank from './Rank';
 import ViewIndividualGame from './ViewIndividualGame';
 import ViewTeamGame from './ViewTeamGame';
+import ViewTournament from './ViewTournament';
 import { Header } from './components';
 import { branchCodes } from './utils';
 import style from './App.module.css';
@@ -65,6 +66,7 @@ export default function BranchApp() {
             <Route path="tournament">
               <Route path="add" element={<AddTournament />} />
               <Route path="edit/:id" element={<EditTournament />} />
+              <Route path="view/:id" element={<ViewTournament />} />
             </Route>
             <Route path="duo/:l/:r" element={<Duo />} />
           </Route>

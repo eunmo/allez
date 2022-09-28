@@ -236,14 +236,71 @@ function parseRounds(rounds) {
   }));
 }
 
-function sortByName(p1, p2) {
-  return p1.firstName < p2.firstName ? -1 : 1;
-}
-
 function calc({ victories, matches, scored, received }) {
   const ratio = matches > 0 ? Math.floor((victories / matches) * 100) : 0;
   const diff = scored - received;
   return { ratio, diff };
+}
+
+function getEliminationWinners(elimination, ranking) {
+  const map = {};
+  if (ranking === undefined) {
+    return map;
+  }
+
+  const { power: basePower } = elimination[0];
+  /* eslint-disable-next-line no-bitwise */
+  const baseRound = basePower << 1;
+
+  map[baseRound] = {};
+  ranking.forEach(({ id, rank }) => {
+    map[baseRound][rank] = id;
+  });
+
+  if (basePower !== ranking.length) {
+    map[basePower] = {};
+    elimination[0].bouts.forEach(({ lr, rr }) => {
+      if (lr > ranking.length) {
+        map[basePower][rr] = map[baseRound][rr];
+      } else if (rr > ranking.length) {
+        map[basePower][lr] = map[baseRound][lr];
+      }
+    });
+  }
+
+  elimination.forEach(({ power, bouts }) => {
+    if (map[power] === undefined) {
+      map[power] = {};
+    }
+
+    bouts.forEach(({ l, r, lp, rp, lr, rr }) => {
+      const minRank = Math.min(lr, rr);
+
+      if (lp === undefined || rp === undefined) {
+        return;
+      }
+
+      if (lp > rp) {
+        map[power][minRank] = l;
+      } else if (lp < rp) {
+        map[power][minRank] = r;
+      }
+    });
+  });
+
+  return map;
+}
+
+const eliminationRoundNames = {
+  2: '결승',
+  4: '4강',
+  8: '8강',
+  16: '16강',
+  32: '32강',
+};
+
+function sortByName(p1, p2) {
+  return p1.firstName < p2.firstName ? -1 : 1;
 }
 
 function sortByStat(p1, p2) {
@@ -309,8 +366,10 @@ export {
   buildEliminationRounds,
   parseValue,
   parseRounds,
-  sortByName,
   calc,
+  getEliminationWinners,
+  eliminationRoundNames,
+  sortByName,
   sortByStat,
   ignoreType,
   formatDate,

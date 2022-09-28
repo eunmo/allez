@@ -36,9 +36,7 @@ export default function GameGrid({ games, idMap, allowEmpty = false }) {
       }))
       .sort(sortByName);
 
-    const reducedMap = new Map(
-      persons.map((person, index) => [person.id, index])
-    );
+    const reducedMap = new Map(persons.map(({ id }, index) => [id, index]));
 
     [...individualGames].reverse().forEach(({ rounds }) => {
       const [{ l, r, lp, rp }] = rounds;

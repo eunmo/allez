@@ -80,7 +80,7 @@ export default function Pool({ pool, setPool, idMap }) {
                     type="button"
                     key={value}
                     value={value}
-                    className={style[selected[1]]}
+                    className={style[selected[1] + value]}
                     onClick={() => setScore(value)}
                   />
                 ))}

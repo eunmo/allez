@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useBranch } from '../BranchContext';
+import { PoolRank } from '../components';
 import {
   fetchDelete,
   get,
@@ -13,7 +14,6 @@ import {
 } from '../utils';
 import Elimination from './Elimination';
 import Pool from './Pool';
-import Rank from './Rank';
 import style from './index.module.css';
 
 const emptyRank = { victories: 0, matches: 0, scored: 0, received: 0 };
@@ -165,7 +165,7 @@ export default function EditTournament() {
             />
           )
       )}
-      {tab === 'rank' && <Rank ranking={ranking} idMap={idMap} />}
+      {tab === 'rank' && <PoolRank ranking={ranking} idMap={idMap} />}
       {tab === 'elimination' && (
         <Elimination
           ranking={ranking}

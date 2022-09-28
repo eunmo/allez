@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 
-import { Stat } from '../components';
-import style from './Rank.module.css';
+import Stat from './Stat';
+import style from './PoolRank.module.css';
 
 export default function PoolRank({ ranking, idMap }) {
   if (ranking === undefined) {
