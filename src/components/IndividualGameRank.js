@@ -1,36 +1,14 @@
 import { Fragment, useMemo } from 'react';
 
 import { useBranch } from '../BranchContext';
-import { sortByName, ignoreType } from '../utils';
+import { sortByName, ignoreType, calc, sortByStat } from '../utils';
 import LinkButton from './LinkButton';
 import Stat from './Stat';
 import style from './IndividualGameRank.module.css';
 
 const emptyRank = { victories: 0, matches: 0, scored: 0, received: 0 };
 
-function calc({ victories, matches, scored, received }) {
-  const ratio = matches > 0 ? Math.floor((victories / matches) * 100) : 0;
-  const diff = scored - received;
-  return { ratio, diff };
-}
-
-function sortByStat(p1, p2) {
-  if (p1.ratio !== p2.ratio) {
-    return p2.ratio - p1.ratio;
-  }
-
-  if (p1.diff !== p2.diff) {
-    return p2.diff - p1.diff;
-  }
-
-  if (p1.scored !== p2.scored) {
-    return p2.scored - p1.scored;
-  }
-
-  return 0;
-}
-
-export default function GameGrid({ games, idMap, allowEmpty = false }) {
+export default function GameRank({ games, idMap, allowEmpty = false }) {
   const { branch } = useBranch();
 
   const ranking = useMemo(() => {

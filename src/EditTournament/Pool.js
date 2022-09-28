@@ -43,11 +43,11 @@ export default function Pool({ pool, setPool, idMap }) {
     [pool, selected, setPool]
   );
 
-  const { rounds } = pool;
+  const { index: poolIndex, rounds } = pool;
 
   return (
     <div className={style.Pool}>
-      <div className="header">예선전 진행</div>
+      <div className="header">{`뿔 ${poolIndex + 1} 진행`}</div>
       <form onSubmit={submit}>
         <label className={style.header}>선수</label>
         <label className={style.header}>득점</label>

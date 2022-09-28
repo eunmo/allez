@@ -7,6 +7,7 @@ import {
   postGetJson as post,
   toPersonIdMap,
   buildPoolRounds,
+  buildEliminationRounds,
 } from '../utils';
 import AssignPools from './AssignPools';
 import ChooseParticipants from './ChooseParticipants';
@@ -35,11 +36,13 @@ export default function AddTournament() {
       ...pool,
       rounds: buildPoolRounds(pool.participants),
     }));
+    const elimination = buildEliminationRounds(participants.length);
     const game = {
       type: 'T',
       ls: participants,
       rs: [],
       pools: poolsWithRounds,
+      elimination,
     };
     post('/api/crud/game', { game, branch: branchId }, ({ gid }) => {
       navigate(`/${branch}/game/tournament/edit/${gid}`);

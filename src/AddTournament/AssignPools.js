@@ -4,11 +4,10 @@ import style from './AssignPools.module.css';
 
 function randomAssign(ids) {
   const poolCount = Math.ceil(ids.length / 7);
-  const pools = new Array(poolCount);
-
-  for (let i = 0; i < poolCount; i += 1) {
-    pools[i] = { index: i, participants: [] };
-  }
+  const pools = [...new Array(poolCount)].map((_, index) => ({
+    index,
+    participants: [],
+  }));
 
   const remaining = [...ids];
   let poolIndex = 0;

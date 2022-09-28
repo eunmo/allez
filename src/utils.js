@@ -181,6 +181,48 @@ function buildPoolRounds(ids) {
   });
 }
 
+const eliminationOrders = {
+  2: [[1], [2]],
+  4: [
+    [1, 3],
+    [4, 2],
+  ],
+  8: [
+    [1, 4, 3, 7],
+    [8, 5, 6, 2],
+  ],
+  16: [
+    [1, 9, 5, 13, 3, 11, 7, 15],
+    [16, 8, 12, 4, 14, 6, 10, 2],
+  ],
+  32: [
+    [1, 17, 9, 25, 5, 21, 13, 29, 3, 19, 11, 27, 7, 23, 15, 31],
+    [32, 16, 24, 8, 28, 12, 20, 4, 30, 14, 22, 6, 26, 10, 18, 2],
+  ],
+};
+
+function buildEliminationRounds(size) {
+  return [
+    [32, 17],
+    [16, 9],
+    [8, 5],
+    [4, 3],
+    [2, 1],
+  ]
+    .map(([power, limit]) => {
+      if (size < limit) {
+        return undefined;
+      }
+
+      const orders = eliminationOrders[power];
+      return {
+        power,
+        bouts: orders[0].map((lr, index) => ({ lr, rr: orders[1][index] })),
+      };
+    })
+    .filter((round) => round);
+}
+
 function parseValue(value) {
   return parseInt(value ?? '0', 10);
 }
@@ -196,6 +238,28 @@ function parseRounds(rounds) {
 
 function sortByName(p1, p2) {
   return p1.firstName < p2.firstName ? -1 : 1;
+}
+
+function calc({ victories, matches, scored, received }) {
+  const ratio = matches > 0 ? Math.floor((victories / matches) * 100) : 0;
+  const diff = scored - received;
+  return { ratio, diff };
+}
+
+function sortByStat(p1, p2) {
+  if (p1.ratio !== p2.ratio) {
+    return p2.ratio - p1.ratio;
+  }
+
+  if (p1.diff !== p2.diff) {
+    return p2.diff - p1.diff;
+  }
+
+  if (p1.scored !== p2.scored) {
+    return p2.scored - p1.scored;
+  }
+
+  return 0;
 }
 
 function ignoreType(type) {
@@ -242,9 +306,12 @@ export {
   gameOrder,
   buildRounds,
   buildPoolRounds,
+  buildEliminationRounds,
   parseValue,
   parseRounds,
   sortByName,
+  calc,
+  sortByStat,
   ignoreType,
   formatDate,
   branches,
