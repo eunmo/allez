@@ -86,6 +86,8 @@ export default function EditTournament() {
   const onSave = useCallback(() => {
     put('/api/crud/game', { id, game, branch }, () => {
       get(`/api/game/id/${id}`, (data) => setGame(data.game));
+      /* eslint-disable-next-line no-alert */
+      alert('저장되었습니다.');
     });
   }, [game, branch, id]);
 
