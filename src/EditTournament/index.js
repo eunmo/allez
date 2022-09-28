@@ -11,17 +11,18 @@ import {
   sortByName,
   sortByStat,
 } from '../utils';
+import Elimination from './Elimination';
 import Pool from './Pool';
 import Rank from './Rank';
 import style from './index.module.css';
 
 const emptyRank = { victories: 0, matches: 0, scored: 0, received: 0 };
 
-function calculateRanking({ pools, ls: ids }, idMap) {
+function calculateRanking({ pools, ls: ids }) {
   const games = pools
     .flatMap(({ rounds }) => rounds)
     .filter(({ lp, rp }) => lp !== undefined && rp !== undefined);
-  const persons = ids.map((id) => ({ ...idMap.get(id), ...emptyRank }));
+  const persons = ids.map((id) => ({ id, ...emptyRank }));
   const personMap = new Map(persons.map((person) => [person.id, person]));
 
   games.forEach(({ l, r, lp, rp }) => {
@@ -98,17 +99,24 @@ export default function EditTournament() {
       const { pools, ...rest } = game;
       const newPools = pools.map((p) => (p.index === pool ? pool : p));
       const newGame = { ...rest, pools: newPools };
-      newGame.ranking = calculateRanking(newGame, idMap);
+      newGame.ranking = calculateRanking(newGame);
       setGame(newGame);
     },
-    [game, idMap]
+    [game]
+  );
+
+  const setElimination = useCallback(
+    (elimination) => {
+      setGame({ ...game, elimination });
+    },
+    [game]
   );
 
   if (game === undefined || idMap === null) {
     return null;
   }
 
-  const { pools, ranking, ls: ids } = game;
+  const { pools, ranking, elimination, ls: ids } = game;
 
   return (
     <div className={style.EditTournament}>
@@ -116,7 +124,13 @@ export default function EditTournament() {
       {pools.map((pool) => (
         <Pool key={pool.index} pool={pool} setPool={setPool} idMap={idMap} />
       ))}
-      <Rank ranking={ranking} />
+      <Rank ranking={ranking} idMap={idMap} />
+      <Elimination
+        ranking={ranking}
+        rounds={elimination}
+        setRounds={setElimination}
+        idMap={idMap}
+      />
       <input
         type="button"
         value="저장"

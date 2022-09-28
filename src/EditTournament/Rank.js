@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { Stat } from '../components';
 import style from './Rank.module.css';
 
-export default function PoolRank({ ranking }) {
+export default function PoolRank({ ranking, idMap }) {
   if (ranking === undefined) {
     return null;
   }
@@ -16,10 +16,10 @@ export default function PoolRank({ ranking }) {
       <div className={style.legend}>승률</div>
       <div className={style.legend}>득실</div>
       <div className={style.legend}>득점</div>
-      {ranking.map(({ id, firstName, rank, ratio, diff, scored }) => (
+      {ranking.map(({ id, rank, ratio, diff, scored }) => (
         <Fragment key={id}>
           <div className={style.rank}>{rank}</div>
-          <div className={style.name}>{firstName}</div>
+          <div className={style.name}>{idMap.get(id).firstName}</div>
           <Stat value={ratio} />
           <Stat value={diff} />
           <Stat value={scored} />
