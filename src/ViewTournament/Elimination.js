@@ -81,12 +81,6 @@ export default function Elimination({ ranking, rounds, idMap }) {
       {reversed.map(({ power, bouts }) => (
         <Fragment key={power}>
           <div className={style.round}>{eliminationRoundNames[power]}</div>
-          <label className="light-text">시드</label>
-          <label className="light-text">선수</label>
-          <label className="light-text">득점</label>
-          <label className="light-text">득점</label>
-          <label className="light-text">선수</label>
-          <label className="light-text">시드</label>
           {bouts.map((bout) => (
             <Bout
               key={`${power} ${bout.lr}`}

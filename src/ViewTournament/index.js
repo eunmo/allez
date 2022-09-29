@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { PoolRank, ResponsiveTabs } from '../components';
 import { get, toPersonIdMap, formatDate } from '../utils';
 import Elimination from './Elimination';
+import FinalRank from './FinalRank';
 import Pools from './Pools';
 import style from './index.module.css';
 
@@ -36,9 +37,13 @@ export default function ViewTournament() {
         ids.length
       }인 토너먼트`}</div>
       <ResponsiveTabs
-        tabNames={['본선 상세', '예선 순위', '예선 상세']}
+        tabNames={['결과', '본선', '예선순위', '예선']}
         givenStyle={givenStyle}
       >
+        <>
+          <div className={style.tabName}>최종 순위</div>
+          <FinalRank ranking={ranking} rounds={elimination} idMap={idMap} />
+        </>
         <Elimination ranking={ranking} rounds={elimination} idMap={idMap} />
         <>
           <div className={style.tabName}>예선 순위</div>
