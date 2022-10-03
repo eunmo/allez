@@ -2,7 +2,7 @@
 
 - [ ] spinner for loading
 - [ ] simpler add team game page
-- [ ] handle tournaments in rank/person summary
+- [ ] handle name clashes
 
 # Done
 
@@ -42,3 +42,4 @@
 - [x] handle lots of ppl
 - [x] add game page for tournaments
 - [x] edit/remove game for tournaments
+- [x] handle tournaments in rank/person summary
