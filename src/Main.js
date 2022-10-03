@@ -29,14 +29,19 @@ function Menu() {
 
   return (
     <div className={style.Menu}>
-      <LinkButton size="lg" to="game/individual/add">
+      <LinkButton size="lg" to="game/individual/add" style={{ gridArea: 'a' }}>
         개인전 기록
       </LinkButton>
       {isLarge && <Clock />}
-      <LinkButton to="game/team/add">단체전 시작</LinkButton>
-      <LinkButton to="person">출석 체크</LinkButton>
-      <LinkButton to="person/rank">순위표</LinkButton>
-      <LinkButton to="game/calendar">과거 기록 열람</LinkButton>
+      <LinkButton to="game/team/add" style={{ gridArea: 'c' }}>
+        단체전 시작
+      </LinkButton>
+      <LinkButton to="game/tournament/add" style={{ gridArea: 'd' }}>
+        토너먼트 시작
+      </LinkButton>
+      <LinkButton size="lg" to="person" style={{ gridArea: 'e' }}>
+        출석 체크
+      </LinkButton>
     </div>
   );
 }

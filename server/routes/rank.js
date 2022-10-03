@@ -1,5 +1,6 @@
 const express = require('express');
 const { getPersons, getGames } = require('../db');
+const { flattenGames } = require('./utils');
 
 const router = express.Router();
 
@@ -61,7 +62,7 @@ function calculateRanks(games) {
 router.get('/:branch', async (req, res) => {
   const { branch } = req.params;
   const persons = await getPersons();
-  const allGames = await getGames(branch);
+  const allGames = flattenGames(await getGames(branch));
 
   const months = new Set();
   const monthlyGames = new Map();

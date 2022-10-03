@@ -8,7 +8,7 @@ import Score from './Score';
 import style from './Games.module.css';
 
 function getScore(rounds, key) {
-  return rounds.slice(-1)[0]?.[key] ?? 0;
+  return rounds?.slice(-1)[0]?.[key] ?? 0;
 }
 
 function GameLink({ id, type, editable }) {
@@ -63,6 +63,18 @@ function TeamGame({ game, idMap, editable }) {
       <div className={style.button}>
         <GameLink id={id} type="team" editable={editable} />
       </div>
+    </>
+  );
+}
+
+function Tournament({ game, editable }) {
+  const { id, ls, index } = game;
+  return (
+    <>
+      <div className="light-text">{index}</div>
+      <div className={style.tournament}>{`${ls.length}인 토너먼트`}</div>
+      <div />
+      <GameLink id={id} type="tournament" editable={editable} />
     </>
   );
 }
@@ -144,6 +156,15 @@ export default function Games({
             case 4:
               return (
                 <TeamGame
+                  key={id}
+                  game={game}
+                  idMap={idMap}
+                  editable={editable}
+                />
+              );
+            case 'T':
+              return (
+                <Tournament
                   key={id}
                   game={game}
                   idMap={idMap}

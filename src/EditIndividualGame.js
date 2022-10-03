@@ -17,12 +17,11 @@ export default function EditIndividualGame() {
 
   const submit = useCallback(
     (data) => {
-      const { branch: br } = game;
-      put('/api/crud/game', { id, game: data, branch: br }, () => {
+      put('/api/crud/game', { id, game: data }, () => {
         navigate(`/${branch}`);
       });
     },
-    [navigate, id, branch, game]
+    [navigate, id, branch]
   );
 
   const deleteCallback = useCallback(() => {

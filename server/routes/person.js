@@ -6,7 +6,7 @@ const {
   getPersonGames,
   getPersons,
 } = require('../db');
-const { fetchPersons } = require('./utils');
+const { fetchPersons, flattenGames } = require('./utils');
 
 const router = express.Router();
 
@@ -42,7 +42,9 @@ router.get('/id/:id', async (req, res) => {
 router.get('/summary/:pid', async (req, res) => {
   const { pid } = req.params;
   const id = parseInt(pid, 10);
-  const games = await getPersonGames(pid);
+  const games = flattenGames(await getPersonGames(pid)).filter(
+    ({ ls, rs }) => ls.includes(id) || rs.includes(id)
+  );
   const persons = await fetchPersons(games);
 
   const byDate = [];

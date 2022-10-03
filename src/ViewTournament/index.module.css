@@ -1,0 +1,13 @@
+.tabName {
+  background-color: var(--border);
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .tabName {
+    display: none;
+  }
+}

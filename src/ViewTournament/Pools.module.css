@@ -1,0 +1,38 @@
+.Pools {
+  display: grid;
+  grid-gap: 8px;
+}
+
+.label {
+  background-color: var(--highlight);
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.Grid {
+  display: grid;
+  grid-row-gap: 8px;
+}
+
+.Grid div {
+  line-height: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.legend {
+  color: var(--light-text);
+}
+
+.black {
+  background-color: var(--text);
+}
+
+.win {
+  background-color: var(--highlight);
+}
+
+.name {
+  background-color: var(--background);
+}

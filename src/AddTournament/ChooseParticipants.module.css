@@ -1,0 +1,31 @@
+.ChooseParticipants {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.header {
+  grid-column: span 3;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.ChooseParticipants input,
+.label {
+  display: block;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.label {
+  background-color: var(--highlight);
+}
+
+input[type="button"].selected {
+  background-color: var(--border);
+}
+
+.ChooseParticipants input[type=submit] {
+  grid-column: span 3;
+}

@@ -56,12 +56,12 @@ export default function EditTeamGame() {
   const submit = useCallback(
     (event) => {
       event.preventDefault();
-      const { branch: br, type, ls, rs, rounds } = game;
+      const { type, ls, rs, rounds } = game;
       let newGame = { type, ls, rs, rounds: parseRounds(rounds) };
       if (type === 0) {
         newGame = filterPersons(newGame);
       }
-      put('/api/crud/game', { id, game: newGame, branch: br }, () => {
+      put('/api/crud/game', { id, game: newGame }, () => {
         navigate(`/${branch}`);
       });
     },

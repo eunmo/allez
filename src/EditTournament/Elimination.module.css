@@ -1,0 +1,30 @@
+.Elimination {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+  text-align: center;
+}
+
+.round {
+  background-color: var(--border);
+  grid-column: span 6;
+  height: var(--button-height);
+  line-height: var(--button-height);
+}
+
+.Elimination label.label {
+  background-color: var(--highlight);
+}
+
+input.selectedInput {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  color: var(--background);
+}
+
+.pointInput0,
+.pointInput4,
+.pointInput8,
+.pointInput12 {
+  grid-column-start: 2;
+}
