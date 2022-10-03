@@ -65,7 +65,7 @@ router.get('/summary/:pid', async (req, res) => {
       dateObj.wins += 1;
     }
 
-    if (type === 1) {
+    if ([1, 'T'].includes(type)) {
       const vs = isLeft ? r : l;
 
       if (byPerson[vs] === undefined) {
