@@ -17,7 +17,7 @@ function flattenGames(games) {
       return [game];
     }
 
-    const { time, pools, elimination } = game;
+    const { time, branch, pools, elimination } = game;
 
     const mapper = (array) =>
       array
@@ -30,7 +30,8 @@ function flattenGames(games) {
         )
         .map(({ l, r, lp, rp }) => ({
           time,
-          type: 1,
+          branch,
+          type,
           ls: [l],
           rs: [r],
           rounds: [{ l, r, lp, rp }],
