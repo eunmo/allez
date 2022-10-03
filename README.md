@@ -2,8 +2,7 @@
 
 - [ ] spinner for loading
 - [ ] simpler add team game page
-- [ ] add game page for tournaments
-- [ ] edit/remove game for tournaments
+- [ ] handle tournaments in rank/person summary
 
 # Done
 
@@ -41,3 +40,5 @@
 - [x] move some menu into sidebar/dropdown
 - [x] split branches
 - [x] handle lots of ppl
+- [x] add game page for tournaments
+- [x] edit/remove game for tournaments

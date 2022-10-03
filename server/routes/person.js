@@ -47,7 +47,10 @@ router.get('/summary/:pid', async (req, res) => {
 
   const byDate = [];
   const byPerson = {};
-  games.forEach(({ time, branch, type, ls, rounds }) => {
+  games
+    // TODO handle tournaments
+    .filter(({ type }) => type !== 'T')
+    .forEach(({ time, branch, type, ls, rounds }) => {
     const date = time.toISOString().substring(0, 10);
     if (byDate.length === 0 || byDate[byDate.length - 1].date !== date) {
       byDate.push({ date, branch, count: 0, wins: 0 });

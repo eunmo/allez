@@ -84,12 +84,14 @@ export default function EditTournament() {
   }, [branchId]);
 
   const onSave = useCallback(() => {
-    put('/api/crud/game', { id, game, branch }, () => {
+    const { type, ls, rs, pools, ranking, elimination } = game;
+    const newGame = { type, ls, rs, pools, ranking, elimination };
+    put('/api/crud/game', { id, game: newGame }, () => {
       get(`/api/game/id/${id}`, (data) => setGame(data.game));
       /* eslint-disable-next-line no-alert */
       alert('저장되었습니다.');
     });
-  }, [game, branch, id]);
+  }, [game, id]);
 
   const deleteCallback = useCallback(() => {
     fetchDelete('/api/crud/game', { id }, () => {
