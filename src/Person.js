@@ -52,9 +52,26 @@ function ResultByDate({ byDate }) {
   );
 }
 
-function ResultByOpponent({ byPerson, idMap, id }) {
+function OpponentRow({ result, id }) {
   const { branch } = useBranch();
+  return (
+    <>
+      <LinkButton size="sm" to={`/${branch}/person/${result.vs}`}>
+        {result.name}
+      </LinkButton>
+      <Result result={result} />
+      <LinkButton
+        size="sm"
+        to={`/${branch}/game/duo/${id}/${result.vs}`}
+        style={{ borderRadius: '20px' }}
+      >
+        <View />
+      </LinkButton>
+    </>
+  );
+}
 
+function ResultByOpponent({ byPerson, idMap, id }) {
   const calculated = useMemo(
     () =>
       Object.entries(byPerson)
@@ -74,25 +91,33 @@ function ResultByOpponent({ byPerson, idMap, id }) {
     [byPerson, idMap]
   );
 
+  const [recents, rest] = useMemo(() => {
+    const lastMonth = new Date();
+    lastMonth.setMonth(lastMonth.getMonth() - 1);
+    const reference = lastMonth.toISOString().substring(0, 10);
+
+    return [
+      calculated.filter(({ latest }) => latest > reference),
+      calculated.filter(({ latest }) => latest <= reference),
+    ];
+  }, [calculated]);
+
   return (
     <div className={style.byPerson}>
       <div className="highlight">상대</div>
       <div className="highlight">전적</div>
       <div />
-      {calculated.map((result) => (
-        <Fragment key={result.vs}>
-          <LinkButton size="sm" to={`/${branch}/person/${result.vs}`}>
-            {result.name}
-          </LinkButton>
-          <Result result={result} />
-          <LinkButton
-            size="sm"
-            to={`/${branch}/game/duo/${id}/${result.vs}`}
-            style={{ borderRadius: '20px' }}
-          >
-            <View />
-          </LinkButton>
-        </Fragment>
+      {recents.length > 0 && rest.length > 0 && (
+        <div className={style.legend}>최근</div>
+      )}
+      {recents.map((result) => (
+        <OpponentRow key={result.vs} id={id} result={result} />
+      ))}
+      {recents.length > 0 && rest.length > 0 && (
+        <div className={style.legend}>옛날</div>
+      )}
+      {rest.map((result) => (
+        <OpponentRow key={result.vs} id={id} result={result} />
       ))}
     </div>
   );

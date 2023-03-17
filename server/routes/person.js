@@ -69,7 +69,7 @@ router.get('/summary/:pid', async (req, res) => {
       const vs = isLeft ? r : l;
 
       if (byPerson[vs] === undefined) {
-        byPerson[vs] = { count: 0, wins: 0 };
+        byPerson[vs] = { count: 0, wins: 0, latest: date };
       }
 
       const target = byPerson[vs];
@@ -77,6 +77,10 @@ router.get('/summary/:pid', async (req, res) => {
 
       if (win) {
         target.wins += 1;
+      }
+
+      if (target.latest < date) {
+        target.latest = date;
       }
     }
   });

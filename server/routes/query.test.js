@@ -128,11 +128,14 @@ test('get summary by pid', async () => {
    * Day 1
    * p1 5: 3 p2 */
 
-  const p1 = { [pid2]: { count: 1, wins: 1 } };
+  const p1 = { [pid2]: { count: 1, wins: 1, latest: '2022-03-31' } };
   await check(pid1, 2, [1, 1], [1, 1], p1);
-  const p2 = { [pid1]: { count: 1, wins: 0 }, [pid3]: { count: 1, wins: 1 } };
+  const p2 = {
+    [pid1]: { count: 1, wins: 0, latest: '2022-03-31' },
+    [pid3]: { count: 1, wins: 1, latest: '2022-04-01' },
+  };
   await check(pid2, 2, [2, 1], [1, 0], p2);
-  const p3 = { [pid2]: { count: 1, wins: 0 } };
+  const p3 = { [pid2]: { count: 1, wins: 0, latest: '2022-04-01' } };
   await check(pid3, 1, [2], [0], p3);
 });
 
